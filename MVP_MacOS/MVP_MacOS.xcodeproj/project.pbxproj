@@ -85,9 +85,9 @@
 		BD9893712DD9C47A00F40A9B /* MVP_MacOS */ = {
 			isa = PBXGroup;
 			children = (
+				BD98936F2DD9C47A00F40A9B /* MVP_MacOS.entitlements */,
 				BD98936D2DD9C47A00F40A9B /* Assets.xcassets */,
 				BD98936E2DD9C47A00F40A9B /* ContentView.swift */,
-				BD98936F2DD9C47A00F40A9B /* MVP_MacOS.entitlements */,
 				BD9893702DD9C47A00F40A9B /* MVP_MacOSApp.swift */,
 			);
 			path = MVP_MacOS;
