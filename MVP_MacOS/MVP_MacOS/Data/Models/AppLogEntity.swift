@@ -6,3 +6,57 @@
 //
 
 import Foundation
+import SwiftData
+
+@Model
+final class AppLogEntity {
+    @Attribute(.unique)
+    var id: UUID
+    var timestamp: Date
+    var duration: TimeInterval
+    var title: String
+    var app: String
+    var url: String?
+
+    init(
+        id: UUID = UUID(),
+        timestamp: Date,
+        duration: TimeInterval,
+        title: String,
+        app: String,
+        url: String? = nil
+    ) {
+        self.id = id
+        self.timestamp = timestamp
+        self.duration = duration
+        self.title = title
+        self.app = app
+        self.url = url
+    }
+}
+
+extension AppLogEntity {
+    /// Domain 모델인 AppLog로 변환
+    func toDomain() -> AppLog {
+        AppLog(
+            id: id,
+            timestamp: timestamp,
+            duration: duration,
+            title: title,
+            app: app,
+            url: url
+        )
+    }
+
+    /// Domain 모델을 받아 SwiftData 엔티티 생성
+    convenience init(from domain: AppLog) {
+        self.init(
+            id: domain.id,
+            timestamp: domain.timestamp,
+            duration: domain.duration,
+            title: domain.title,
+            app: domain.app,
+            url: domain.url
+        )
+    }
+}
