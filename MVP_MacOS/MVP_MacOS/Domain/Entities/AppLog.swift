@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct AppLog {
+    var id: UUID
+    var timestamp: Date
+    var duration: TimeInterval
+    var title: String
+    var app: String
+    var url: String?
+}
