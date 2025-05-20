@@ -25,6 +25,7 @@
 		BD9893B72DDC3D8600F40A9B /* UserRank.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893B62DDC3D8600F40A9B /* UserRank.swift */; };
 		BD9893BA2DDC503000F40A9B /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = BD9893B92DDC503000F40A9B /* Factory */; };
 		BD9893BD2DDC53A900F40A9B /* AppLogEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */; };
+		BD9893BF2DDC997800F40A9B /* DeviceID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893BE2DDC997800F40A9B /* DeviceID.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		BD9893B42DDAF6E200F40A9B /* EnsureAccessibilityPermissionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsureAccessibilityPermissionUseCase.swift; sourceTree = "<group>"; };
 		BD9893B62DDC3D8600F40A9B /* UserRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRank.swift; sourceTree = "<group>"; };
 		BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogEntity.swift; sourceTree = "<group>"; };
+		BD9893BE2DDC997800F40A9B /* DeviceID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceID.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				BD98939B2DD9DCD500F40A9B /* Data+Extension.swift */,
+				BD9893BE2DDC997800F40A9B /* DeviceID.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD9893BF2DDC997800F40A9B /* DeviceID.swift in Sources */,
 				BD9893AE2DD9DD6100F40A9B /* SwiftDataManager.swift in Sources */,
 				BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */,
 				BD9893A32DD9DD1900F40A9B /* HomeViewModel.swift in Sources */,
