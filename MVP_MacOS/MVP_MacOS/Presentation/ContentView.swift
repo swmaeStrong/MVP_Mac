@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     enum Tab: String, CaseIterable, Identifiable, Hashable {
         case home = "Home"
-        case dashboard = "Dashboard"
+        case leaderboard = "LeaderBoard"
         case analysis = "Analysis"
 
         var id: String { rawValue }
@@ -30,8 +30,8 @@ struct ContentView: View {
             switch selection {
             case .home:
                 HomeView()
-            case .dashboard:
-                DashboardView()
+            case .leaderboard:
+                LeaderBoardView()
             case .analysis:
                 AnalysisView()
             case .none:

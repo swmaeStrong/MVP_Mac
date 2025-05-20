@@ -43,6 +43,7 @@ struct HomeView: View {
                 }
             }
         }
+        .navigationTitle("홈")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black)
         .foregroundColor(.white)
