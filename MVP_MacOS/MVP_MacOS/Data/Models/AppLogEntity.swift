@@ -16,22 +16,19 @@ final class AppLogEntity {
     var duration: TimeInterval
     var title: String
     var app: String
-    var url: String?
 
     init(
         id: UUID = UUID(),
         timestamp: Date,
         duration: TimeInterval,
         title: String,
-        app: String,
-        url: String? = nil
+        app: String
     ) {
         self.id = id
         self.timestamp = timestamp
         self.duration = duration
         self.title = title
         self.app = app
-        self.url = url
     }
 }
 
@@ -43,8 +40,7 @@ extension AppLogEntity {
             timestamp: timestamp,
             duration: duration,
             title: title,
-            app: app,
-            url: url
+            app: app
         )
     }
 
@@ -55,8 +51,7 @@ extension AppLogEntity {
             timestamp: domain.timestamp,
             duration: domain.duration,
             title: domain.title,
-            app: domain.app,
-            url: domain.url
+            app: domain.app
         )
     }
 }
