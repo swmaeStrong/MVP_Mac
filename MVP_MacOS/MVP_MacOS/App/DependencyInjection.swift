@@ -14,5 +14,13 @@ extension Container {
         Factory(self) {
             SwiftDataManager()
         }
+        .singleton
+    }
+
+    var appUsageLogger: Factory<AppUsageLogger> {
+        Factory(self) {
+            AppUsageLogger()
+        }
+        .singleton
     }
 }

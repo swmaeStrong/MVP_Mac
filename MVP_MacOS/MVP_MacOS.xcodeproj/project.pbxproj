@@ -27,6 +27,7 @@
 		BD9893BD2DDC53A900F40A9B /* AppLogEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */; };
 		BD9893BF2DDC997800F40A9B /* DeviceID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893BE2DDC997800F40A9B /* DeviceID.swift */; };
 		BD9893C22DDDB6B000F40A9B /* AccessibilityPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893C12DDDB6B000F40A9B /* AccessibilityPermission.swift */; };
+		BD9893C52DDDBD9E00F40A9B /* AppUsageLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893C42DDDBD9E00F40A9B /* AppUsageLogger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		BD9893BE2DDC997800F40A9B /* DeviceID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceID.swift; sourceTree = "<group>"; };
 		BD9893C12DDDB6B000F40A9B /* AccessibilityPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityPermission.swift; sourceTree = "<group>"; };
 		BD9893C32DDDB7B600F40A9B /* MVP-MacOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MVP-MacOS-Info.plist"; sourceTree = SOURCE_ROOT; };
+		BD9893C42DDDBD9E00F40A9B /* AppUsageLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUsageLogger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				BD9893C12DDDB6B000F40A9B /* AccessibilityPermission.swift */,
+				BD9893C42DDDBD9E00F40A9B /* AppUsageLogger.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				BD9893912DD9DC0200F40A9B /* DependencyInjection.swift in Sources */,
 				BD9893A92DD9DD3500F40A9B /* AnalysisView.swift in Sources */,
 				BD9893AB2DD9DD4200F40A9B /* AnalysisViewModel.swift in Sources */,
+				BD9893C52DDDBD9E00F40A9B /* AppUsageLogger.swift in Sources */,
 				BD9893B32DDAF6CD00F40A9B /* AppLogRepository.swift in Sources */,
 				BD9893B12DDAF6C000F40A9B /* AppLog.swift in Sources */,
 				BD9893BD2DDC53A900F40A9B /* AppLogEntity.swift in Sources */,
