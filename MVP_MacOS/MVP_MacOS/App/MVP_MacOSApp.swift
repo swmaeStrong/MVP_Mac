@@ -17,5 +17,6 @@ struct MVP_MacOSApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: [AppLogEntity.self])
     }
 }

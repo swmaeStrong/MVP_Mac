@@ -10,7 +10,7 @@ import AppKit
 import SwiftData
 
 /// 앱의 로그를 기록하는 클래스
-class AppUsageLogger {
+final class AppUsageLogger {
     
     private var context: ModelContext?
     private var timer: Timer?
@@ -43,6 +43,11 @@ class AppUsageLogger {
         }
     }
     
+    func stopLogging() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
     /// 현재 보고있는 top title을 추적하는 메서드
     private func getActiveAppInfo() -> AppLog? {
         guard let frontmostApp = NSWorkspace.shared.frontmostApplication,
@@ -67,6 +72,5 @@ class AppUsageLogger {
         }
         return AppLog(timestamp: .now, duration: 0, title: titleString, app: appName)
     }
-
-   
 }
+    
