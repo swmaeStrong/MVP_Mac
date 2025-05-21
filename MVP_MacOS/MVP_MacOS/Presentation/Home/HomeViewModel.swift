@@ -7,6 +7,8 @@
 
 import Foundation
 import Combine
+import Factory
+import SwiftData
 
 class HomeViewModel: ObservableObject {
     @Published var elapsedTime: TimeInterval = 0
@@ -20,6 +22,9 @@ class HomeViewModel: ObservableObject {
         return f
     }()
 
+    @Injected(\.appUsageLogger) private var appUsageLogger
+    var context: ModelContext?
+
     func toggleTimer() {
         isRunning.toggle()
         if isRunning {
@@ -28,9 +33,13 @@ class HomeViewModel: ObservableObject {
                 .sink { [weak self] _ in
                     self?.elapsedTime += 1
                 }
+            if let context = context {
+                appUsageLogger.configure(context: context)
+            }
         } else {
             timer?.cancel()
             timer = nil
+            appUsageLogger.stopLogging()
         }
     }
 
