@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import Factory
+import SwiftData
+
+extension Container {
+    var swiftDataManager: Factory<SwiftDataManager> {
+        Factory(self) {
+            SwiftDataManager()
+        }
+    }
+}
