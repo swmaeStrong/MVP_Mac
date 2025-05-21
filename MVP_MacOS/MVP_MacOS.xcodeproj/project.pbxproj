@@ -26,6 +26,7 @@
 		BD9893BA2DDC503000F40A9B /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = BD9893B92DDC503000F40A9B /* Factory */; };
 		BD9893BD2DDC53A900F40A9B /* AppLogEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */; };
 		BD9893BF2DDC997800F40A9B /* DeviceID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893BE2DDC997800F40A9B /* DeviceID.swift */; };
+		BD9893C22DDDB6B000F40A9B /* AccessibilityPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893C12DDDB6B000F40A9B /* AccessibilityPermission.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,8 @@
 		BD9893B62DDC3D8600F40A9B /* UserRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRank.swift; sourceTree = "<group>"; };
 		BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogEntity.swift; sourceTree = "<group>"; };
 		BD9893BE2DDC997800F40A9B /* DeviceID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceID.swift; sourceTree = "<group>"; };
+		BD9893C12DDDB6B000F40A9B /* AccessibilityPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityPermission.swift; sourceTree = "<group>"; };
+		BD9893C32DDDB7B600F40A9B /* MVP-MacOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MVP-MacOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,7 @@
 		BD9893712DD9C47A00F40A9B /* MVP_MacOS */ = {
 			isa = PBXGroup;
 			children = (
+				BD9893C32DDDB7B600F40A9B /* MVP-MacOS-Info.plist */,
 				BD98936F2DD9C47A00F40A9B /* MVP_MacOS.entitlements */,
 				BD98938F2DD9DBE000F40A9B /* App */,
 				BD9893922DD9DC1000F40A9B /* Domain */,
@@ -184,6 +188,7 @@
 		BD9893972DD9DC5C00F40A9B /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				BD9893C02DDDB6A100F40A9B /* Services */,
 				BD98939A2DD9DCA100F40A9B /* Utilities */,
 			);
 			path = Infrastructure;
@@ -258,6 +263,14 @@
 				BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BD9893C02DDDB6A100F40A9B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BD9893C12DDDB6B000F40A9B /* AccessibilityPermission.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -405,6 +418,7 @@
 				BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */,
 				BD9893A32DD9DD1900F40A9B /* HomeViewModel.swift in Sources */,
 				BD98939C2DD9DCD500F40A9B /* Data+Extension.swift in Sources */,
+				BD9893C22DDDB6B000F40A9B /* AccessibilityPermission.swift in Sources */,
 				BD9893A52DD9DD2400F40A9B /* LeaderBoardView.swift in Sources */,
 				BD9893742DD9C47A00F40A9B /* MVP_MacOSApp.swift in Sources */,
 				BD9893B72DDC3D8600F40A9B /* UserRank.swift in Sources */,
@@ -581,6 +595,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MVP-MacOS-Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -607,6 +622,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MVP-MacOS-Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
