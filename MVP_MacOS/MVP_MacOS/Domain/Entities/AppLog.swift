@@ -8,7 +8,7 @@
 import Foundation
 
 struct AppLog {
-    var id: UUID
+    var id: String = DeviceID.current
     var timestamp: Date
     var duration: TimeInterval
     var title: String
