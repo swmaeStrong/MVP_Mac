@@ -35,7 +35,7 @@ struct LeaderBoardView: View {
                             Text(user.username)
                                 .font(.body)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text(user.min.formattedDuration)
+                            Text(user.min.formattedDurationFromMinutes)
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
@@ -45,6 +45,16 @@ struct LeaderBoardView: View {
                 .padding(.top)
             }
             .padding(.vertical)
+        }
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button(action: {
+                    // 새로고침 액션을 여기에 추가하세요
+                    print("새로고침 버튼 클릭됨")
+                }) {
+                    Image(systemName: "arrow.clockwise")
+                }
+            }
         }
         .navigationTitle("LeaderBoard")
     }

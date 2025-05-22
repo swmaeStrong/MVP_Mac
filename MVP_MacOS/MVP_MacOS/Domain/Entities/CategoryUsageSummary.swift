@@ -16,9 +16,9 @@ struct CategoryUsageSummary: Identifiable {
     
     static let sampleData: [CategoryUsageSummary] = [
         CategoryUsageSummary(category: "개발", duration: 270, color: .blue),
-        CategoryUsageSummary(category: "브라우징", duration: 692, color: .green),
-        CategoryUsageSummary(category: "문서작업", duration: 168, color: .orange),
-        CategoryUsageSummary(category: "SNS", duration: 114, color: .purple),
-        CategoryUsageSummary(category: "기타", duration: 42, color: .gray)
+        CategoryUsageSummary(category: "브라우징", duration: 690, color: .green),
+        CategoryUsageSummary(category: "문서작업", duration: 160, color: .orange),
+        CategoryUsageSummary(category: "SNS", duration: 110, color: .purple),
+        CategoryUsageSummary(category: "기타", duration: 40, color: .gray)
     ]
 }
