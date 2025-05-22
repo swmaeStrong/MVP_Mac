@@ -23,4 +23,9 @@ extension Container {
         }
         .singleton
     }
+    
+    var dailyWorkTimeManager: Factory<DailyWorkTimeManager> {
+        Factory(self) { DailyWorkTimeManager() }
+            .singleton
+    }
 }
