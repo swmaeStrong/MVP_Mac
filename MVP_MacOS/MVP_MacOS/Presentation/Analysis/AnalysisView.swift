@@ -85,7 +85,7 @@ struct AnalysisView: View {
                 .padding(.leading)
             
         }
-        .navigationTitle("로그 분석")
+        .navigationTitle("Analysis")
     }
 }
 

@@ -217,7 +217,7 @@
 			children = (
 				BD1B6FB12DDED94800E481E2 /* Root */,
 				BD98939D2DD9DCEB00F40A9B /* Home */,
-				BD98939F2DD9DCF000F40A9B /* Dashboard */,
+				BD98939F2DD9DCF000F40A9B /* LeaderBoard */,
 				BD98939E2DD9DCEF00F40A9B /* Analysis */,
 			);
 			path = Presentation;
@@ -259,13 +259,13 @@
 			path = Analysis;
 			sourceTree = "<group>";
 		};
-		BD98939F2DD9DCF000F40A9B /* Dashboard */ = {
+		BD98939F2DD9DCF000F40A9B /* LeaderBoard */ = {
 			isa = PBXGroup;
 			children = (
 				BD9893A42DD9DD2400F40A9B /* LeaderBoardView.swift */,
 				BD9893A62DD9DD2D00F40A9B /* LeaderBoardViewModel.swift */,
 			);
-			path = Dashboard;
+			path = LeaderBoard;
 			sourceTree = "<group>";
 		};
 		BD9893AC2DD9DD4B00F40A9B /* RepositoriesImpl */ = {
