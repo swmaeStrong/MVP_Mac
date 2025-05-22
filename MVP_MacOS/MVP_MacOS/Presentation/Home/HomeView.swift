@@ -24,22 +24,21 @@ struct HomeView: View {
             
             ZStack {
                 Circle()
-                    .fill(Color.black.opacity(1))
+                    .fill(Color.white.opacity(0.5))
                     .frame(width: 250, height: 250)
-                    .shadow(color: .green.opacity(0.8), radius: 60, x: 0, y: 0)
+                    .shadow(color: .gray.opacity(0.8), radius: 60, x: 0, y: 0)
                 VStack {
                     Text(viewModel.formattedTime)
                         .font(.largeTitle)
                         .bold()
                         .monospaced()
-                        .foregroundColor(.green)
                     Button(action: {
                         viewModel.toggleTimer()
                     }) {
                         Image(systemName: viewModel.isRunning ? "pause.circle.fill" : "play.circle.fill")
                             .resizable()
                             .frame(width: 40, height: 40)
-                            .foregroundColor(.green)
+                            .foregroundColor(.black)
                     }
                     .buttonStyle(.plain)
                 }
@@ -47,8 +46,7 @@ struct HomeView: View {
         }
         .navigationTitle("홈")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black)
-        .foregroundColor(.white)
+        .foregroundColor(.black)
         .onAppear {
             viewModel.context = modelContext
         }

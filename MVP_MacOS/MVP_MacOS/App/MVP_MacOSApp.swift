@@ -15,7 +15,7 @@ struct MVP_MacOSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
         }
         .modelContainer(for: [AppLogEntity.self])
     }

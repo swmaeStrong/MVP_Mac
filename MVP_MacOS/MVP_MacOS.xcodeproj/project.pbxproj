@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD1B6FB32DDED98D00E481E2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB22DDED98D00E481E2 /* RootView.swift */; };
 		BD9893722DD9C47A00F40A9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD98936D2DD9C47A00F40A9B /* Assets.xcassets */; };
 		BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD98936E2DD9C47A00F40A9B /* ContentView.swift */; };
 		BD9893742DD9C47A00F40A9B /* MVP_MacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893702DD9C47A00F40A9B /* MVP_MacOSApp.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BD1B6FB22DDED98D00E481E2 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		BD98933F2DD9C46800F40A9B /* MVP_MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVP_MacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9893502DD9C46A00F40A9B /* MVP_MacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD98935A2DD9C46A00F40A9B /* MVP_MacOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +103,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD1B6FB12DDED94800E481E2 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				BD98936E2DD9C47A00F40A9B /* ContentView.swift */,
+				BD1B6FB22DDED98D00E481E2 /* RootView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
 		BD9893362DD9C46800F40A9B = {
 			isa = PBXGroup;
 			children = (
@@ -199,10 +210,10 @@
 		BD9893982DD9DC6A00F40A9B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BD1B6FB12DDED94800E481E2 /* Root */,
 				BD98939D2DD9DCEB00F40A9B /* Home */,
 				BD98939F2DD9DCF000F40A9B /* Dashboard */,
 				BD98939E2DD9DCEF00F40A9B /* Analysis */,
-				BD98936E2DD9C47A00F40A9B /* ContentView.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -420,6 +431,7 @@
 				BD9893AE2DD9DD6100F40A9B /* SwiftDataManager.swift in Sources */,
 				BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */,
 				BD9893A32DD9DD1900F40A9B /* HomeViewModel.swift in Sources */,
+				BD1B6FB32DDED98D00E481E2 /* RootView.swift in Sources */,
 				BD98939C2DD9DCD500F40A9B /* Data+Extension.swift in Sources */,
 				BD9893C22DDDB6B000F40A9B /* AccessibilityPermission.swift in Sources */,
 				BD9893A52DD9DD2400F40A9B /* LeaderBoardView.swift in Sources */,
