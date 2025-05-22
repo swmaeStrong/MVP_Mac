@@ -15,6 +15,7 @@ final class AppUsageLogger {
     private var context: ModelContext?
     private var timer: Timer?
     private var lastTitle: String?
+    private var lastAppName: String?
     private var lastTimestamp: Date?
     
     func configure(context: ModelContext) {
@@ -28,17 +29,23 @@ final class AppUsageLogger {
             guard let self = self else { return }
             guard let log = self.getActiveAppInfo() else { return }
 
-            // 창 변화가 있을 때만 로그 기록
             if log.title != self.lastTitle {
-                print("[CHANGED] \(log.timestamp): \(log.app) - \(log.title)")
-                self.lastTitle = log.title
-                if let context = self.context {
-                    let now = Date()
-                    let duration = now.timeIntervalSince(self.lastTimestamp ?? now)
-                    let log = AppLog(timestamp: now, duration: duration, title: log.title, app: log.app)
-                    self.lastTimestamp = now
-                    try? SwiftDataManager().saveLog(log, context: context)
+                // 앱 전환 감지
+                let newAppName = log.app
+                let newTitle = log.title
+                let now = Date()
+                let duration = now.timeIntervalSince(self.lastTimestamp ?? now)
+                // 이전 세션 기록
+                if let context = self.context,
+                   let prevApp = self.lastAppName,
+                   let prevTitle = self.lastTitle {
+                    let sessionLog = AppLog(timestamp: now, duration: duration, title: prevTitle, app: prevApp)
+                    try? SwiftDataManager().saveLog(sessionLog, context: context)
                 }
+                // 상태 업데이트
+                self.lastAppName = newAppName
+                self.lastTitle = newTitle
+                self.lastTimestamp = now
             }
         }
     }
