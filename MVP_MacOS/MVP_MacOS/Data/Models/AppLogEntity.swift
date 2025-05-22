@@ -11,20 +11,17 @@ import SwiftData
 @Model
 final class AppLogEntity {
     @Attribute(.unique)
-    var id: UUID
     var timestamp: Date
     var duration: TimeInterval
     var title: String
     var app: String
 
     init(
-        id: UUID = UUID(),
         timestamp: Date,
         duration: TimeInterval,
         title: String,
         app: String
     ) {
-        self.id = id
         self.timestamp = timestamp
         self.duration = duration
         self.title = title
@@ -36,7 +33,6 @@ extension AppLogEntity {
     /// Domain 모델인 AppLog로 변환
     func toDomain() -> AppLog {
         AppLog(
-            id: id,
             timestamp: timestamp,
             duration: duration,
             title: title,
@@ -47,7 +43,6 @@ extension AppLogEntity {
     /// Domain 모델을 받아 SwiftData 엔티티 생성
     convenience init(from domain: AppLog) {
         self.init(
-            id: domain.id,
             timestamp: domain.timestamp,
             duration: domain.duration,
             title: domain.title,

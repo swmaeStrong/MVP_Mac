@@ -7,9 +7,11 @@
 
 import SwiftUI
 import Combine
+import SwiftData
 
 struct HomeView: View {
-    @StateObject private var viewModel = HomeViewModel()
+    @Environment(\.modelContext) private var modelContext
+    @ObservedObject var viewModel: HomeViewModel
     
     var body: some View {
         VStack(spacing: 20) {
@@ -47,9 +49,12 @@ struct HomeView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black)
         .foregroundColor(.white)
+        .onAppear {
+            viewModel.context = modelContext
+        }
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView(viewModel: HomeViewModel())
 }
