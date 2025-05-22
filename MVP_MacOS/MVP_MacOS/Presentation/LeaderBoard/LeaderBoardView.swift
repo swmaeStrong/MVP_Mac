@@ -26,7 +26,7 @@ struct LeaderBoardView: View {
                 .padding(.horizontal)
 
                 VStack(alignment: .leading, spacing: 12) {
-                    let filteredRanks = userRanks.filter { $0.category == selectedCategory }.sorted{$0.hours > $1.hours}
+                    let filteredRanks = userRanks.filter { $0.category == selectedCategory }.sorted{$0.min > $1.min}
                     ForEach(Array(filteredRanks.enumerated()), id: \.element.id) { index, user in
                         HStack {
                             Text("\(index + 1)")
@@ -35,7 +35,7 @@ struct LeaderBoardView: View {
                             Text(user.username)
                                 .font(.body)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text(String(format: "%.1f 시간", user.hours))
+                            Text(user.min.formattedDuration)
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
@@ -46,7 +46,7 @@ struct LeaderBoardView: View {
             }
             .padding(.vertical)
         }
-        .navigationTitle("순위")
+        .navigationTitle("LeaderBoard")
     }
 }
 
