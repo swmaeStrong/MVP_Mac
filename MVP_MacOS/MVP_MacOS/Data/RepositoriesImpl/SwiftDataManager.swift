@@ -15,6 +15,7 @@ final class SwiftDataManager {
     func saveLog(_ log: AppLog, context: ModelContext) throws {
         let entity = AppLogEntity(from: log)
         context.insert(entity)
+        print("저장 성공 \(log)")
     }
     
     /// 로컬에 저장된 모든 AppLogEntity 항목을 삭제

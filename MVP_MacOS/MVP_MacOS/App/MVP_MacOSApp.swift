@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct MVP_MacOSApp: App {
+    init() {
+        ensureAccessibilityPermission()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: [AppLogEntity.self])
     }
 }
