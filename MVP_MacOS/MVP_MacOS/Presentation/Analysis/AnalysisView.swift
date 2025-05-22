@@ -9,12 +9,10 @@ import Foundation
 import SwiftUI
 import Charts
 import SwiftData
+import Factory
 
 struct AnalysisView: View {
-    @Query private var model: [AppLogEntity]
-    var totalDurationInMinutes: Int {
-        Int(model.reduce(0) { $0 + $1.duration } / 60)
-    }
+    @Injected(\.dailyWorkTimeManager) private var dailyWorkTimeManager
     let data = CategoryUsageSummary.sampleData
     var body: some View {
         VStack(alignment: .leading){
@@ -29,7 +27,7 @@ struct AnalysisView: View {
                 .padding(.leading)
             Form {
                 HStack {
-                    Text(totalDurationInMinutes.formattedDuration)
+                    Text(dailyWorkTimeManager.getTodaySeconds().formattedDurationFromSeconds)
                         .font(.largeTitle)
                         .padding()
                     Spacer()
@@ -65,7 +63,7 @@ struct AnalysisView: View {
                                 Text(entry.category)
                                     .font(.subheadline)
                                 Spacer()
-                                Text(entry.duration.formattedDuration)
+                                Text(entry.duration.formattedDurationFromMinutes)
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
                             }

@@ -10,28 +10,33 @@ import Combine
 import Factory
 import SwiftData
 
-class HomeViewModel: ObservableObject {
-    @Published var elapsedTime: TimeInterval = 0
+final class HomeViewModel: ObservableObject {
     @Published var isRunning = false
 
     private var timer: AnyCancellable?
-    private let formatter: DateComponentsFormatter = {
-        let f = DateComponentsFormatter()
-        f.allowedUnits = [.hour, .minute, .second]
-        f.zeroFormattingBehavior = .pad
-        return f
-    }()
-
+    
+    var formattedTime: String {
+        timeManager.getTodaySeconds().formattedHMSFromSeconds
+    }
+    
     @Injected(\.appUsageLogger) private var appUsageLogger
+    @Injected(\.dailyWorkTimeManager) private var timeManager
+
     var context: ModelContext?
 
+    func onTick() {
+        timeManager.increment()
+    }
+    
     func toggleTimer() {
+        timeManager.refreshIfNewDay()
         isRunning.toggle()
         if isRunning {
             timer = Timer.publish(every: 1, on: .main, in: .common)
                 .autoconnect()
                 .sink { [weak self] _ in
-                    self?.elapsedTime += 1
+                    self?.timeManager.increment()
+                    self?.objectWillChange.send()
                 }
             if let context = context {
                 appUsageLogger.configure(context: context)
@@ -41,9 +46,5 @@ class HomeViewModel: ObservableObject {
             timer = nil
             appUsageLogger.stopLogging()
         }
-    }
-
-    var formattedTime: String {
-        formatter.string(from: elapsedTime) ?? "00:00:00"
     }
 }
