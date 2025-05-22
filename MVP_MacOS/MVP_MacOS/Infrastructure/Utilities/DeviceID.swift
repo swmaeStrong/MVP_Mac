@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import IOKit
 
 struct DeviceID {
     private static let key = "com.myapp.deviceID"
