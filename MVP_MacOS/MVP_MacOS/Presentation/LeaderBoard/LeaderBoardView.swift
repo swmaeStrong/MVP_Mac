@@ -10,7 +10,8 @@ import SwiftUI
 
 struct LeaderBoardView: View {
     @State private var selectedCategory: UserRank.Category = .development
-    
+    @AppStorage("userNickname") private var userNickname: String = ""
+    @AppStorage("userID") private var userID: String = ""
     let userRanks: [UserRank] = UserRank.sampleData
     
     var body: some View {
@@ -46,11 +47,16 @@ struct LeaderBoardView: View {
             }
             .padding(.vertical)
         }
+        .onAppear {
+            print(userID)
+            print(userNickname)
+        }
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button(action: {
-                    // 새로고침 액션을 여기에 추가하세요
-                    print("새로고침 버튼 클릭됨")
+                    userNickname = ""
+                    userID = ""
+                    print("새로고침 및 사용자 이름 초기화됨")
                 }) {
                     Image(systemName: "arrow.clockwise")
                 }

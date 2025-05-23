@@ -22,6 +22,8 @@ struct RootView: View {
 
 struct UsernamePromptView: View {
     @AppStorage("username") private var username: String = ""
+    @AppStorage("userID") private var userID: String = ""
+    
     @State private var tempInput: String = ""
 
     var body: some View {
@@ -33,6 +35,7 @@ struct UsernamePromptView: View {
                 .padding(.horizontal)
             Button("시작하기") {
                 username = tempInput.trimmingCharacters(in: .whitespaces)
+                userID = UUID().uuidString
             }
             .disabled(tempInput.isEmpty)
         }
