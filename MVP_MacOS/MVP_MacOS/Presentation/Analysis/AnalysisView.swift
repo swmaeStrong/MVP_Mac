@@ -7,23 +7,86 @@
 
 import Foundation
 import SwiftUI
+import Charts
 import SwiftData
+import Factory
 
 struct AnalysisView: View {
-    @Query private var logs: [AppLogEntity]
+    @Injected(\.dailyWorkTimeManager) private var dailyWorkTimeManager
+    let data = CategoryUsageSummary.sampleData
     var body: some View {
-        List(logs) { log in
-            VStack(alignment: .leading, spacing: 4) {
-                Text(log.app)
-                    .font(.headline)
-                Text(log.title)
-                    .font(.subheadline)
-                Text(log.duration.description)
-                    .font(.caption)
-                    .foregroundColor(.gray)
+        VStack(alignment: .leading){
+            Text("Daily Summary")
+                .font(.largeTitle)
+                .bold()
+                .monospaced()
+                .padding()
+            Text("Total Hours")
+                .bold()
+                .foregroundColor(.gray)
+                .padding(.leading)
+            Form {
+                HStack {
+                    Text(dailyWorkTimeManager.getTodaySeconds().formattedDurationFromSeconds)
+                        .font(.largeTitle)
+                        .padding()
+                    Spacer()
+                }
             }
-            .padding(.vertical, 4)
+            .background(.gray.opacity(0.05))
+            .cornerRadius(12)
+            .padding(.bottom)
+            .padding(.horizontal)
+            
+            Text("Chart")
+                .bold()
+                .foregroundColor(.gray)
+                .padding(.leading)
+            Form {
+                HStack{
+                    Chart(data, id: \.category) {
+                        SectorMark(
+                            angle: .value("Duration", $0.duration),
+                            innerRadius: .ratio(0.5),
+                            angularInset: 1.5
+                        )
+                        .foregroundStyle($0.color)
+                    }
+                    .frame(width: 200, height: 240)
+                    .padding(.horizontal)
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(data.sorted { $0.duration > $1.duration }, id: \.category) { entry in
+                            HStack {
+                                Circle()
+                                    .fill(entry.color.opacity(0.8))
+                                    .frame(width: 10, height: 10)
+                                Text(entry.category)
+                                    .font(.subheadline)
+                                Spacer()
+                                Text(entry.duration.formattedDurationFromMinutes)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                .padding(.horizontal)
+            }
+            .background(.gray.opacity(0.05))
+            .cornerRadius(12)
+            .padding(.bottom)
+            .padding(.horizontal)
+            Text("Top Categories")
+                .bold()
+                .foregroundColor(.gray)
+                .padding(.leading)
+            
         }
-        .navigationTitle("로그 분석")
+        .navigationTitle("Analysis")
     }
+}
+
+#Preview {
+    AnalysisView()
 }

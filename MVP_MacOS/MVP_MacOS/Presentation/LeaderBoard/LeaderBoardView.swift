@@ -10,7 +10,8 @@ import SwiftUI
 
 struct LeaderBoardView: View {
     @State private var selectedCategory: UserRank.Category = .development
-    
+    @AppStorage("userNickname") private var userNickname: String = ""
+    @AppStorage("userID") private var userID: String = ""
     let userRanks: [UserRank] = UserRank.sampleData
     
     var body: some View {
@@ -26,7 +27,7 @@ struct LeaderBoardView: View {
                 .padding(.horizontal)
 
                 VStack(alignment: .leading, spacing: 12) {
-                    let filteredRanks = userRanks.filter { $0.category == selectedCategory }.sorted{$0.hours > $1.hours}
+                    let filteredRanks = userRanks.filter { $0.category == selectedCategory }.sorted{$0.min > $1.min}
                     ForEach(Array(filteredRanks.enumerated()), id: \.element.id) { index, user in
                         HStack {
                             Text("\(index + 1)")
@@ -35,7 +36,7 @@ struct LeaderBoardView: View {
                             Text(user.username)
                                 .font(.body)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text(String(format: "%.1f 시간", user.hours))
+                            Text(user.min.formattedDurationFromMinutes)
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
@@ -46,7 +47,22 @@ struct LeaderBoardView: View {
             }
             .padding(.vertical)
         }
-        .navigationTitle("순위")
+        .onAppear {
+            print(userID)
+            print(userNickname)
+        }
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button(action: {
+                    userNickname = ""
+                    userID = ""
+                    print("새로고침 및 사용자 이름 초기화됨")
+                }) {
+                    Image(systemName: "arrow.clockwise")
+                }
+            }
+        }
+        .navigationTitle("LeaderBoard")
     }
 }
 
