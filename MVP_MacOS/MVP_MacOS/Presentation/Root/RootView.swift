@@ -22,8 +22,6 @@ struct RootView: View {
 }
 
 struct UsernamePromptView: View {
-    @AppStorage("userNickname") private var nickname: String = ""
-    @AppStorage("userID") private var userID: String = ""
     @Injected(\.registerUserUseCase) private var useCase: RegisterUserUseCase
     @State private var tempInput: String = ""
     @State private var isValidNickname: Bool? = nil
@@ -37,6 +35,11 @@ struct UsernamePromptView: View {
             HStack {
                 TextField("닉네임", text: $tempInput)
                     .textFieldStyle(.roundedBorder)
+                    .onChange(of: tempInput) {
+                        isValidNickname = nil
+                        statusMessage = nil
+                    }
+                    
                 Button("중복 확인") {
                     Task {
                         await validateNickname()
@@ -61,8 +64,15 @@ struct UsernamePromptView: View {
             }
             
             Button("시작하기") {
-                nickname = tempInput.trimmingCharacters(in: .whitespaces)
-                userID = UUID().uuidString
+                Task {
+                    do {
+                        let trimmedNickname = tempInput.trimmingCharacters(in: .whitespaces)
+                        let uuid = UUID().uuidString
+                        try await useCase.register(uuid: uuid, nickname: trimmedNickname)
+                    } catch {
+                        statusMessage = error.localizedDescription
+                    }
+                }
             }
             .disabled(!(isValidNickname ?? false))
         }

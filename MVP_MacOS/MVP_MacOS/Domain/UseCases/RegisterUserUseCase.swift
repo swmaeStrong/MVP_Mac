@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class RegisterUserUseCase {
     
@@ -20,12 +21,13 @@ final class RegisterUserUseCase {
         return isValid
     }
     
-    func register(nickname: String, uuid: String) async throws -> Bool {
-//        let valid = try await validate(nickname: nickname)
-//        guard valid else {
-//            throw RegistrationError.duplicateNickname
-//        }
-//        try await service.registerUser(nickname: nickname, uuid: uuid)
-        return false
+    func register(uuid: String, nickname: String) async throws  {
+        let success = try await service.registerUser(uuid: uuid, nickname: nickname)
+        if success {
+            @AppStorage("userNickname") var savedNickname: String = ""
+            @AppStorage("userID") var savedUserID: String = ""
+            savedNickname = nickname
+            savedUserID = uuid
+        }
     }
 }
