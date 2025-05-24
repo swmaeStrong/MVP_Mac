@@ -15,11 +15,11 @@ final class UserRegisterService {
         self.session = session
     }
     
-    struct DuplicateResponse: Codable {
+    struct ServerResponse: Codable {
         let isSuccess: Bool
         let code: String?
         let message: String?
-        let data: Bool
+        let data: Bool?
     }
     
     /// 닉네임의 중복을 검증하는 로직
@@ -31,23 +31,28 @@ final class UserRegisterService {
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
             throw URLError(.badServerResponse)
         }
-        let result = try JSONDecoder().decode(DuplicateResponse.self, from: data)
+        let result = try JSONDecoder().decode(ServerResponse.self, from: data)
         guard result.isSuccess else {
             throw NSError(domain: "UserRegisterService", code: (response as? HTTPURLResponse)?.statusCode ?? -1, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }
-        return result.data
+        return result.data ?? true
     }
     
-    func registerUser(nickname: String, uuid: String) async throws {
-        let url = baseURL.appendingPathComponent("/users")
+    func registerUser(uuid: String, nickname: String) async throws -> Bool {
+        let url = baseURL.appendingPathComponent("/guest-users")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body = ["nickname": nickname, "uuid": uuid]
+        let body = ["deviceId": uuid, "nickname": nickname]
         request.httpBody = try JSONEncoder().encode(body)
-        let (_, response) = try await session.data(for: request)
-        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+        let (data, response) = try await session.data(for: request)
+        guard let http = response as? HTTPURLResponse else {
             throw URLError(.badServerResponse)
         }
+        let result = try JSONDecoder().decode(ServerResponse.self, from: data)
+        guard result.isSuccess else {
+            throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
+        }
+        return result.isSuccess
     }
 }
