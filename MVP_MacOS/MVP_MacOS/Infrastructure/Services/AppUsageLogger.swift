@@ -8,6 +8,7 @@
 import Foundation
 import AppKit
 import SwiftData
+import Factory
 
 /// 앱의 로그를 기록하는 클래스
 final class AppUsageLogger {
@@ -18,6 +19,7 @@ final class AppUsageLogger {
     private var lastAppName: String?
     private var lastTimestamp: Date?
     
+    @Injected(\.swiftDataManager) private var swiftDataManager
     func configure(context: ModelContext) {
         self.context = context
         startLogging()
@@ -40,7 +42,7 @@ final class AppUsageLogger {
                    let prevApp = self.lastAppName,
                    let prevTitle = self.lastTitle {
                     let sessionLog = AppLog(timestamp: now, duration: duration, title: prevTitle, app: prevApp)
-                    try? SwiftDataManager().saveLog(sessionLog, context: context)
+                    try? swiftDataManager.saveLog(sessionLog, context: context)
                 }
                 // 상태 업데이트
                 self.lastAppName = newAppName
