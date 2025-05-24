@@ -11,6 +11,7 @@
 		BD1B6FB52DDEF00C00E481E2 /* CategoryUsageSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB42DDEF00C00E481E2 /* CategoryUsageSummary.swift */; };
 		BD1B6FB72DDEF11700E481E2 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB62DDEF11700E481E2 /* Int+Extension.swift */; };
 		BD1B6FB92DDF09DB00E481E2 /* DailyWorkTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeManager.swift */; };
+		BD1B6FBC2DE0826D00E481E2 /* UserRegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FBB2DE0826D00E481E2 /* UserRegisterService.swift */; };
 		BD9893722DD9C47A00F40A9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD98936D2DD9C47A00F40A9B /* Assets.xcassets */; };
 		BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD98936E2DD9C47A00F40A9B /* ContentView.swift */; };
 		BD9893742DD9C47A00F40A9B /* MVP_MacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893702DD9C47A00F40A9B /* MVP_MacOSApp.swift */; };
@@ -25,7 +26,7 @@
 		BD9893AE2DD9DD6100F40A9B /* SwiftDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893AD2DD9DD6100F40A9B /* SwiftDataManager.swift */; };
 		BD9893B12DDAF6C000F40A9B /* AppLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893B02DDAF6C000F40A9B /* AppLog.swift */; };
 		BD9893B32DDAF6CD00F40A9B /* AppLogRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893B22DDAF6CD00F40A9B /* AppLogRepository.swift */; };
-		BD9893B52DDAF6E200F40A9B /* EnsureAccessibilityPermissionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893B42DDAF6E200F40A9B /* EnsureAccessibilityPermissionUseCase.swift */; };
+		BD9893B52DDAF6E200F40A9B /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893B42DDAF6E200F40A9B /* RegisterUserUseCase.swift */; };
 		BD9893B72DDC3D8600F40A9B /* UserRank.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893B62DDC3D8600F40A9B /* UserRank.swift */; };
 		BD9893BA2DDC503000F40A9B /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = BD9893B92DDC503000F40A9B /* Factory */; };
 		BD9893BD2DDC53A900F40A9B /* AppLogEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */; };
@@ -54,6 +55,7 @@
 		BD1B6FB42DDEF00C00E481E2 /* CategoryUsageSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryUsageSummary.swift; sourceTree = "<group>"; };
 		BD1B6FB62DDEF11700E481E2 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkTimeManager.swift; sourceTree = "<group>"; };
+		BD1B6FBB2DE0826D00E481E2 /* UserRegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterService.swift; sourceTree = "<group>"; };
 		BD98933F2DD9C46800F40A9B /* MVP_MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVP_MacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9893502DD9C46A00F40A9B /* MVP_MacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD98935A2DD9C46A00F40A9B /* MVP_MacOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,7 +74,7 @@
 		BD9893AD2DD9DD6100F40A9B /* SwiftDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataManager.swift; sourceTree = "<group>"; };
 		BD9893B02DDAF6C000F40A9B /* AppLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLog.swift; sourceTree = "<group>"; };
 		BD9893B22DDAF6CD00F40A9B /* AppLogRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogRepository.swift; sourceTree = "<group>"; };
-		BD9893B42DDAF6E200F40A9B /* EnsureAccessibilityPermissionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsureAccessibilityPermissionUseCase.swift; sourceTree = "<group>"; };
+		BD9893B42DDAF6E200F40A9B /* RegisterUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCase.swift; sourceTree = "<group>"; };
 		BD9893B62DDC3D8600F40A9B /* UserRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRank.swift; sourceTree = "<group>"; };
 		BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogEntity.swift; sourceTree = "<group>"; };
 		BD9893C32DDDB7B600F40A9B /* MVP-MacOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MVP-MacOS-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -112,6 +114,14 @@
 				BD1B6FB22DDED98D00E481E2 /* RootView.swift */,
 			);
 			path = Root;
+			sourceTree = "<group>";
+		};
+		BD1B6FBA2DE07F9100E481E2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BD1B6FBB2DE0826D00E481E2 /* UserRegisterService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		BD9893362DD9C46800F40A9B = {
@@ -187,7 +197,7 @@
 		BD9893952DD9DC4500F40A9B /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				BD9893B42DDAF6E200F40A9B /* EnsureAccessibilityPermissionUseCase.swift */,
+				BD9893B42DDAF6E200F40A9B /* RegisterUserUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -195,6 +205,7 @@
 		BD9893962DD9DC5800F40A9B /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				BD1B6FBA2DE07F9100E481E2 /* Services */,
 				BD9893BB2DDC539B00F40A9B /* Models */,
 				BD9893AC2DD9DD4B00F40A9B /* Manager */,
 			);
@@ -431,6 +442,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD9893AE2DD9DD6100F40A9B /* SwiftDataManager.swift in Sources */,
+				BD1B6FBC2DE0826D00E481E2 /* UserRegisterService.swift in Sources */,
 				BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */,
 				BD1B6FB52DDEF00C00E481E2 /* CategoryUsageSummary.swift in Sources */,
 				BD9893A32DD9DD1900F40A9B /* HomeViewModel.swift in Sources */,
@@ -450,7 +462,7 @@
 				BD9893B12DDAF6C000F40A9B /* AppLog.swift in Sources */,
 				BD9893BD2DDC53A900F40A9B /* AppLogEntity.swift in Sources */,
 				BD9893A72DD9DD2D00F40A9B /* LeaderBoardViewModel.swift in Sources */,
-				BD9893B52DDAF6E200F40A9B /* EnsureAccessibilityPermissionUseCase.swift in Sources */,
+				BD9893B52DDAF6E200F40A9B /* RegisterUserUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

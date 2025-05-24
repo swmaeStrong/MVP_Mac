@@ -28,4 +28,10 @@ extension Container {
         Factory(self) { DailyWorkTimeManager() }
             .singleton
     }
+    
+    var registerUserUseCase: Factory<RegisterUserUseCase> {
+        Factory(self) {
+            RegisterUserUseCase(service: UserRegisterService())
+        }
+    }
 }
