@@ -31,8 +31,8 @@ final class AppLogEntity {
 
 extension AppLogEntity {
     /// Domain 모델인 AppLog로 변환
-    func toDomain() -> AppLog {
-        AppLog(
+    func toDomain() -> UsageLog {
+        UsageLog(
             timestamp: timestamp,
             duration: duration,
             title: title,
@@ -41,7 +41,7 @@ extension AppLogEntity {
     }
 
     /// Domain 모델을 받아 SwiftData 엔티티 생성
-    convenience init(from domain: AppLog) {
+    convenience init(from domain: UsageLog) {
         self.init(
             timestamp: domain.timestamp,
             duration: domain.duration,
