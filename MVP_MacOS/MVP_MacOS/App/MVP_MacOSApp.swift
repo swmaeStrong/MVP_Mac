@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct MVP_MacOSApp: App {
+    @StateObject private var dailyWorkTimeStore = DailyWorkTimeStore()
     init() {
         ensureAccessibilityPermission()
     }
@@ -16,6 +17,7 @@ struct MVP_MacOSApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .environmentObject(dailyWorkTimeStore)
         }
         .modelContainer(for: [AppLogEntity.self])
     }

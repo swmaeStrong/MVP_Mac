@@ -16,18 +16,14 @@ extension Container {
         }
         .singleton
     }
-
+    
     var appUsageLogger: Factory<AppUsageLogger> {
         Factory(self) {
-            AppUsageLogger()
+            AppUsageLogger(swiftDataManager: SwiftDataManager())
         }
         .singleton
     }
     
-    var dailyWorkTimeManager: Factory<DailyWorkTimeManager> {
-        Factory(self) { DailyWorkTimeManager() }
-            .singleton
-    }
     
     var registerUserUseCase: Factory<RegisterUserUseCase> {
         Factory(self) {
@@ -35,9 +31,9 @@ extension Container {
         }
     }
     
-    var uploadUsageUseCase: Factory<UploadUsageLogUseCase> {
+    var syncUsageLogsUseCase: Factory<SyncUsageLogsUseCase> {
         Factory(self) {
-            UploadUsageLogUseCase(service: UsageLogService())
+            SyncUsageLogsUseCase(service: UsageLogService(), swiftDataManager: SwiftDataManager())
         }
     }
 }

@@ -12,7 +12,7 @@ import SwiftData
 import Factory
 
 struct AnalysisView: View {
-    @Injected(\.dailyWorkTimeManager) private var dailyWorkTimeManager
+    @EnvironmentObject private var timeStore: DailyWorkTimeStore
     let data = CategoryUsageSummary.sampleData
     var body: some View {
         VStack(alignment: .leading){
@@ -27,7 +27,7 @@ struct AnalysisView: View {
                 .padding(.leading)
             Form {
                 HStack {
-                    Text(dailyWorkTimeManager.getTodaySeconds().formattedDurationFromSeconds)
+                    Text(timeStore.seconds.formattedDurationFromSeconds)
                         .font(.largeTitle)
                         .padding()
                     Spacer()

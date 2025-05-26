@@ -8,10 +8,12 @@
 import SwiftUI
 import Combine
 import SwiftData
+import Factory
 
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
-    @ObservedObject var viewModel: HomeViewModel
+    @EnvironmentObject private var timeStore: DailyWorkTimeStore
+    @Injected(\.appUsageLogger) private var appUsageLogger: AppUsageLogger
     
     var body: some View {
         VStack(spacing: 20) {
@@ -28,14 +30,20 @@ struct HomeView: View {
                     .frame(width: 250, height: 250)
                     .shadow(color: .gray.opacity(0.8), radius: 60, x: 0, y: 0)
                 VStack {
-                    Text(viewModel.formattedTime)
+                    Text(timeStore.formattedTime)
                         .font(.largeTitle)
                         .bold()
                         .monospaced()
                     Button(action: {
-                        viewModel.toggleTimer()
+                        if timeStore.isRunning {
+                            timeStore.stop()
+                            appUsageLogger.stopLogging()
+                        } else {
+                            timeStore.start()
+                            appUsageLogger.configure(context: modelContext)
+                        }
                     }) {
-                        Image(systemName: viewModel.isRunning ? "pause.circle.fill" : "play.circle.fill")
+                        Image(systemName: timeStore.isRunning ? "pause.circle.fill" : "play.circle.fill")
                             .resizable()
                             .frame(width: 40, height: 40)
                             .foregroundColor(.black)
@@ -47,21 +55,21 @@ struct HomeView: View {
         .navigationTitle("Home")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .foregroundColor(.black)
-        .onAppear {
-            viewModel.context = modelContext
-            viewModel.dataCount()
-        }
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button {
-                    viewModel.sendLogs()
+                    Task {
+                        await timeStore.sendLogs()
+                    }
                 } label: {
                     Image(systemName: "paperplane.fill")
                 }
             }
             ToolbarItem(placement: .automatic) {
                 Button {
-                    viewModel.deleteAllData()
+                    Task {
+                        await timeStore.deleteLogs()
+                    }
                 } label: {
                     Image(systemName: "trash")
                 }
@@ -70,6 +78,4 @@ struct HomeView: View {
     }
 }
 
-#Preview {
-    HomeView(viewModel: HomeViewModel())
-}
+

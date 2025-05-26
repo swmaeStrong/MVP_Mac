@@ -17,7 +17,6 @@ struct ContentView: View {
     }
 
     @State private var selection: Tab? = .home
-    @StateObject private var homeViewModel = HomeViewModel()
     var body: some View {
         NavigationSplitView {
             List(Tab.allCases, selection: $selection) { tab in
@@ -29,7 +28,7 @@ struct ContentView: View {
         } detail: {
             switch selection {
             case .home:
-                HomeView(viewModel: homeViewModel)
+                HomeView()
             case .leaderboard:
                 LeaderBoardView()
             case .analysis:
