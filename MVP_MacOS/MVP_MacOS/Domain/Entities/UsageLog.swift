@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AppLog {
+struct UsageLog {
     var id: String {
         UserDefaults.standard.string(forKey: "username") ?? UUID().uuidString
     }
