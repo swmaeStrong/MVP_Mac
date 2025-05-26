@@ -12,7 +12,7 @@ import SwiftData
 final class SwiftDataManager {
     
     /// AppLog 엔티티 저장
-    func saveLog(_ log: AppLog, context: ModelContext) throws {
+    func saveLog(_ log: UsageLog, context: ModelContext) throws {
         let entity = AppLogEntity(from: log)
         context.insert(entity)
         print("저장 성공 \(log)")
@@ -25,6 +25,15 @@ final class SwiftDataManager {
         // 각 엔티티 삭제
         for entity in allEntities {
             context.delete(entity)
+        }
+    }
+    
+    func fetchAllAppLogs(context: ModelContext) -> [AppLogEntity] {
+        do {
+            return try context.fetch(FetchDescriptor<AppLogEntity>())
+        } catch {
+            print("❌ 로그 가져오기 실패:", error)
+            return []
         }
     }
     

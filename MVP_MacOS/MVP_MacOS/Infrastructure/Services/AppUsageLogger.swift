@@ -41,7 +41,7 @@ final class AppUsageLogger {
                 if let context = self.context,
                    let prevApp = self.lastAppName,
                    let prevTitle = self.lastTitle {
-                    let sessionLog = AppLog(timestamp: now, duration: duration, title: prevTitle, app: prevApp)
+                    let sessionLog = UsageLog(timestamp: now, duration: duration, title: prevTitle, app: prevApp)
                     try? swiftDataManager.saveLog(sessionLog, context: context)
                 }
                 // 상태 업데이트
@@ -58,7 +58,7 @@ final class AppUsageLogger {
     }
     
     /// 현재 보고있는 top title을 추적하는 메서드
-    private func getActiveAppInfo() -> AppLog? {
+    private func getActiveAppInfo() -> UsageLog? {
         guard let frontmostApp = NSWorkspace.shared.frontmostApplication,
               let appName = frontmostApp.localizedName else {
             print("❌ frontmostApplication nil")
@@ -79,7 +79,7 @@ final class AppUsageLogger {
                 titleString = axTitle
             }
         }
-        return AppLog(timestamp: .now, duration: 0, title: titleString, app: appName)
+        return UsageLog(timestamp: .now, duration: 0, title: titleString, app: appName)
     }
 }
     
