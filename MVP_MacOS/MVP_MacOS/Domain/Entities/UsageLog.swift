@@ -19,7 +19,6 @@ extension UsageLog {
     func toDTO() -> UsageLogDTO {
         let formatter = ISO8601DateFormatter()
         let userId = UserDefaults.standard.string(forKey: "userID") ?? UUID().uuidString
-        print(userId)
         return UsageLogDTO(
             userId: userId,
             title: title,

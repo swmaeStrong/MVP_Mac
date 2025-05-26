@@ -11,12 +11,16 @@ import Factory
 
 struct RootView: View {
     @AppStorage("userNickname") private var username: String = ""
-    
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var timeStore: DailyWorkTimeStore
     var body: some View {
         if username.isEmpty {
             UsernamePromptView()
         } else {
             ContentView()
+                .onAppear {
+                    timeStore.context = modelContext
+                }
         }
     }
 }

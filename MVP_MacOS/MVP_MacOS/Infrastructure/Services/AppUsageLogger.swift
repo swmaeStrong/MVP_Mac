@@ -18,8 +18,12 @@ final class AppUsageLogger {
     private var lastTitle: String?
     private var lastAppName: String?
     private var lastTimestamp: Date?
+    private var swiftDataManager: SwiftDataManager
     
-    @Injected(\.swiftDataManager) private var swiftDataManager
+    init(swiftDataManager: SwiftDataManager) {
+        self.swiftDataManager = swiftDataManager
+    }
+    
     func configure(context: ModelContext) {
         self.context = context
         startLogging()
