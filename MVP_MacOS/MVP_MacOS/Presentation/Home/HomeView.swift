@@ -49,6 +49,7 @@ struct HomeView: View {
         .foregroundColor(.black)
         .onAppear {
             viewModel.context = modelContext
+            viewModel.dataCount()
         }
         .toolbar {
             ToolbarItem(placement: .automatic) {
@@ -56,6 +57,13 @@ struct HomeView: View {
                     viewModel.sendLogs()
                 } label: {
                     Image(systemName: "paperplane.fill")
+                }
+            }
+            ToolbarItem(placement: .automatic) {
+                Button {
+                    viewModel.deleteAllData()
+                } label: {
+                    Image(systemName: "trash")
                 }
             }
         }

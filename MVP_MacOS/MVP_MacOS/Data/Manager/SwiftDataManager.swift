@@ -27,7 +27,7 @@ final class SwiftDataManager {
             context.delete(entity)
         }
     }
-    
+    /// 로컬에 저장된 AppLogEntity 모두 반환
     func fetchAllAppLogs(context: ModelContext) -> [AppLogEntity] {
         do {
             return try context.fetch(FetchDescriptor<AppLogEntity>())
