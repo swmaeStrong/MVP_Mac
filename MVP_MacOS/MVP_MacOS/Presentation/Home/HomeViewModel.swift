@@ -14,6 +14,7 @@ final class HomeViewModel: ObservableObject {
     @Published var isRunning = false
 
     private var timer: AnyCancellable?
+    private var autoSendCancellable: AnyCancellable?
     
     var formattedTime: String {
         timeManager.getTodaySeconds().formattedHMSFromSeconds
@@ -25,7 +26,7 @@ final class HomeViewModel: ObservableObject {
     @Injected(\.swiftDataManager) private var dataManager
 
     var context: ModelContext?
-
+    
     func onTick() {
         timeManager.increment()
     }
@@ -40,13 +41,25 @@ final class HomeViewModel: ObservableObject {
                     self?.timeManager.increment()
                     self?.objectWillChange.send()
                 }
+
+            autoSendCancellable = Timer.publish(every: 300, on: .main, in: .common)
+                .autoconnect()
+                .sink { [weak self] _ in
+                    self?.sendLogs()
+                }
+
             if let context = context {
                 appUsageLogger.configure(context: context)
             }
         } else {
             timer?.cancel()
             timer = nil
+
+            autoSendCancellable?.cancel()
+            autoSendCancellable = nil
+
             appUsageLogger.stopLogging()
+            sendLogs()
         }
     }
     
@@ -58,9 +71,24 @@ final class HomeViewModel: ObservableObject {
             do {
                 try await uploadUseCase.execute(logs: logs)
                 print("✅ Logs uploaded successfully")
-                try dataManager.deleteAllLogs(context: context)
+                deleteAllData()
             } catch {
                 print("❌ Failed to upload logs:", error)
+            }
+        }
+    }
+    func dataCount() {
+        if let context = context {
+            print("SwiftDataCount : \(dataManager.fetchAllAppLogs(context: context).count)")
+        }
+    }
+    func deleteAllData() {
+        if let context = context {
+            do {
+                try dataManager.deleteAllLogs(context: context)
+                print("Successfully deleted all data")
+            } catch {
+                print("Faild to delete all data")
             }
         }
     }
