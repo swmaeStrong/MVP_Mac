@@ -50,6 +50,15 @@ struct HomeView: View {
         .onAppear {
             viewModel.context = modelContext
         }
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button {
+                    viewModel.sendLogs()
+                } label: {
+                    Image(systemName: "paperplane.fill")
+                }
+            }
+        }
     }
 }
 

@@ -21,6 +21,8 @@ final class HomeViewModel: ObservableObject {
     
     @Injected(\.appUsageLogger) private var appUsageLogger
     @Injected(\.dailyWorkTimeManager) private var timeManager
+    @Injected(\.uploadUsageUseCase) private var uploadUseCase
+    @Injected(\.swiftDataManager) private var dataManager
 
     var context: ModelContext?
 
@@ -45,6 +47,21 @@ final class HomeViewModel: ObservableObject {
             timer?.cancel()
             timer = nil
             appUsageLogger.stopLogging()
+        }
+    }
+    
+    func sendLogs() {
+        guard let context = context else { return }
+        Task {
+            let logs = dataManager.fetchAllAppLogs(context: context)
+                .map { $0.toDomain()}
+            do {
+                try await uploadUseCase.execute(logs: logs)
+                print("✅ Logs uploaded successfully")
+                try dataManager.deleteAllLogs(context: context)
+            } catch {
+                print("❌ Failed to upload logs:", error)
+            }
         }
     }
 }

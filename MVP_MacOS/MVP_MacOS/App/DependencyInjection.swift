@@ -34,4 +34,10 @@ extension Container {
             RegisterUserUseCase(service: UserRegisterService())
         }
     }
+    
+    var uploadUsageUseCase: Factory<UploadUsageLogUseCase> {
+        Factory(self) {
+            UploadUsageLogUseCase(service: UsageLogService())
+        }
+    }
 }
