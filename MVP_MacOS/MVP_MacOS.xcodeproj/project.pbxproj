@@ -15,6 +15,7 @@
 		BD1B6FF42DE4339200E481E2 /* UsageLogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FF32DE4339200E481E2 /* UsageLogService.swift */; };
 		BD1B6FF62DE433A400E481E2 /* SyncUsageLogsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FF52DE433A400E481E2 /* SyncUsageLogsUseCase.swift */; };
 		BD1B6FF82DE43A3500E481E2 /* UsageLogDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FF72DE43A3500E481E2 /* UsageLogDTO.swift */; };
+		BD1B6FFE2DE48D0300E481E2 /* DefaultAppRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FFD2DE48D0300E481E2 /* DefaultAppRepository.swift */; };
 		BD9893722DD9C47A00F40A9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD98936D2DD9C47A00F40A9B /* Assets.xcassets */; };
 		BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD98936E2DD9C47A00F40A9B /* ContentView.swift */; };
 		BD9893742DD9C47A00F40A9B /* MVP_MacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893702DD9C47A00F40A9B /* MVP_MacOSApp.swift */; };
@@ -61,6 +62,7 @@
 		BD1B6FF32DE4339200E481E2 /* UsageLogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageLogService.swift; sourceTree = "<group>"; };
 		BD1B6FF52DE433A400E481E2 /* SyncUsageLogsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUsageLogsUseCase.swift; sourceTree = "<group>"; };
 		BD1B6FF72DE43A3500E481E2 /* UsageLogDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageLogDTO.swift; sourceTree = "<group>"; };
+		BD1B6FFD2DE48D0300E481E2 /* DefaultAppRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppRepository.swift; sourceTree = "<group>"; };
 		BD98933F2DD9C46800F40A9B /* MVP_MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVP_MacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9893502DD9C46A00F40A9B /* MVP_MacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD98935A2DD9C46A00F40A9B /* MVP_MacOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +129,14 @@
 				BD1B6FF32DE4339200E481E2 /* UsageLogService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		BD1B6FFC2DE48CE900E481E2 /* RepositoriesImpl */ = {
+			isa = PBXGroup;
+			children = (
+				BD1B6FFD2DE48D0300E481E2 /* DefaultAppRepository.swift */,
+			);
+			path = RepositoriesImpl;
 			sourceTree = "<group>";
 		};
 		BD9893362DD9C46800F40A9B = {
@@ -211,6 +221,7 @@
 		BD9893962DD9DC5800F40A9B /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				BD1B6FFC2DE48CE900E481E2 /* RepositoriesImpl */,
 				BD1B6FBA2DE07F9100E481E2 /* Services */,
 				BD9893BB2DDC539B00F40A9B /* Models */,
 				BD9893AC2DD9DD4B00F40A9B /* Manager */,
@@ -457,6 +468,7 @@
 				BD98939C2DD9DCD500F40A9B /* Data+Extension.swift in Sources */,
 				BD9893A52DD9DD2400F40A9B /* LeaderBoardView.swift in Sources */,
 				BD9893742DD9C47A00F40A9B /* MVP_MacOSApp.swift in Sources */,
+				BD1B6FFE2DE48D0300E481E2 /* DefaultAppRepository.swift in Sources */,
 				BD9893B72DDC3D8600F40A9B /* UserRank.swift in Sources */,
 				BD9893A12DD9DD1300F40A9B /* HomeView.swift in Sources */,
 				BD9893912DD9DC0200F40A9B /* DependencyInjection.swift in Sources */,

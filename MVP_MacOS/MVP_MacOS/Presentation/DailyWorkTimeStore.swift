@@ -89,7 +89,7 @@ final class DailyWorkTimeStore: ObservableObject {
     func sendLogs() async {
         guard let context = context else { return }
         do {
-            try await uploadUseCase.execute(context: context)
+            try await uploadUseCase.syncLogs(context: context)
         } catch {
             print("❌ Failed to upload logs:", error)
         }

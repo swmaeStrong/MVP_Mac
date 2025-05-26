@@ -10,37 +10,19 @@ import Factory
 import SwiftData
 
 final class SyncUsageLogsUseCase {
-    private let service: UsageLogService
-    private let swiftDataManager: SwiftDataManager
+    private let repository: AppLogRepository
     
-    init(service: UsageLogService, swiftDataManager: SwiftDataManager) {
-        self.service = service
-        self.swiftDataManager = swiftDataManager
+    init(repository: AppLogRepository) {
+        self.repository = repository
     }
     
     @MainActor
-    func execute(context: ModelContext) async throws {
-        Task {
-            let logs = swiftDataManager.fetchAllAppLogs(context: context)
-                .map { $0.toDomain().toDTO()}
-            if !logs.isEmpty {
-                do {
-                    try await service.upload(logs: logs)
-                    print("✅ Logs uploaded successfully")
-                    try await deleteLog(context: context)
-                } catch {
-                    print("❌ Failed to upload logs:", error)
-                }
-            }
-        }
+    func syncLogs(context: ModelContext) async throws {
+        try await repository.execute(context: context)
     }
     
     @MainActor
     func deleteLog(context: ModelContext) async throws {
-        do {
-            try swiftDataManager.deleteAllLogs(context: context)
-        } catch {
-            print("Faild to delete all data")
-        }
+        try await repository.deleteLog(context: context)
     }
 }

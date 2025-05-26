@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import SwiftData
+
+protocol AppLogRepository {
+    @MainActor func execute(context: ModelContext) async throws
+    @MainActor func deleteLog(context: ModelContext) async throws
+}
