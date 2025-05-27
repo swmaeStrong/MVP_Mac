@@ -27,24 +27,45 @@ struct LeaderBoardView: View {
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
 
-                VStack(alignment: .leading, spacing: 12) {
-                    let filteredRanks = userRanks.filter { $0.category == selectedCategory }.sorted{$0.min > $1.min}
-                    ForEach(Array(filteredRanks.enumerated()), id: \.element.id) { index, user in
-                        HStack {
-                            Text("\(index + 1)")
-                                .font(.headline)
-                                .frame(width: 30, alignment: .leading)
+                let filteredRanks = userRanks.filter { $0.category == selectedCategory }.sorted { $0.min > $1.min }
+                let topRanks = filteredRanks.prefix(3)
+                let otherRanks = filteredRanks.dropFirst(3)
+
+                // Top 3 Horizontal
+                HStack(spacing: 12) {
+                    ForEach(Array(topRanks.enumerated()), id: \.element.id) { index, user in
+                        VStack(spacing: 4) {
+                            Text(index == 0 ? "🥇" : index == 1 ? "🥈" : "🥉")
+                                .font(.largeTitle)
                             Text(user.username)
-                                .font(.body)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .bold()
                             Text(user.min.formattedDurationFromMinutes)
                                 .font(.subheadline)
-                                .foregroundColor(.secondary)
                         }
-                        .padding(.horizontal)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(RoundedRectangle(cornerRadius: 12).fill(.thinMaterial))
                     }
                 }
-                .padding(.top)
+                .padding(.horizontal)
+
+                // Rest List
+                VStack(spacing: 12) {
+                    ForEach(Array(otherRanks.enumerated()), id: \.element.id) { index, user in
+                        HStack {
+                            Text("\(index + 4)") // Adjusted for index offset
+                                .frame(width: 30, alignment: .leading)
+
+                            Text(user.username)
+                                .fontWeight(user.username == userNickname ? .bold : .regular)
+                            Spacer()
+                            Text(user.min.formattedDurationFromMinutes)
+                        }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 10).fill(.thinMaterial))
+                    }
+                }
+                .padding()
             }
             .padding(.vertical)
         }
