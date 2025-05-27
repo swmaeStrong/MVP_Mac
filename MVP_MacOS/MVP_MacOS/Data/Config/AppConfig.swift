@@ -7,5 +7,9 @@
 
 import Foundation
 
-let baseDomain = Bundle.main.infoDictionary?["BASE_DOMAIN"] as? String
-let baseURL = "http://\(baseDomain ?? "")"
+enum AppConfig {
+    static var baseURL: String {
+        let domain = Bundle.main.infoDictionary?["BASE_DOMAIN"] as? String ?? ""
+        return "http://\(domain)"
+    }
+}

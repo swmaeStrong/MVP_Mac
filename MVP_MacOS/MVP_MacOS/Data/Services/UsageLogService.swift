@@ -8,7 +8,6 @@
 import Foundation
 
 final class UsageLogService {
-    private let baseURL = URL(string: "http://3.39.105.127")!
     private let session: URLSession
 
     init(session: URLSession = .shared) {
@@ -16,12 +15,12 @@ final class UsageLogService {
     }
 
     func upload(logs: [UsageLogDTO]) async throws {
-        let url = baseURL.appendingPathComponent("/usage-log")
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        
+        let endpoint = APIEndpoint.uploadLog
+        var request = URLRequest(url: endpoint.url())
+        request.httpMethod = endpoint.method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body = try JSONEncoder().encode(logs)
-        request.httpBody = body
+        request.httpBody = try JSONEncoder().encode(logs)
 
         let (_, response) = try await session.data(for: request)
         guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
