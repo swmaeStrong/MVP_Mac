@@ -13,6 +13,7 @@ enum APIEndpoint {
     case checkNickname(nickname: String)
     case registerUser
     case uploadLog
+    case getCategories
 
     var path: String {
         switch self {
@@ -22,6 +23,8 @@ enum APIEndpoint {
             return "/guest-users"
         case .uploadLog:
             return "/usage-log"
+        case .getCategories:
+            return "/category"
         }
     }
 
@@ -30,6 +33,8 @@ enum APIEndpoint {
         case .checkNickname: return "GET"
         case .registerUser: return "POST"
         case .uploadLog: return "POST"
+        case .getCategories:
+            return "GET"
         }
     }
 
@@ -42,6 +47,8 @@ enum APIEndpoint {
         case .registerUser:
             return APIEndpoint.baseURL.appendingPathComponent(path)
         case .uploadLog:
+            return APIEndpoint.baseURL.appendingPathComponent(path)
+        case .getCategories:
             return APIEndpoint.baseURL.appendingPathComponent(path)
         }
     }
