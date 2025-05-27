@@ -33,7 +33,7 @@ extension Container {
     
     var syncUsageLogsUseCase: Factory<SyncUsageLogsUseCase> {
         Factory(self) {
-            SyncUsageLogsUseCase(repository: DefaultAppRepository(service: UsageLogService(), swiftDataManager: SwiftDataManager()))
+            SyncUsageLogsUseCase(repository: AppLogRepositoryImpl(service: UsageLogService(), swiftDataManager: SwiftDataManager()))
         }
     }
 }

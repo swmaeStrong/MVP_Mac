@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-final class DefaultAppRepository: AppLogRepository {
+final class AppLogRepositoryImpl: AppLogRepository {
     private let service: UsageLogService
     private let swiftDataManager: SwiftDataManager
     
