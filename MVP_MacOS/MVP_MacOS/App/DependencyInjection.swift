@@ -36,4 +36,11 @@ extension Container {
             SyncUsageLogsUseCase(repository: AppLogRepositoryImpl(service: UsageLogService(), swiftDataManager: SwiftDataManager()))
         }
     }
+    
+    var fetchLeaderBoardUseCase: Factory<FetchLeaderBoardUseCase> {
+        Factory(self) {
+            FetchLeaderBoardUseCase(repository: AnalysisRepositoryImpl(service: AnalysisService())
+            )
+        }
+    }
 }

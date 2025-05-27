@@ -15,7 +15,7 @@ struct ContentView: View {
 
         var id: String { rawValue }
     }
-
+    @StateObject var leaderViewModel: LeaderBoardViewModel = LeaderBoardViewModel()
     @State private var selection: Tab? = .home
     var body: some View {
         NavigationSplitView {
@@ -30,7 +30,7 @@ struct ContentView: View {
             case .home:
                 HomeView()
             case .leaderboard:
-                LeaderBoardView()
+                LeaderBoardView(viewModel: leaderViewModel)
             case .analysis:
                 AnalysisView()
             case .none:

@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 struct LeaderBoardView: View {
-    @State private var selectedCategory: UserRank.Category = .development
+    @ObservedObject var viewModel: LeaderBoardViewModel
+    @State private var selectedCategory: String = UserRank.Category.development.rawValue
     @AppStorage("userNickname") private var userNickname: String = ""
     @AppStorage("userID") private var userID: String = ""
     let userRanks: [UserRank] = UserRank.sampleData
@@ -18,8 +19,8 @@ struct LeaderBoardView: View {
         ScrollView(.vertical) {
             VStack(alignment: .leading, spacing: 16) {
                 Picker("", selection: $selectedCategory) {
-                    ForEach(UserRank.Category.allCases, id: \.self) { category in
-                        Text(category.rawValue)
+                    ForEach(viewModel.categoryNames, id: \.self) { category in
+                        Text(category)
                             .tag(category)
                     }
                 }
@@ -67,5 +68,5 @@ struct LeaderBoardView: View {
 }
 
 #Preview {
-    LeaderBoardView()
+    LeaderBoardView(viewModel: LeaderBoardViewModel())
 }
