@@ -71,8 +71,7 @@ struct UsernamePromptView: View {
                 Task {
                     do {
                         let trimmedNickname = tempInput.trimmingCharacters(in: .whitespaces)
-                        let uuid = UUID().uuidString
-                        try await useCase.register(uuid: uuid, nickname: trimmedNickname)
+                        try await useCase.registerUser(nickname: trimmedNickname)
                     } catch {
                         statusMessage = error.localizedDescription
                     }
@@ -89,7 +88,7 @@ struct UsernamePromptView: View {
         isValidNickname = nil
         statusMessage = nil
         do {
-            let valid = try await useCase.isNicknameValid(nickname: tempInput.trimmingCharacters(in: .whitespaces))
+            let valid = try await useCase.checkNicknameAvailability(nickname: tempInput.trimmingCharacters(in: .whitespaces))
             isValidNickname = valid
             statusMessage = valid ? "사용 가능한 닉네임입니다." : "이미 사용 중인 닉네임입니다."
         } catch {

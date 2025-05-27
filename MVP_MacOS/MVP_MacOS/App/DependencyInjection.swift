@@ -27,7 +27,7 @@ extension Container {
     
     var registerUserUseCase: Factory<RegisterUserUseCase> {
         Factory(self) {
-            RegisterUserUseCase(service: UserRegisterService())
+            RegisterUserUseCase(repository: RegisterUserRepositoryImpl(service: UserRegisterService()))
         }
     }
     

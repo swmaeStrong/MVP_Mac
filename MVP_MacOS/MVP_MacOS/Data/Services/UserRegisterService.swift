@@ -43,7 +43,7 @@ final class UserRegisterService {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body = ["deviceId": uuid, "nickname": nickname]
+        let body = ["userId": uuid, "nickname": nickname]
         request.httpBody = try JSONEncoder().encode(body)
         let (data, response) = try await session.data(for: request)
         guard let http = response as? HTTPURLResponse else {
