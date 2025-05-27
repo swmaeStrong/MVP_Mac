@@ -16,6 +16,8 @@
 		BD1B6FF62DE433A400E481E2 /* SyncUsageLogsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FF52DE433A400E481E2 /* SyncUsageLogsUseCase.swift */; };
 		BD1B6FF82DE43A3500E481E2 /* UsageLogDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FF72DE43A3500E481E2 /* UsageLogDTO.swift */; };
 		BD1B6FFE2DE48D0300E481E2 /* AppLogRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FFD2DE48D0300E481E2 /* AppLogRepositoryImpl.swift */; };
+		BD1B70042DE57AE900E481E2 /* RegisterUserRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70032DE57AE900E481E2 /* RegisterUserRepositoryImpl.swift */; };
+		BD1B70062DE57AFB00E481E2 /* RegisterUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70052DE57AFB00E481E2 /* RegisterUserRepository.swift */; };
 		BD9893722DD9C47A00F40A9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD98936D2DD9C47A00F40A9B /* Assets.xcassets */; };
 		BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD98936E2DD9C47A00F40A9B /* ContentView.swift */; };
 		BD9893742DD9C47A00F40A9B /* MVP_MacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893702DD9C47A00F40A9B /* MVP_MacOSApp.swift */; };
@@ -63,6 +65,8 @@
 		BD1B6FF52DE433A400E481E2 /* SyncUsageLogsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUsageLogsUseCase.swift; sourceTree = "<group>"; };
 		BD1B6FF72DE43A3500E481E2 /* UsageLogDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageLogDTO.swift; sourceTree = "<group>"; };
 		BD1B6FFD2DE48D0300E481E2 /* AppLogRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogRepositoryImpl.swift; sourceTree = "<group>"; };
+		BD1B70032DE57AE900E481E2 /* RegisterUserRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserRepositoryImpl.swift; sourceTree = "<group>"; };
+		BD1B70052DE57AFB00E481E2 /* RegisterUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserRepository.swift; sourceTree = "<group>"; };
 		BD98933F2DD9C46800F40A9B /* MVP_MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVP_MacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9893502DD9C46A00F40A9B /* MVP_MacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD98935A2DD9C46A00F40A9B /* MVP_MacOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				BD1B6FFD2DE48D0300E481E2 /* AppLogRepositoryImpl.swift */,
+				BD1B70032DE57AE900E481E2 /* RegisterUserRepositoryImpl.swift */,
 			);
 			path = RepositoriesImpl;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				BD9893B22DDAF6CD00F40A9B /* AppLogRepository.swift */,
+				BD1B70052DE57AFB00E481E2 /* RegisterUserRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -460,6 +466,7 @@
 			files = (
 				BD9893AE2DD9DD6100F40A9B /* SwiftDataManager.swift in Sources */,
 				BD1B6FBC2DE0826D00E481E2 /* UserRegisterService.swift in Sources */,
+				BD1B70042DE57AE900E481E2 /* RegisterUserRepositoryImpl.swift in Sources */,
 				BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */,
 				BD1B6FB52DDEF00C00E481E2 /* CategoryUsageSummary.swift in Sources */,
 				BD1B6FB72DDEF11700E481E2 /* Int+Extension.swift in Sources */,
@@ -482,6 +489,7 @@
 				BD9893BD2DDC53A900F40A9B /* AppLogEntity.swift in Sources */,
 				BD9893A72DD9DD2D00F40A9B /* LeaderBoardViewModel.swift in Sources */,
 				BD9893B52DDAF6E200F40A9B /* RegisterUserUseCase.swift in Sources */,
+				BD1B70062DE57AFB00E481E2 /* RegisterUserRepository.swift in Sources */,
 				BD1B6FF42DE4339200E481E2 /* UsageLogService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
