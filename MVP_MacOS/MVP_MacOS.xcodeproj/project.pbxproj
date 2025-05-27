@@ -25,6 +25,7 @@
 		BD1B70132DE58F2100E481E2 /* AnalysisRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70122DE58F2100E481E2 /* AnalysisRepositoryImpl.swift */; };
 		BD1B70152DE58FC000E481E2 /* AppCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70142DE58FC000E481E2 /* AppCategory.swift */; };
 		BD1B70172DE592A600E481E2 /* FetchLeaderBoardUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70162DE592A600E481E2 /* FetchLeaderBoardUseCase.swift */; };
+		BD1B70192DE5CBD900E481E2 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70182DE5CBD900E481E2 /* Color+Hex.swift */; };
 		BD9893722DD9C47A00F40A9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD98936D2DD9C47A00F40A9B /* Assets.xcassets */; };
 		BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD98936E2DD9C47A00F40A9B /* ContentView.swift */; };
 		BD9893742DD9C47A00F40A9B /* MVP_MacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893702DD9C47A00F40A9B /* MVP_MacOSApp.swift */; };
@@ -82,6 +83,7 @@
 		BD1B70122DE58F2100E481E2 /* AnalysisRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisRepositoryImpl.swift; sourceTree = "<group>"; };
 		BD1B70142DE58FC000E481E2 /* AppCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCategory.swift; sourceTree = "<group>"; };
 		BD1B70162DE592A600E481E2 /* FetchLeaderBoardUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLeaderBoardUseCase.swift; sourceTree = "<group>"; };
+		BD1B70182DE5CBD900E481E2 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		BD98933F2DD9C46800F40A9B /* MVP_MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVP_MacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9893502DD9C46A00F40A9B /* MVP_MacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD98935A2DD9C46A00F40A9B /* MVP_MacOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -308,6 +310,7 @@
 			children = (
 				BD98939B2DD9DCD500F40A9B /* Data+Extension.swift */,
 				BD1B6FB62DDEF11700E481E2 /* Int+Extension.swift */,
+				BD1B70182DE5CBD900E481E2 /* Color+Hex.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD1B70192DE5CBD900E481E2 /* Color+Hex.swift in Sources */,
 				BD9893AE2DD9DD6100F40A9B /* SwiftDataManager.swift in Sources */,
 				BD1B6FBC2DE0826D00E481E2 /* UserRegisterService.swift in Sources */,
 				BD1B70152DE58FC000E481E2 /* AppCategory.swift in Sources */,
