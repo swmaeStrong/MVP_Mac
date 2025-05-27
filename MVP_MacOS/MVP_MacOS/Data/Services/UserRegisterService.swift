@@ -8,7 +8,6 @@
 import Foundation
 
 final class UserRegisterService {
-    private let baseURL = URL(string: "http://3.39.105.127")!
     private let session: URLSession
     
     init(session: URLSession = .shared) {
@@ -24,10 +23,11 @@ final class UserRegisterService {
     
     /// 닉네임의 중복을 검증하는 로직
     func isNicknameDuplicated(_ nickname: String) async throws -> Bool {
-        var components = URLComponents(url: baseURL.appendingPathComponent("/guest-users/is-nickname-duplicated"), resolvingAgainstBaseURL: false)!
-        components.queryItems = [URLQueryItem(name: "nickname", value: nickname)]
-        let url = components.url!
-        let (data, response) = try await session.data(from: url)
+        let endpoint = APIEndpoint.checkNickname(nickname: nickname)
+        let url = endpoint.url()
+        var request = URLRequest(url: url)
+        request.httpMethod = endpoint.method
+        let (data, response) = try await session.data(for: request)
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
             throw URLError(.badServerResponse)
         }
@@ -39,9 +39,10 @@ final class UserRegisterService {
     }
     
     func registerUser(uuid: String, nickname: String) async throws -> Bool {
-        let url = baseURL.appendingPathComponent("/guest-users")
+        let endpoint = APIEndpoint.registerUser
+        let url = endpoint.url()
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = endpoint.method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let body = ["userId": uuid, "nickname": nickname]
         request.httpBody = try JSONEncoder().encode(body)
