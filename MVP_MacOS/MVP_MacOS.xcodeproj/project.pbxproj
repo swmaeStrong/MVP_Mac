@@ -24,6 +24,7 @@
 		BD1B70112DE58F1500E481E2 /* AnalysisRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70102DE58F1500E481E2 /* AnalysisRepository.swift */; };
 		BD1B70132DE58F2100E481E2 /* AnalysisRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70122DE58F2100E481E2 /* AnalysisRepositoryImpl.swift */; };
 		BD1B70152DE58FC000E481E2 /* AppCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70142DE58FC000E481E2 /* AppCategory.swift */; };
+		BD1B70172DE592A600E481E2 /* FetchLeaderBoardUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70162DE592A600E481E2 /* FetchLeaderBoardUseCase.swift */; };
 		BD9893722DD9C47A00F40A9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD98936D2DD9C47A00F40A9B /* Assets.xcassets */; };
 		BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD98936E2DD9C47A00F40A9B /* ContentView.swift */; };
 		BD9893742DD9C47A00F40A9B /* MVP_MacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893702DD9C47A00F40A9B /* MVP_MacOSApp.swift */; };
@@ -80,6 +81,7 @@
 		BD1B70102DE58F1500E481E2 /* AnalysisRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisRepository.swift; sourceTree = "<group>"; };
 		BD1B70122DE58F2100E481E2 /* AnalysisRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisRepositoryImpl.swift; sourceTree = "<group>"; };
 		BD1B70142DE58FC000E481E2 /* AppCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCategory.swift; sourceTree = "<group>"; };
+		BD1B70162DE592A600E481E2 /* FetchLeaderBoardUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLeaderBoardUseCase.swift; sourceTree = "<group>"; };
 		BD98933F2DD9C46800F40A9B /* MVP_MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVP_MacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9893502DD9C46A00F40A9B /* MVP_MacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD98935A2DD9C46A00F40A9B /* MVP_MacOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -254,6 +256,7 @@
 			children = (
 				BD9893B42DDAF6E200F40A9B /* RegisterUserUseCase.swift */,
 				BD1B6FF52DE433A400E481E2 /* SyncUsageLogsUseCase.swift */,
+				BD1B70162DE592A600E481E2 /* FetchLeaderBoardUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 				BD1B6FF82DE43A3500E481E2 /* UsageLogDTO.swift in Sources */,
 				BD9893BD2DDC53A900F40A9B /* AppLogEntity.swift in Sources */,
 				BD9893A72DD9DD2D00F40A9B /* LeaderBoardViewModel.swift in Sources */,
+				BD1B70172DE592A600E481E2 /* FetchLeaderBoardUseCase.swift in Sources */,
 				BD9893B52DDAF6E200F40A9B /* RegisterUserUseCase.swift in Sources */,
 				BD1B70062DE57AFB00E481E2 /* RegisterUserRepository.swift in Sources */,
 				BD1B6FF42DE4339200E481E2 /* UsageLogService.swift in Sources */,
