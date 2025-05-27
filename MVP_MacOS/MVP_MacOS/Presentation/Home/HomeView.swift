@@ -55,6 +55,9 @@ struct HomeView: View {
         .navigationTitle("Home")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .foregroundColor(.black)
+        .onAppear {
+            print(baseURL)
+        }
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button {
