@@ -34,7 +34,7 @@ final class DailyWorkTimeStore: ObservableObject {
 
     /// 날짜를 갱신하여 누적 시간을 초기화 시키는 메서드
     func refreshIfNewDay() {
-        let today = dateFormatter.string(from: Date())
+        let today = Date().formattedDateString
         if storedDate != today {
             storedSeconds = 0
             storedDate = today
@@ -50,7 +50,7 @@ final class DailyWorkTimeStore: ObservableObject {
     func reset() {
         seconds = 0
         storedSeconds = 0
-        storedDate = dateFormatter.string(from: Date())
+        storedDate = Date().formattedDateString
     }
 
     // MARK: - 타이머 시작/중지
@@ -111,11 +111,5 @@ final class DailyWorkTimeStore: ObservableObject {
     var formattedTime: String {
         seconds.formattedHMSFromSeconds
     }
-
-    /// Date formatter for "yyyy-MM-dd" format.
-    private let dateFormatter: DateFormatter = {
-        let f = DateFormatter()
-        f.dateFormat = "yyyy-MM-dd"
-        return f
-    }()
+    
 }

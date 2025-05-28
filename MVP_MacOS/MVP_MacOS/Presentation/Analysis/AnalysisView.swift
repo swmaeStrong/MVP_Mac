@@ -14,7 +14,7 @@ import Factory
 struct AnalysisView: View {
     @EnvironmentObject private var timeStore: DailyWorkTimeStore
     @ObservedObject var viewModel: AnalysisViewModel
-    let data = CategoryUsageSummary.sampleData
+
     var body: some View {
         VStack(alignment: .leading){
             Text("Daily Summary")
