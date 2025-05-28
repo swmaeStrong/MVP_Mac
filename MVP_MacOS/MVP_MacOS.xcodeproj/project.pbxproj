@@ -48,6 +48,7 @@
 		BD9893BA2DDC503000F40A9B /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = BD9893B92DDC503000F40A9B /* Factory */; };
 		BD9893BD2DDC53A900F40A9B /* AppLogEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */; };
 		BD9893C52DDDBD9E00F40A9B /* AppUsageLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893C42DDDBD9E00F40A9B /* AppUsageLogger.swift */; };
+		BDE5C0C02DE6E28B008833FB /* CategoryRankResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE5C0BF2DE6E28B008833FB /* CategoryRankResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogEntity.swift; sourceTree = "<group>"; };
 		BD9893C32DDDB7B600F40A9B /* MVP-MacOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MVP-MacOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		BD9893C42DDDBD9E00F40A9B /* AppUsageLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUsageLogger.swift; sourceTree = "<group>"; };
+		BDE5C0BF2DE6E28B008833FB /* CategoryRankResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRankResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -366,6 +368,7 @@
 			children = (
 				BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */,
 				BD1B6FF72DE43A3500E481E2 /* UsageLogDTO.swift */,
+				BDE5C0BF2DE6E28B008833FB /* CategoryRankResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				BD1B70172DE592A600E481E2 /* FetchLeaderBoardUseCase.swift in Sources */,
 				BD9893B52DDAF6E200F40A9B /* RegisterUserUseCase.swift in Sources */,
 				BD1B70062DE57AFB00E481E2 /* RegisterUserRepository.swift in Sources */,
+				BDE5C0C02DE6E28B008833FB /* CategoryRankResponse.swift in Sources */,
 				BD1B6FF42DE4339200E481E2 /* UsageLogService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

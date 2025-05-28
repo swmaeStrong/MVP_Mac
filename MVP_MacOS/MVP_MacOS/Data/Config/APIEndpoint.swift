@@ -14,8 +14,9 @@ enum APIEndpoint {
     case registerUser
     case uploadLog
     case getCategories
-    case getUserRanks(category: String, page: Int?, size: Int?, date: String)
-
+    case getUserRanksByCategory(category: String, page: Int?, size: Int?, date: String)
+    case getUserTop10Ranks
+    
     var path: String {
         switch self {
         case .checkNickname:
@@ -26,8 +27,10 @@ enum APIEndpoint {
             return "/usage-log"
         case .getCategories:
             return "/category"
-        case .getUserRanks(let category, _, _, _):
+        case .getUserRanksByCategory(let category, _, _, _):
             return "/leaderboard/\(category)"
+        case .getUserTop10Ranks:
+            return "leaderboard/top-users"
         }
     }
 
@@ -37,7 +40,8 @@ enum APIEndpoint {
         case .registerUser: return "POST"
         case .uploadLog: return "POST"
         case .getCategories: return "GET"
-        case .getUserRanks: return "GET"
+        case .getUserRanksByCategory: return "GET"
+        case .getUserTop10Ranks: return "GET"
         }
     }
 
@@ -53,7 +57,7 @@ enum APIEndpoint {
             return APIEndpoint.baseURL.appendingPathComponent(path)
         case .getCategories:
             return APIEndpoint.baseURL.appendingPathComponent(path)
-        case .getUserRanks(let category, let page, let size, let date):
+        case .getUserRanksByCategory(let category, let page, let size, let date):
             var components = URLComponents(url: APIEndpoint.baseURL.appendingPathComponent("/leaderboard/\(category)"), resolvingAgainstBaseURL: false)!
             var items: [URLQueryItem] = []
             if let page = page {
@@ -65,6 +69,8 @@ enum APIEndpoint {
             items.append(URLQueryItem(name: "date", value: date))
             components.queryItems = items
             return components.url!
+        case .getUserTop10Ranks:
+            return APIEndpoint.baseURL.appendingPathComponent(path)
         }
     }
 }

@@ -10,10 +10,10 @@ import SwiftUI
 
 struct LeaderBoardView: View {
     @ObservedObject var viewModel: LeaderBoardViewModel
-    @State private var selectedCategory: String = UserRank2.Category.development.rawValue
     @AppStorage("userNickname") private var userNickname: String = ""
     @AppStorage("userID") private var userID: String = ""
-    let userRanks: [UserRank2] = UserRank2.sampleData
+    
+    //let userRanks: [UserRank2] = UserRank2.sampleData
     
     var body: some View {
         ScrollView(.vertical) {
@@ -27,30 +27,30 @@ struct LeaderBoardView: View {
                                 .monospaced()
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(category == selectedCategory ? Color.black : Color.gray.opacity(0.2))
+                                        .fill(category == viewModel.selectedCategory ? Color.black : Color.gray.opacity(0.2))
                                 )
-                                .foregroundColor(category == selectedCategory ? .white : .primary)
+                                .foregroundColor(category == viewModel.selectedCategory ? .white : .primary)
                                 .onTapGesture {
-                                    selectedCategory = category
+                                    viewModel.selectedCategory = category
                                 }
                         }
                     }
                     .padding(.horizontal)
                 }
 
-                let filteredRanks = userRanks.filter { $0.category == selectedCategory }.sorted { $0.min > $1.min }
-                let topRanks = filteredRanks.prefix(3)
-                let otherRanks = filteredRanks.dropFirst(3)
+//                let filteredRanks = userRanks.filter { $0.category == selectedCategory }.sorted { $0.min > $1.min }
+//                let topRanks = filteredRanks.prefix(3)
+//                let otherRanks = filteredRanks.dropFirst(3)
 
                 // Top 3 Horizontal
                 HStack(spacing: 12) {
-                    ForEach(Array(topRanks.enumerated()), id: \.element.id) { index, user in
+                    ForEach(Array(viewModel.top3RankUsers().enumerated()), id: \.offset) { index, user in
                         VStack(spacing: 4) {
                             Text(index == 0 ? "🥇" : index == 1 ? "🥈" : "🥉")
                                 .font(.largeTitle)
-                            Text(user.username)
+                            Text(user.nickname)
                                 .bold()
-                            Text(user.min.formattedDurationFromMinutes)
+                            Text("\(user.score)")
                                 .font(.subheadline)
                         }
                         .padding()
@@ -59,18 +59,18 @@ struct LeaderBoardView: View {
                     }
                 }
                 .padding(.horizontal)
-
+                
                 // Rest List
                 VStack(spacing: 12) {
-                    ForEach(Array(otherRanks.enumerated()), id: \.element.id) { index, user in
+                    ForEach(Array(viewModel.otherRankUsers().enumerated()), id: \.offset) { index, user in
                         HStack {
-                            Text("\(index + 4)") // Adjusted for index offset
+                            Text("\(index + 4)")
                                 .frame(width: 30, alignment: .leading)
-
-                            Text(user.username)
-                                .fontWeight(user.username == userNickname ? .bold : .regular)
+                            
+                            Text(user.nickname)
+                            
                             Spacer()
-                            Text(user.min.formattedDurationFromMinutes)
+                            Text("\(user.score)")
                         }
                         .padding()
                         .background(RoundedRectangle(cornerRadius: 10).fill(.thinMaterial))
@@ -81,9 +81,6 @@ struct LeaderBoardView: View {
             .padding(.vertical)
         }
         .onAppear {
-            Task{
-                await viewModel.loadUserRanks(date: Date())
-            }
             print(userID)
             print(userNickname)
         }
@@ -101,6 +98,7 @@ struct LeaderBoardView: View {
         .navigationTitle("LeaderBoard")
     }
 }
+
 
 #Preview {
     LeaderBoardView(viewModel: LeaderBoardViewModel())
