@@ -8,15 +8,19 @@
 import Foundation
 
 final class LeaderBoardRepositoryImpl: LeaderBoardRepository {
-  
+    
     private let service: UserRankService
 
     init(service: UserRankService) {
         self.service = service
     }
     
-    func getLeaderBoard(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
-        return try await service.fetchUserRanks(category: category, page: page, size: size, date: date)
+    func getLeaderBoardByCategory(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
+        return try await service.fetchUserRanksByCategory(category: category, page: page, size: size, date: date)
+    }
+    
+    func getTop10UserRanksLeaderBoard() async throws -> [String: [UserRankItem]] {
+        return try await service.fetchUserTop10Ranks()
     }
     
 }

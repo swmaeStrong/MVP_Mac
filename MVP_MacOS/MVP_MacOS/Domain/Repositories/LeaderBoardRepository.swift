@@ -8,5 +8,6 @@
 import Foundation
 
 protocol LeaderBoardRepository {
-    func getLeaderBoard(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem]
+    func getLeaderBoardByCategory(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem]
+    func getTop10UserRanksLeaderBoard() async throws -> [String: [UserRankItem]]
 }

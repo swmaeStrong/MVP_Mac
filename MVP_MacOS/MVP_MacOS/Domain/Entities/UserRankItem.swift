@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct UserRankItem: Decodable {
+struct UserRankItem: Codable {
+//    var id = UUID()
     var userId: String = ""
     var nickname: String
     var score: Double
