@@ -9,4 +9,5 @@ import Foundation
 
 protocol AnalysisRepository {
     func getCategories() async throws -> [AppCategory]
+    func getUsageCategoryStat(userId: String?, date: Date) async throws -> [UsageCategoryStat]
 }

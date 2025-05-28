@@ -13,6 +13,7 @@ import Factory
 
 struct AnalysisView: View {
     @EnvironmentObject private var timeStore: DailyWorkTimeStore
+    @ObservedObject var viewModel: AnalysisViewModel
     let data = CategoryUsageSummary.sampleData
     var body: some View {
         VStack(alignment: .leading){
@@ -44,26 +45,26 @@ struct AnalysisView: View {
                 .padding(.leading)
             Form {
                 HStack{
-                    Chart(data, id: \.category) {
+                    Chart(viewModel.usageCategoryStat) {
                         SectorMark(
                             angle: .value("Duration", $0.duration),
                             innerRadius: .ratio(0.5),
                             angularInset: 1.5
                         )
-                        .foregroundStyle($0.color)
+                        .foregroundStyle(Color(hex: $0.color) ?? .black)
                     }
                     .frame(width: 200, height: 240)
                     .padding(.horizontal)
                     VStack(alignment: .leading, spacing: 8) {
-                        ForEach(data.sorted { $0.duration > $1.duration }, id: \.category) { entry in
+                        ForEach(viewModel.usageCategoryStat.sorted { $0.duration > $1.duration }) { entry in
                             HStack {
                                 Circle()
-                                    .fill(entry.color.opacity(0.8))
+                                    .fill(Color(hex: entry.color) ?? .black )
                                     .frame(width: 10, height: 10)
                                 Text(entry.category)
                                     .font(.subheadline)
                                 Spacer()
-                                Text(entry.duration.formattedDurationFromMinutes)
+                                Text(entry.duration.formattedDurationFromSeconds)
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
                             }
@@ -83,10 +84,15 @@ struct AnalysisView: View {
                 .padding(.leading)
             
         }
+        .onAppear {
+            Task {
+                await viewModel.load()
+            }
+        }
         .navigationTitle("Analysis")
     }
 }
 
 #Preview {
-    AnalysisView()
+    AnalysisView(viewModel: AnalysisViewModel())
 }
