@@ -10,22 +10,33 @@ import SwiftUI
 
 struct LeaderBoardView: View {
     @ObservedObject var viewModel: LeaderBoardViewModel
-    @State private var selectedCategory: String = UserRank.Category.development.rawValue
+    @State private var selectedCategory: String = UserRank2.Category.development.rawValue
     @AppStorage("userNickname") private var userNickname: String = ""
     @AppStorage("userID") private var userID: String = ""
-    let userRanks: [UserRank] = UserRank.sampleData
+    let userRanks: [UserRank2] = UserRank2.sampleData
     
     var body: some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading, spacing: 16) {
-                Picker("", selection: $selectedCategory) {
-                    ForEach(viewModel.categoryNames, id: \.self) { category in
-                        Text(category)
-                            .tag(category)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) {
+                        ForEach(viewModel.categoryNames, id: \.self) { category in
+                            Text(category)
+                                .padding(.vertical, 8)
+                                .padding(.horizontal, 16)
+                                .monospaced()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(category == selectedCategory ? Color.black : Color.gray.opacity(0.2))
+                                )
+                                .foregroundColor(category == selectedCategory ? .white : .primary)
+                                .onTapGesture {
+                                    selectedCategory = category
+                                }
+                        }
                     }
+                    .padding(.horizontal)
                 }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
 
                 let filteredRanks = userRanks.filter { $0.category == selectedCategory }.sorted { $0.min > $1.min }
                 let topRanks = filteredRanks.prefix(3)
