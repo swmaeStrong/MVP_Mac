@@ -10,6 +10,8 @@ import Factory
 import SwiftData
 
 extension Container {
+    
+    // MARK: - 싱글톤 인스턴스
     var appLogLocalDataSource: Factory<AppLogLocalDataSource>{
         Factory(self) {
             AppLogLocalDataSource()
@@ -31,7 +33,7 @@ extension Container {
         .singleton
     }
     
-    
+    // MARK: - UseCase
     var registerUserUseCase: Factory<RegisterUserUseCase> {
         Factory(self) {
             RegisterUserUseCase(repository: RegisterUserRepositoryImpl(service: UserRegisterService()))

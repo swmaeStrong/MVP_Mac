@@ -24,7 +24,7 @@ final class FetchLeaderBoardUseCase {
         return try await leaderBoardRepository.getLeaderBoardByCategory(category: category, page: page, size: size, date: date)
     }
     
-    func fetchUserRanksTop10() async throws -> [String: [UserRankItem]] {
+    func fetchGlobalTop10UserRanks() async throws -> [String: [UserRankItem]] {
         return try await leaderBoardRepository.getTop10UserRanksLeaderBoard()
     }
 }
