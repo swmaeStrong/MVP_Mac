@@ -6,3 +6,24 @@
 //
 
 import Foundation
+import SwiftUI
+import Factory
+
+final class AnalysisViewModel: ObservableObject {
+    @ObservationIgnored
+    @Injected(\.analysisUseCase) var analysisUseCase
+    
+    @Published var usageCategoryStat: [UsageCategoryStat] = []
+    
+    @MainActor
+    func load() async {
+        do {
+           usageCategoryStat = try await analysisUseCase.fetchUsageCategoryStat(date: Date())
+            print(usageCategoryStat)
+        } catch {
+            print("ErrorAnalysysfetchUsageCategoryStat: \(error)")
+        }
+    }
+    
+    
+}

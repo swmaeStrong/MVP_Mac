@@ -17,4 +17,9 @@ final class AnalysisRepositoryImpl: AnalysisRepository {
     func getCategories() async throws -> [AppCategory] {
         return try await service.fetchAppCategories()
     }
+    
+    func getUsageCategoryStat(userId: String? = nil , date: Date) async throws -> [UsageCategoryStat] {
+        let userId = UserDefaults.standard.string(forKey: "userID") ?? UUID().uuidString
+        return try await service.fetchUsageCategoryStat(userId: userId, date: date.formattedDateString).map{$0.toDomain()}
+    }
 }

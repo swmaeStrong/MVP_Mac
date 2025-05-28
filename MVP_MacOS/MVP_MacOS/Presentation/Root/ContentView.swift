@@ -16,6 +16,8 @@ struct ContentView: View {
         var id: String { rawValue }
     }
     @StateObject var leaderViewModel: LeaderBoardViewModel = LeaderBoardViewModel()
+    @StateObject var analysisViewModel: AnalysisViewModel = AnalysisViewModel()
+
     @State private var selection: Tab? = .home
     var body: some View {
         NavigationSplitView {
@@ -32,7 +34,7 @@ struct ContentView: View {
             case .leaderboard:
                 LeaderBoardView(viewModel: leaderViewModel)
             case .analysis:
-                AnalysisView()
+                AnalysisView(viewModel: analysisViewModel)
             case .none:
                 Text("Select a tab")
             }

@@ -28,5 +28,17 @@ final class AnalysisService {
         return categories
     }
     
-    
+    func fetchUsageCategoryStat(userId: String, date: String) async throws -> [UsageCategoryStatDTO]{
+        let endpoint = APIEndpoint.getUserLogs(userId: userId, date: date)
+        var request = URLRequest(url: endpoint.url())
+        request.httpMethod = endpoint.method
+
+        let (data, response) = try await session.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw URLError(.badServerResponse)
+        }
+
+        let stat = try JSONDecoder().decode([UsageCategoryStatDTO].self, from: data)
+        return stat
+    }
 }
