@@ -13,7 +13,7 @@ import Factory
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var timeStore: DailyWorkTimeStore
-    @Injected(\.appUsageLogger) private var appUsageLogger: AppUsageLogger
+    @Injected(\.activityLogger) private var appUsageLogger: ActivityLogger
     
     var body: some View {
         VStack(spacing: 20) {

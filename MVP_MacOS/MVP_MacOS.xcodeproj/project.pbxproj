@@ -46,7 +46,7 @@
 		BD9893B52DDAF6E200F40A9B /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893B42DDAF6E200F40A9B /* RegisterUserUseCase.swift */; };
 		BD9893BA2DDC503000F40A9B /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = BD9893B92DDC503000F40A9B /* Factory */; };
 		BD9893BD2DDC53A900F40A9B /* AppLogEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */; };
-		BD9893C52DDDBD9E00F40A9B /* AppUsageLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893C42DDDBD9E00F40A9B /* AppUsageLogger.swift */; };
+		BD9893C52DDDBD9E00F40A9B /* ActivityLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893C42DDDBD9E00F40A9B /* ActivityLogger.swift */; };
 		BDE5C0C22DE6FB2B008833FB /* UsageCategoryStatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE5C0C12DE6FB2B008833FB /* UsageCategoryStatDTO.swift */; };
 		BDE5C0C42DE6FC9D008833FB /* UsageCategoryStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE5C0C32DE6FC9D008833FB /* UsageCategoryStat.swift */; };
 		BDE5C0C62DE6FE82008833FB /* AnalysisUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE5C0C52DE6FE82008833FB /* AnalysisUseCase.swift */; };
@@ -115,7 +115,7 @@
 		BD9893B42DDAF6E200F40A9B /* RegisterUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCase.swift; sourceTree = "<group>"; };
 		BD9893BC2DDC53A900F40A9B /* AppLogEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogEntity.swift; sourceTree = "<group>"; };
 		BD9893C32DDDB7B600F40A9B /* MVP-MacOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MVP-MacOS-Info.plist"; sourceTree = SOURCE_ROOT; };
-		BD9893C42DDDBD9E00F40A9B /* AppUsageLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUsageLogger.swift; sourceTree = "<group>"; };
+		BD9893C42DDDBD9E00F40A9B /* ActivityLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogger.swift; sourceTree = "<group>"; };
 		BDE5C0C12DE6FB2B008833FB /* UsageCategoryStatDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageCategoryStatDTO.swift; sourceTree = "<group>"; };
 		BDE5C0C32DE6FC9D008833FB /* UsageCategoryStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageCategoryStat.swift; sourceTree = "<group>"; };
 		BDE5C0C52DE6FE82008833FB /* AnalysisUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisUseCase.swift; sourceTree = "<group>"; };
@@ -382,7 +382,7 @@
 		BD9893C02DDDB6A100F40A9B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				BD9893C42DDDBD9E00F40A9B /* AppUsageLogger.swift */,
+				BD9893C42DDDBD9E00F40A9B /* ActivityLogger.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -555,7 +555,7 @@
 				BD9893A92DD9DD3500F40A9B /* AnalysisView.swift in Sources */,
 				BD1B701F2DE61B0E00E481E2 /* UserRankService.swift in Sources */,
 				BD9893AB2DD9DD4200F40A9B /* AnalysisViewModel.swift in Sources */,
-				BD9893C52DDDBD9E00F40A9B /* AppUsageLogger.swift in Sources */,
+				BD9893C52DDDBD9E00F40A9B /* ActivityLogger.swift in Sources */,
 				BD9893B32DDAF6CD00F40A9B /* AppLogRepository.swift in Sources */,
 				BD9893B12DDAF6C000F40A9B /* UsageLog.swift in Sources */,
 				BD1B6FF62DE433A400E481E2 /* SyncUsageLogsUseCase.swift in Sources */,

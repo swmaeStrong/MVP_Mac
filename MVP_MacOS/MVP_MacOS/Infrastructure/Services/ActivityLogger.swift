@@ -11,7 +11,7 @@ import SwiftData
 import Factory
 
 /// 앱의 로그를 기록하는 클래스
-final class AppUsageLogger {
+final class ActivityLogger {
     
     private var context: ModelContext?
     private var timer: Timer?
