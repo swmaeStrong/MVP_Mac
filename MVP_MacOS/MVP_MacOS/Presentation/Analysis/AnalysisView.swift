@@ -84,15 +84,6 @@ struct AnalysisView: View {
             
         }
         .navigationTitle("Analysis")
-        .onAppear {
-            Task {
-                do {
-                    print(try await AnalysisService().fetchAppCategories())
-                } catch {
-                    print("x")
-                }
-            }
-        }
     }
 }
 

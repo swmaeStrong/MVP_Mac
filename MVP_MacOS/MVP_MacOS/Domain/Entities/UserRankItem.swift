@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserRank {
+struct UserRankItem: Decodable {
     var userId: String = ""
     var nickname: String
     var score: Double

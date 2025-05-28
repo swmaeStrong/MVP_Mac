@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol LeaderBoardRepository {
+    func getLeaderBoard(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem]
+}
