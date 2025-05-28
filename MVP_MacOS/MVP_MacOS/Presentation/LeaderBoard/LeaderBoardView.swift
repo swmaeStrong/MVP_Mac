@@ -12,9 +12,7 @@ struct LeaderBoardView: View {
     @ObservedObject var viewModel: LeaderBoardViewModel
     @AppStorage("userNickname") private var userNickname: String = ""
     @AppStorage("userID") private var userID: String = ""
-    
-    //let userRanks: [UserRank2] = UserRank2.sampleData
-    
+        
     var body: some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading, spacing: 16) {
@@ -37,10 +35,6 @@ struct LeaderBoardView: View {
                     }
                     .padding(.horizontal)
                 }
-
-//                let filteredRanks = userRanks.filter { $0.category == selectedCategory }.sorted { $0.min > $1.min }
-//                let topRanks = filteredRanks.prefix(3)
-//                let otherRanks = filteredRanks.dropFirst(3)
 
                 // Top 3 Horizontal
                 HStack(spacing: 12) {

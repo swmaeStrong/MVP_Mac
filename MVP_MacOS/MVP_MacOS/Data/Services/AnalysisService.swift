@@ -27,4 +27,6 @@ final class AnalysisService {
         let categories = try JSONDecoder().decode([AppCategory].self, from: data)
         return categories
     }
+    
+    
 }
