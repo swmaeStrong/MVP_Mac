@@ -38,9 +38,9 @@ extension Container {
         }
     }
     
-    var syncUsageLogsUseCase: Factory<SyncUsageLogsUseCase> {
+    var transferUsageLogsUseCase: Factory<TransferUsageLogsUseCase> {
         Factory(self) {
-            SyncUsageLogsUseCase(repository: AppLogRepositoryImpl(service: UsageLogService(), appLogLocalDataSource: AppLogLocalDataSource()))
+            TransferUsageLogsUseCase(repository: AppLogRepositoryImpl(service: UsageLogService(), appLogLocalDataSource: AppLogLocalDataSource()))
         }
     }
     
