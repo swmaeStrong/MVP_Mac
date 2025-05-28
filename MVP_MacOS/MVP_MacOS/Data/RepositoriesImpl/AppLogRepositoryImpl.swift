@@ -21,7 +21,7 @@ final class AppLogRepositoryImpl: AppLogRepository {
     func execute(context: ModelContext) async throws {
         Task {
             let logs = swiftDataManager.fetchAllAppLogs(context: context)
-                .map { $0.toDomain().toDTO()}
+                .map { $0.toDTO()}
             if !logs.isEmpty {
                 do {
                     try await service.upload(logs: logs)

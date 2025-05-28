@@ -39,6 +39,18 @@ extension AppLogEntity {
             app: app
         )
     }
+    
+    func toDTO() -> UsageLogDTO {
+        let formatter = ISO8601DateFormatter()
+        let userId = UserDefaults.standard.string(forKey: "userID") ?? UUID().uuidString
+        return UsageLogDTO(
+            userId: userId,
+            title: title,
+            app: app,
+            duration: duration,
+            timestamp: formatter.string(from: timestamp)
+        )
+    }
 
     /// Domain 모델을 받아 SwiftData 엔티티 생성
     convenience init(from domain: UsageLog) {

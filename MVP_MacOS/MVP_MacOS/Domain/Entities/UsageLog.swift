@@ -14,17 +14,3 @@ struct UsageLog: Codable {
     var title: String
     var app: String
 }
-
-extension UsageLog {
-    func toDTO() -> UsageLogDTO {
-        let formatter = ISO8601DateFormatter()
-        let userId = UserDefaults.standard.string(forKey: "userID") ?? UUID().uuidString
-        return UsageLogDTO(
-            userId: userId,
-            title: title,
-            app: app,
-            duration: duration,
-            timestamp: formatter.string(from: timestamp)
-        )
-    }
-}

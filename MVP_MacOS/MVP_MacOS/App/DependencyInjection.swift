@@ -39,7 +39,7 @@ extension Container {
     
     var fetchLeaderBoardUseCase: Factory<FetchLeaderBoardUseCase> {
         Factory(self) {
-            FetchLeaderBoardUseCase(repository: AnalysisRepositoryImpl(service: AnalysisService())
+            FetchLeaderBoardUseCase(analysisRepository: AnalysisRepositoryImpl(service: AnalysisService()), leaderBoardRepository: LeaderBoardRepositoryImpl(service: UserRankService())
             )
         }
     }
