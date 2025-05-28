@@ -13,7 +13,7 @@
 		BD1B6FB92DDF09DB00E481E2 /* DailyWorkTimeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeStore.swift */; };
 		BD1B6FBC2DE0826D00E481E2 /* UserRegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FBB2DE0826D00E481E2 /* UserRegisterService.swift */; };
 		BD1B6FF42DE4339200E481E2 /* UsageLogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FF32DE4339200E481E2 /* UsageLogService.swift */; };
-		BD1B6FF62DE433A400E481E2 /* SyncUsageLogsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FF52DE433A400E481E2 /* SyncUsageLogsUseCase.swift */; };
+		BD1B6FF62DE433A400E481E2 /* TransferUsageLogsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FF52DE433A400E481E2 /* TransferUsageLogsUseCase.swift */; };
 		BD1B6FF82DE43A3500E481E2 /* UsageLogDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FF72DE43A3500E481E2 /* UsageLogDTO.swift */; };
 		BD1B6FFE2DE48D0300E481E2 /* AppLogRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FFD2DE48D0300E481E2 /* AppLogRepositoryImpl.swift */; };
 		BD1B70042DE57AE900E481E2 /* RegisterUserRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70032DE57AE900E481E2 /* RegisterUserRepositoryImpl.swift */; };
@@ -77,7 +77,7 @@
 		BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkTimeStore.swift; sourceTree = "<group>"; };
 		BD1B6FBB2DE0826D00E481E2 /* UserRegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterService.swift; sourceTree = "<group>"; };
 		BD1B6FF32DE4339200E481E2 /* UsageLogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageLogService.swift; sourceTree = "<group>"; };
-		BD1B6FF52DE433A400E481E2 /* SyncUsageLogsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUsageLogsUseCase.swift; sourceTree = "<group>"; };
+		BD1B6FF52DE433A400E481E2 /* TransferUsageLogsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferUsageLogsUseCase.swift; sourceTree = "<group>"; };
 		BD1B6FF72DE43A3500E481E2 /* UsageLogDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageLogDTO.swift; sourceTree = "<group>"; };
 		BD1B6FFD2DE48D0300E481E2 /* AppLogRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogRepositoryImpl.swift; sourceTree = "<group>"; };
 		BD1B70032DE57AE900E481E2 /* RegisterUserRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserRepositoryImpl.swift; sourceTree = "<group>"; };
@@ -275,7 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				BD9893B42DDAF6E200F40A9B /* RegisterUserUseCase.swift */,
-				BD1B6FF52DE433A400E481E2 /* SyncUsageLogsUseCase.swift */,
+				BD1B6FF52DE433A400E481E2 /* TransferUsageLogsUseCase.swift */,
 				BD1B70162DE592A600E481E2 /* FetchLeaderBoardUseCase.swift */,
 				BDE5C0C52DE6FE82008833FB /* AnalysisUseCase.swift */,
 			);
@@ -558,7 +558,7 @@
 				BD9893C52DDDBD9E00F40A9B /* ActivityLogger.swift in Sources */,
 				BD9893B32DDAF6CD00F40A9B /* AppLogRepository.swift in Sources */,
 				BD9893B12DDAF6C000F40A9B /* UsageLog.swift in Sources */,
-				BD1B6FF62DE433A400E481E2 /* SyncUsageLogsUseCase.swift in Sources */,
+				BD1B6FF62DE433A400E481E2 /* TransferUsageLogsUseCase.swift in Sources */,
 				BDE5C0C62DE6FE82008833FB /* AnalysisUseCase.swift in Sources */,
 				BD1B700F2DE58EF800E481E2 /* UsageAnalysisService.swift in Sources */,
 				BD1B6FF82DE43A3500E481E2 /* UsageLogDTO.swift in Sources */,

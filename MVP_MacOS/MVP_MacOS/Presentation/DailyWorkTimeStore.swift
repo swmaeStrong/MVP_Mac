@@ -16,7 +16,7 @@ final class DailyWorkTimeStore: ObservableObject {
     @AppStorage("lastRecordedDate") private var storedDate: String = ""
 
     @Published private(set) var seconds: Int = 0
-    @Injected(\.syncUsageLogsUseCase) private var uploadUseCase
+    @Injected(\.transferUsageLogsUseCase) private var uploadUseCase
     @Injected(\.activityLogger) private var appUsageLogger
     private var timer: AnyCancellable?
     private var autoSendCancellable: AnyCancellable?

@@ -9,7 +9,7 @@ import Foundation
 import Factory
 import SwiftData
 
-final class SyncUsageLogsUseCase {
+final class TransferUsageLogsUseCase {
     private let repository: AppLogRepository
     
     init(repository: AppLogRepository) {
