@@ -10,17 +10,17 @@ import SwiftData
 
 final class AppLogRepositoryImpl: AppLogRepository {
     private let service: UsageLogService
-    private let swiftDataManager: SwiftDataManager
+    private let appLogLocalDataSource: AppLogLocalDataSource
     
-    init(service: UsageLogService, swiftDataManager: SwiftDataManager) {
+    init(service: UsageLogService, appLogLocalDataSource: AppLogLocalDataSource) {
         self.service = service
-        self.swiftDataManager = swiftDataManager
+        self.appLogLocalDataSource = appLogLocalDataSource
     }
     
     @MainActor
     func execute(context: ModelContext) async throws {
         Task {
-            let logs = swiftDataManager.fetchAllAppLogs(context: context)
+            let logs = appLogLocalDataSource.fetchAllAppLogs(context: context)
                 .map { $0.toDTO()}
             if !logs.isEmpty {
                 do {
@@ -37,7 +37,7 @@ final class AppLogRepositoryImpl: AppLogRepository {
     @MainActor
     func deleteLog(context: ModelContext) async throws {
         do {
-            try swiftDataManager.deleteAllLogs(context: context)
+            try appLogLocalDataSource.deleteAllLogs(context: context)
             print("Deleate All Log")
         } catch {
             print("Faild to delete all data")

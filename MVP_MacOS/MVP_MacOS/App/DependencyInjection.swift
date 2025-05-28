@@ -10,16 +10,16 @@ import Factory
 import SwiftData
 
 extension Container {
-    var swiftDataManager: Factory<SwiftDataManager> {
+    var appLogLocalDataSource: Factory<AppLogLocalDataSource>{
         Factory(self) {
-            SwiftDataManager()
+            AppLogLocalDataSource()
         }
         .singleton
     }
     
     var activityLogger: Factory<ActivityLogger> {
         Factory(self) {
-            ActivityLogger(swiftDataManager: SwiftDataManager())
+            ActivityLogger(appLogLocalDataSource: AppLogLocalDataSource())
         }
         .singleton
     }
@@ -40,7 +40,7 @@ extension Container {
     
     var syncUsageLogsUseCase: Factory<SyncUsageLogsUseCase> {
         Factory(self) {
-            SyncUsageLogsUseCase(repository: AppLogRepositoryImpl(service: UsageLogService(), swiftDataManager: SwiftDataManager()))
+            SyncUsageLogsUseCase(repository: AppLogRepositoryImpl(service: UsageLogService(), appLogLocalDataSource: AppLogLocalDataSource()))
         }
     }
     
