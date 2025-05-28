@@ -66,7 +66,7 @@ final class LeaderBoardViewModel: ObservableObject {
     @MainActor
     func loadUserTop10Ranks() async {
         do {
-            let userRanks = try await fetchLeaderBoardUseCase.fetchUserRanksTop10()
+            let userRanks = try await fetchLeaderBoardUseCase.fetchGlobalTop10UserRanks()
             userRankItems = userRanks
         } catch {
             print("Error fetching leaderboard: \(error)")

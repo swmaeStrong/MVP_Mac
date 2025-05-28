@@ -18,11 +18,11 @@ final class TransferUsageLogsUseCase {
     
     @MainActor
     func syncLogs(context: ModelContext) async throws {
-        try await repository.execute(context: context)
+        try await repository.uploadLogsToServer(context: context)
     }
     
     @MainActor
     func deleteLog(context: ModelContext) async throws {
-        try await repository.deleteLog(context: context)
+        try await repository.clearLocalLogs(context: context)
     }
 }

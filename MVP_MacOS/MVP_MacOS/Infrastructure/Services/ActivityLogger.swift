@@ -46,7 +46,7 @@ final class ActivityLogger {
                    let prevApp = self.lastAppName,
                    let prevTitle = self.lastTitle {
                     let sessionLog = UsageLog(timestamp: now, duration: duration, title: prevTitle, app: prevApp)
-                    try? appLogLocalDataSource.saveLog(sessionLog, context: context)
+                    try? appLogLocalDataSource.insertAppLog(sessionLog, context: context)
                 }
                 // 상태 업데이트
                 self.lastAppName = newAppName

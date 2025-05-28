@@ -14,7 +14,7 @@ final class UsageLogService {
         self.session = session
     }
 
-    func upload(logs: [UsageLogDTO]) async throws {
+    func uploadLogs(logs: [UsageLogDTO]) async throws {
         
         let endpoint = APIEndpoint.uploadLog
         var request = URLRequest(url: endpoint.url())
