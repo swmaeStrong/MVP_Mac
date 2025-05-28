@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class AnalysisService {
+final class UsageAnalysisService {
     private let session: URLSession
 
     init(session: URLSession = .shared) {
