@@ -14,6 +14,7 @@ enum APIEndpoint {
     case registerUser
     case uploadLog
     case getCategories
+    case getUserRanks(category: String, page: Int?, size: Int?, date: String)
 
     var path: String {
         switch self {
@@ -25,6 +26,8 @@ enum APIEndpoint {
             return "/usage-log"
         case .getCategories:
             return "/category"
+        case .getUserRanks(let category, _, _, _):
+            return "/leaderboard/\(category)"
         }
     }
 
@@ -33,8 +36,8 @@ enum APIEndpoint {
         case .checkNickname: return "GET"
         case .registerUser: return "POST"
         case .uploadLog: return "POST"
-        case .getCategories:
-            return "GET"
+        case .getCategories: return "GET"
+        case .getUserRanks: return "GET"
         }
     }
 
@@ -50,6 +53,18 @@ enum APIEndpoint {
             return APIEndpoint.baseURL.appendingPathComponent(path)
         case .getCategories:
             return APIEndpoint.baseURL.appendingPathComponent(path)
+        case .getUserRanks(let category, let page, let size, let date):
+            var components = URLComponents(url: APIEndpoint.baseURL.appendingPathComponent("/leaderboard/\(category)"), resolvingAgainstBaseURL: false)!
+            var items: [URLQueryItem] = []
+            if let page = page {
+                items.append(URLQueryItem(name: "page", value: "\(page)"))
+            }
+            if let size = size {
+                items.append(URLQueryItem(name: "size", value: "\(size)"))
+            }
+            items.append(URLQueryItem(name: "date", value: date))
+            components.queryItems = items
+            return components.url!
         }
     }
 }
