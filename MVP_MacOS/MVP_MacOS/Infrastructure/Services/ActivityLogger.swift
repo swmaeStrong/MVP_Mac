@@ -18,10 +18,10 @@ final class ActivityLogger {
     private var lastTitle: String?
     private var lastAppName: String?
     private var lastTimestamp: Date?
-    private var swiftDataManager: SwiftDataManager
+    private var appLogLocalDataSource: AppLogLocalDataSource
     
-    init(swiftDataManager: SwiftDataManager) {
-        self.swiftDataManager = swiftDataManager
+    init(appLogLocalDataSource: AppLogLocalDataSource) {
+        self.appLogLocalDataSource = appLogLocalDataSource
     }
     
     func configure(context: ModelContext) {
@@ -46,7 +46,7 @@ final class ActivityLogger {
                    let prevApp = self.lastAppName,
                    let prevTitle = self.lastTitle {
                     let sessionLog = UsageLog(timestamp: now, duration: duration, title: prevTitle, app: prevApp)
-                    try? swiftDataManager.saveLog(sessionLog, context: context)
+                    try? appLogLocalDataSource.saveLog(sessionLog, context: context)
                 }
                 // 상태 업데이트
                 self.lastAppName = newAppName

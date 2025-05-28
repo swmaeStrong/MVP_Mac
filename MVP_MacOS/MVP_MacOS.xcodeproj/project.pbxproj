@@ -40,7 +40,7 @@
 		BD9893A72DD9DD2D00F40A9B /* LeaderBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893A62DD9DD2D00F40A9B /* LeaderBoardViewModel.swift */; };
 		BD9893A92DD9DD3500F40A9B /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893A82DD9DD3500F40A9B /* AnalysisView.swift */; };
 		BD9893AB2DD9DD4200F40A9B /* AnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893AA2DD9DD4200F40A9B /* AnalysisViewModel.swift */; };
-		BD9893AE2DD9DD6100F40A9B /* SwiftDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893AD2DD9DD6100F40A9B /* SwiftDataManager.swift */; };
+		BD9893AE2DD9DD6100F40A9B /* AppLogLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893AD2DD9DD6100F40A9B /* AppLogLocalDataSource.swift */; };
 		BD9893B12DDAF6C000F40A9B /* UsageLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893B02DDAF6C000F40A9B /* UsageLog.swift */; };
 		BD9893B32DDAF6CD00F40A9B /* AppLogRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893B22DDAF6CD00F40A9B /* AppLogRepository.swift */; };
 		BD9893B52DDAF6E200F40A9B /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893B42DDAF6E200F40A9B /* RegisterUserUseCase.swift */; };
@@ -109,7 +109,7 @@
 		BD9893A62DD9DD2D00F40A9B /* LeaderBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardViewModel.swift; sourceTree = "<group>"; };
 		BD9893A82DD9DD3500F40A9B /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
 		BD9893AA2DD9DD4200F40A9B /* AnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewModel.swift; sourceTree = "<group>"; };
-		BD9893AD2DD9DD6100F40A9B /* SwiftDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataManager.swift; sourceTree = "<group>"; };
+		BD9893AD2DD9DD6100F40A9B /* AppLogLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogLocalDataSource.swift; sourceTree = "<group>"; };
 		BD9893B02DDAF6C000F40A9B /* UsageLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageLog.swift; sourceTree = "<group>"; };
 		BD9893B22DDAF6CD00F40A9B /* AppLogRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogRepository.swift; sourceTree = "<group>"; };
 		BD9893B42DDAF6E200F40A9B /* RegisterUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCase.swift; sourceTree = "<group>"; };
@@ -290,7 +290,7 @@
 				BD1B6FFC2DE48CE900E481E2 /* RepositoriesImpl */,
 				BD1B6FBA2DE07F9100E481E2 /* Services */,
 				BD9893BB2DDC539B00F40A9B /* Models */,
-				BD9893AC2DD9DD4B00F40A9B /* Manager */,
+				BD9893AC2DD9DD4B00F40A9B /* Local */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -361,12 +361,12 @@
 			path = LeaderBoard;
 			sourceTree = "<group>";
 		};
-		BD9893AC2DD9DD4B00F40A9B /* Manager */ = {
+		BD9893AC2DD9DD4B00F40A9B /* Local */ = {
 			isa = PBXGroup;
 			children = (
-				BD9893AD2DD9DD6100F40A9B /* SwiftDataManager.swift */,
+				BD9893AD2DD9DD6100F40A9B /* AppLogLocalDataSource.swift */,
 			);
-			path = Manager;
+			path = Local;
 			sourceTree = "<group>";
 		};
 		BD9893BB2DDC539B00F40A9B /* Models */ = {
@@ -528,7 +528,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD1B70192DE5CBD900E481E2 /* Color+Hex.swift in Sources */,
-				BD9893AE2DD9DD6100F40A9B /* SwiftDataManager.swift in Sources */,
+				BD9893AE2DD9DD6100F40A9B /* AppLogLocalDataSource.swift in Sources */,
 				BDE5C0C82DE70379008833FB /* Double+Extension.swift in Sources */,
 				BD1B6FBC2DE0826D00E481E2 /* UserRegisterService.swift in Sources */,
 				BD1B70152DE58FC000E481E2 /* AppCategory.swift in Sources */,

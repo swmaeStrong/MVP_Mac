@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 /// SwiftData를 통한 로컬 영속화(읽기·쓰기·삭제)를 전담하는 매니저
-final class SwiftDataManager {
+final class AppLogLocalDataSource {
     
     /// AppLog 엔티티 저장
     func saveLog(_ log: UsageLog, context: ModelContext) throws {
