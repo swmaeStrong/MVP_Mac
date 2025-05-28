@@ -11,7 +11,7 @@ import Factory
 
 final class AnalysisViewModel: ObservableObject {
     @ObservationIgnored
-    @Injected(\.analysisUseCase) var analysisUseCase
+    @Injected(\.analyzeUsageUseCase) var analysisUseCase
     
     @Published var usageCategoryStat: [UsageCategoryStat] = []
     

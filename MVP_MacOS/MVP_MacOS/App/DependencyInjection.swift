@@ -24,9 +24,9 @@ extension Container {
         .singleton
     }
     
-    var analysisService: Factory<AnalysisService> {
+    var analysisService: Factory<UsageAnalysisService> {
         Factory(self) {
-            AnalysisService()
+            UsageAnalysisService()
         }
         .singleton
     }
@@ -46,14 +46,14 @@ extension Container {
     
     var fetchLeaderBoardUseCase: Factory<FetchLeaderBoardUseCase> {
         Factory(self) {
-            FetchLeaderBoardUseCase(analysisRepository: AnalysisRepositoryImpl(service: AnalysisService()), leaderBoardRepository: LeaderBoardRepositoryImpl(service: UserRankService())
+            FetchLeaderBoardUseCase(analysisRepository: AnalysisRepositoryImpl(service: UsageAnalysisService()), leaderBoardRepository: LeaderBoardRepositoryImpl(service: UserRankService())
             )
         }
     }
     
-    var analysisUseCase: Factory<AnalysisUseCase> {
+    var analyzeUsageUseCase: Factory<AnalysisUseCase> {
         Factory(self) {
-            AnalysisUseCase(analysisRepository: AnalysisRepositoryImpl(service: AnalysisService()))
+            AnalysisUseCase(analysisRepository: AnalysisRepositoryImpl(service: UsageAnalysisService()))
         }
     }
 }

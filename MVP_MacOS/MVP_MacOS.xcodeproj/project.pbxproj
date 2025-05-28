@@ -20,7 +20,7 @@
 		BD1B70062DE57AFB00E481E2 /* RegisterUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70052DE57AFB00E481E2 /* RegisterUserRepository.swift */; };
 		BD1B70092DE57F7000E481E2 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */; };
 		BD1B700C2DE5830B00E481E2 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B700B2DE5830B00E481E2 /* AppConfig.swift */; };
-		BD1B700F2DE58EF800E481E2 /* AnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B700E2DE58EF800E481E2 /* AnalysisService.swift */; };
+		BD1B700F2DE58EF800E481E2 /* UsageAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B700E2DE58EF800E481E2 /* UsageAnalysisService.swift */; };
 		BD1B70112DE58F1500E481E2 /* AnalysisRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70102DE58F1500E481E2 /* AnalysisRepository.swift */; };
 		BD1B70132DE58F2100E481E2 /* AnalysisRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70122DE58F2100E481E2 /* AnalysisRepositoryImpl.swift */; };
 		BD1B70152DE58FC000E481E2 /* AppCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70142DE58FC000E481E2 /* AppCategory.swift */; };
@@ -85,7 +85,7 @@
 		BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
 		BD1B700A2DE5812900E481E2 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		BD1B700B2DE5830B00E481E2 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
-		BD1B700E2DE58EF800E481E2 /* AnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisService.swift; sourceTree = "<group>"; };
+		BD1B700E2DE58EF800E481E2 /* UsageAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageAnalysisService.swift; sourceTree = "<group>"; };
 		BD1B70102DE58F1500E481E2 /* AnalysisRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisRepository.swift; sourceTree = "<group>"; };
 		BD1B70122DE58F2100E481E2 /* AnalysisRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisRepositoryImpl.swift; sourceTree = "<group>"; };
 		BD1B70142DE58FC000E481E2 /* AppCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCategory.swift; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 			children = (
 				BD1B6FBB2DE0826D00E481E2 /* UserRegisterService.swift */,
 				BD1B6FF32DE4339200E481E2 /* UsageLogService.swift */,
-				BD1B700E2DE58EF800E481E2 /* AnalysisService.swift */,
+				BD1B700E2DE58EF800E481E2 /* UsageAnalysisService.swift */,
 				BD1B701E2DE61B0E00E481E2 /* UserRankService.swift */,
 			);
 			path = Services;
@@ -560,7 +560,7 @@
 				BD9893B12DDAF6C000F40A9B /* UsageLog.swift in Sources */,
 				BD1B6FF62DE433A400E481E2 /* SyncUsageLogsUseCase.swift in Sources */,
 				BDE5C0C62DE6FE82008833FB /* AnalysisUseCase.swift in Sources */,
-				BD1B700F2DE58EF800E481E2 /* AnalysisService.swift in Sources */,
+				BD1B700F2DE58EF800E481E2 /* UsageAnalysisService.swift in Sources */,
 				BD1B6FF82DE43A3500E481E2 /* UsageLogDTO.swift in Sources */,
 				BD9893BD2DDC53A900F40A9B /* AppLogEntity.swift in Sources */,
 				BD9893A72DD9DD2D00F40A9B /* LeaderBoardViewModel.swift in Sources */,

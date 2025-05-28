@@ -8,9 +8,9 @@
 import Foundation
 
 final class AnalysisRepositoryImpl: AnalysisRepository {
-    private let service: AnalysisService
+    private let service: UsageAnalysisService
 
-    init(service: AnalysisService) {
+    init(service: UsageAnalysisService) {
         self.service = service
     }
 
