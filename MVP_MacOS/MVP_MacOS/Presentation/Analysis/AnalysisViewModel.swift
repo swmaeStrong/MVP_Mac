@@ -24,6 +24,4 @@ final class AnalysisViewModel: ObservableObject {
             print("ErrorAnalysysfetchUsageCategoryStat: \(error)")
         }
     }
-    
-    
 }

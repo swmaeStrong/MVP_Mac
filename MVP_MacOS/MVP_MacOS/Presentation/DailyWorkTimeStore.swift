@@ -17,7 +17,7 @@ final class DailyWorkTimeStore: ObservableObject {
 
     @Published private(set) var seconds: Int = 0
     @Injected(\.syncUsageLogsUseCase) private var uploadUseCase
-    @Injected(\.appUsageLogger) private var appUsageLogger
+    @Injected(\.activityLogger) private var appUsageLogger
     private var timer: AnyCancellable?
     private var autoSendCancellable: AnyCancellable?
 
