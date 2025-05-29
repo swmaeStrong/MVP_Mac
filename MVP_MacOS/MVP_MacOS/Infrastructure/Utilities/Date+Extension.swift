@@ -14,4 +14,15 @@ extension Date {
         formatter.timeZone = .current
         return formatter.string(from: self)
     }
+    
+    var iso8601WithMillisecondsUTC: String {
+        let formatter = ISO8601DateFormatter()
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.formatOptions = [
+            .withInternetDateTime,
+            .withFractionalSeconds // 밀리초 포함
+        ]
+        return formatter.string(from: self)
+    }
+    
 }

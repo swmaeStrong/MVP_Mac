@@ -14,7 +14,7 @@ final class LeaderBoardViewModel: ObservableObject {
     
     @Published var categoryNames: [String] = []
     @Published var userRankItems: [String: [UserRankItem]] = [:]
-    @Published var selectedCategory: String = "develop"
+    @Published var selectedCategory: String = "Development"
     @Published var top3Ranks: [String: [UserRankItem]] = [:]
     @Published var otherRanks: [String: [UserRankItem]] = [:]
     

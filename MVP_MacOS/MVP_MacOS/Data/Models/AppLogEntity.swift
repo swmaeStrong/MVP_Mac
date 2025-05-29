@@ -41,14 +41,13 @@ extension AppLogEntity {
     }
     
     func toDTO() -> UsageLogDTO {
-        let formatter = ISO8601DateFormatter()
         let userId = UserDefaults.standard.string(forKey: "userID") ?? UUID().uuidString
         return UsageLogDTO(
             userId: userId,
             title: title,
             app: app,
             duration: duration,
-            timestamp: formatter.string(from: timestamp)
+            timestamp: timestamp.iso8601WithMillisecondsUTC
         )
     }
 

@@ -40,6 +40,21 @@ extension Int {
         }
     }
     
+    var formattedDurationFromSecondsForBarChart: String {
+        if self < 60 {
+            return ""
+        }
+        let hours = self / 3600
+        let mins = (self % 3600) / 60
+        if hours > 0 && mins > 0 {
+            return "\(hours) hr \(mins) min"
+        } else if hours > 0 {
+            return "\(hours) hr"
+        } else {
+            return "\(mins) min"
+        }
+    }
+    
     /// sec 를 기반으로 "hh:mm:ss" 형태로 변경
     var formattedHMSFromSeconds: String {
         let hours = self / 3600
