@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct MVP_MacOSApp: App {
+struct PawcusApp: App {
     @StateObject private var dailyWorkTimeStore = DailyWorkTimeStore()
     init() {
         ensureAccessibilityPermission()
