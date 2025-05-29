@@ -30,7 +30,7 @@ struct HomeView: View {
                     .frame(width: 250, height: 250)
                     .shadow(color: .gray.opacity(0.8), radius: 60, x: 0, y: 0)
                 VStack {
-                    Text(timeStore.formattedTime)
+                    Text(timeStore.seconds.formattedHMSFromSeconds)
                         .font(.largeTitle)
                         .bold()
                         .monospaced()
