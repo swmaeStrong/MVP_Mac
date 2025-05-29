@@ -39,7 +39,7 @@ struct AnalysisView: View {
             .padding(.bottom)
             .padding(.horizontal)
             
-            Text("Chart")
+            Text("Pie Chart")
                 .bold()
                 .foregroundColor(.gray)
                 .padding(.leading)
@@ -78,11 +78,6 @@ struct AnalysisView: View {
             .cornerRadius(12)
             .padding(.bottom)
             .padding(.horizontal)
-            Text("Top Categories")
-                .bold()
-                .foregroundColor(.gray)
-                .padding(.leading)
-            
         }
         .onAppear {
             Task {
