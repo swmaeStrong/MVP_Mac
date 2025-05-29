@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD0473FA2DE835C400960470 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = BD0473F92DE835C400960470 /* Config.xcconfig */; };
 		BD1B6FB32DDED98D00E481E2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB22DDED98D00E481E2 /* RootView.swift */; };
 		BD1B6FB92DDF09DB00E481E2 /* DailyWorkTimeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeStore.swift */; };
 		BD1B70092DE57F7000E481E2 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */; };
@@ -42,17 +43,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BD0473F92DE835C400960470 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		BD1B6FB22DDED98D00E481E2 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkTimeStore.swift; sourceTree = "<group>"; };
 		BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
-		BD1B700A2DE5812900E481E2 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		BD1B700B2DE5830B00E481E2 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
-		BD98933F2DD9C46800F40A9B /* MVP_MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVP_MacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD9893502DD9C46A00F40A9B /* MVP_MacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD98935A2DD9C46A00F40A9B /* MVP_MacOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVP_MacOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD98933F2DD9C46800F40A9B /* Pawcus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pawcus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD9893502DD9C46A00F40A9B /* PawcusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PawcusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD98935A2DD9C46A00F40A9B /* PawcusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PawcusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD98936D2DD9C47A00F40A9B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD98936E2DD9C47A00F40A9B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		BD98936F2DD9C47A00F40A9B /* MVP_MacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MVP_MacOS.entitlements; sourceTree = "<group>"; };
+		BD98936F2DD9C47A00F40A9B /* Pawcus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pawcus.entitlements; sourceTree = "<group>"; };
 		BD9893702DD9C47A00F40A9B /* MVP_MacOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVP_MacOSApp.swift; sourceTree = "<group>"; };
 		BD9893902DD9DC0200F40A9B /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
 		BD9893A02DD9DD1300F40A9B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -61,7 +62,7 @@
 		BD9893A82DD9DD3500F40A9B /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
 		BD9893AA2DD9DD4200F40A9B /* AnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewModel.swift; sourceTree = "<group>"; };
 		BD9893AD2DD9DD6100F40A9B /* AppLogLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogLocalDataSource.swift; sourceTree = "<group>"; };
-		BD9893C32DDDB7B600F40A9B /* MVP-MacOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MVP-MacOS-Info.plist"; sourceTree = SOURCE_ROOT; };
+		BD9893C32DDDB7B600F40A9B /* Pawcus-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pawcus-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -153,7 +154,7 @@
 		BD1B700D2DE5869800E481E2 /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				BD1B700A2DE5812900E481E2 /* Config.xcconfig */,
+				BD0473F92DE835C400960470 /* Config.xcconfig */,
 				BD1B700B2DE5830B00E481E2 /* AppConfig.swift */,
 			);
 			path = Config;
@@ -162,7 +163,7 @@
 		BD9893362DD9C46800F40A9B = {
 			isa = PBXGroup;
 			children = (
-				BD9893712DD9C47A00F40A9B /* MVP_MacOS */,
+				BD9893712DD9C47A00F40A9B /* Pawcus */,
 				BD9893402DD9C46800F40A9B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -170,18 +171,18 @@
 		BD9893402DD9C46800F40A9B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BD98933F2DD9C46800F40A9B /* MVP_MacOS.app */,
-				BD9893502DD9C46A00F40A9B /* MVP_MacOSTests.xctest */,
-				BD98935A2DD9C46A00F40A9B /* MVP_MacOSUITests.xctest */,
+				BD98933F2DD9C46800F40A9B /* Pawcus.app */,
+				BD9893502DD9C46A00F40A9B /* PawcusTests.xctest */,
+				BD98935A2DD9C46A00F40A9B /* PawcusUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BD9893712DD9C47A00F40A9B /* MVP_MacOS */ = {
+		BD9893712DD9C47A00F40A9B /* Pawcus */ = {
 			isa = PBXGroup;
 			children = (
-				BD9893C32DDDB7B600F40A9B /* MVP-MacOS-Info.plist */,
-				BD98936F2DD9C47A00F40A9B /* MVP_MacOS.entitlements */,
+				BD9893C32DDDB7B600F40A9B /* Pawcus-Info.plist */,
+				BD98936F2DD9C47A00F40A9B /* Pawcus.entitlements */,
 				BD98938F2DD9DBE000F40A9B /* App */,
 				BD9893922DD9DC1000F40A9B /* Domain */,
 				BD9893962DD9DC5800F40A9B /* Data */,
@@ -189,7 +190,7 @@
 				BD9893982DD9DC6A00F40A9B /* Presentation */,
 				BD9893992DD9DC7600F40A9B /* Resource */,
 			);
-			path = MVP_MacOS;
+			path = Pawcus;
 			sourceTree = "<group>";
 		};
 		BD98938F2DD9DBE000F40A9B /* App */ = {
@@ -290,9 +291,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BD98933E2DD9C46800F40A9B /* MVP_MacOS */ = {
+		BD98933E2DD9C46800F40A9B /* Pawcus */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BD9893642DD9C46A00F40A9B /* Build configuration list for PBXNativeTarget "MVP_MacOS" */;
+			buildConfigurationList = BD9893642DD9C46A00F40A9B /* Build configuration list for PBXNativeTarget "Pawcus" */;
 			buildPhases = (
 				BD98933B2DD9C46800F40A9B /* Sources */,
 				BD98933C2DD9C46800F40A9B /* Frameworks */,
@@ -312,17 +313,17 @@
 				BD0472A12DE7527100960470 /* Utilities */,
 				BD0472A72DE7527400960470 /* Services */,
 			);
-			name = MVP_MacOS;
+			name = Pawcus;
 			packageProductDependencies = (
 				BD9893B92DDC503000F40A9B /* Factory */,
 			);
 			productName = MVP_MacOS;
-			productReference = BD98933F2DD9C46800F40A9B /* MVP_MacOS.app */;
+			productReference = BD98933F2DD9C46800F40A9B /* Pawcus.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BD98934F2DD9C46A00F40A9B /* MVP_MacOSTests */ = {
+		BD98934F2DD9C46A00F40A9B /* PawcusTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BD9893672DD9C46A00F40A9B /* Build configuration list for PBXNativeTarget "MVP_MacOSTests" */;
+			buildConfigurationList = BD9893672DD9C46A00F40A9B /* Build configuration list for PBXNativeTarget "PawcusTests" */;
 			buildPhases = (
 				BD98934C2DD9C46A00F40A9B /* Sources */,
 				BD98934D2DD9C46A00F40A9B /* Frameworks */,
@@ -333,16 +334,16 @@
 			dependencies = (
 				BD9893522DD9C46A00F40A9B /* PBXTargetDependency */,
 			);
-			name = MVP_MacOSTests;
+			name = PawcusTests;
 			packageProductDependencies = (
 			);
 			productName = MVP_MacOSTests;
-			productReference = BD9893502DD9C46A00F40A9B /* MVP_MacOSTests.xctest */;
+			productReference = BD9893502DD9C46A00F40A9B /* PawcusTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		BD9893592DD9C46A00F40A9B /* MVP_MacOSUITests */ = {
+		BD9893592DD9C46A00F40A9B /* PawcusUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BD98936A2DD9C46A00F40A9B /* Build configuration list for PBXNativeTarget "MVP_MacOSUITests" */;
+			buildConfigurationList = BD98936A2DD9C46A00F40A9B /* Build configuration list for PBXNativeTarget "PawcusUITests" */;
 			buildPhases = (
 				BD9893562DD9C46A00F40A9B /* Sources */,
 				BD9893572DD9C46A00F40A9B /* Frameworks */,
@@ -353,11 +354,11 @@
 			dependencies = (
 				BD98935C2DD9C46A00F40A9B /* PBXTargetDependency */,
 			);
-			name = MVP_MacOSUITests;
+			name = PawcusUITests;
 			packageProductDependencies = (
 			);
 			productName = MVP_MacOSUITests;
-			productReference = BD98935A2DD9C46A00F40A9B /* MVP_MacOSUITests.xctest */;
+			productReference = BD98935A2DD9C46A00F40A9B /* PawcusUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -383,7 +384,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BD98933A2DD9C46800F40A9B /* Build configuration list for PBXProject "MVP_MacOS" */;
+			buildConfigurationList = BD98933A2DD9C46800F40A9B /* Build configuration list for PBXProject "Pawcus" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -400,9 +401,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BD98933E2DD9C46800F40A9B /* MVP_MacOS */,
-				BD98934F2DD9C46A00F40A9B /* MVP_MacOSTests */,
-				BD9893592DD9C46A00F40A9B /* MVP_MacOSUITests */,
+				BD98933E2DD9C46800F40A9B /* Pawcus */,
+				BD98934F2DD9C46A00F40A9B /* PawcusTests */,
+				BD9893592DD9C46A00F40A9B /* PawcusUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -412,6 +413,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD0473FA2DE835C400960470 /* Config.xcconfig in Resources */,
 				BD9893722DD9C47A00F40A9B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,12 +474,12 @@
 /* Begin PBXTargetDependency section */
 		BD9893522DD9C46A00F40A9B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BD98933E2DD9C46800F40A9B /* MVP_MacOS */;
+			target = BD98933E2DD9C46800F40A9B /* Pawcus */;
 			targetProxy = BD9893512DD9C46A00F40A9B /* PBXContainerItemProxy */;
 		};
 		BD98935C2DD9C46A00F40A9B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BD98933E2DD9C46800F40A9B /* MVP_MacOS */;
+			target = BD98933E2DD9C46800F40A9B /* Pawcus */;
 			targetProxy = BD98935B2DD9C46A00F40A9B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -485,7 +487,7 @@
 /* Begin XCBuildConfiguration section */
 		BD9893622DD9C46A00F40A9B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD1B700A2DE5812900E481E2 /* Config.xcconfig */;
+			baseConfigurationReference = BD0473F92DE835C400960470 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -549,7 +551,6 @@
 		};
 		BD9893632DD9C46A00F40A9B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD1B700A2DE5812900E481E2 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -605,11 +606,10 @@
 		};
 		BD9893652DD9C46A00F40A9B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD1B700A2DE5812900E481E2 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MVP_MacOS/MVP_MacOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Pawcus/Pawcus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -617,14 +617,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MVP-MacOS-Info.plist";
+				INFOPLIST_FILE = "Pawcus-Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "swmaestrong.MVP-MacOS";
+				PRODUCT_BUNDLE_IDENTIFIER = swmaestrong.Pawcus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -633,11 +633,10 @@
 		};
 		BD9893662DD9C46A00F40A9B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD1B700A2DE5812900E481E2 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MVP_MacOS/MVP_MacOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Pawcus/Pawcus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -645,14 +644,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MVP-MacOS-Info.plist";
+				INFOPLIST_FILE = "Pawcus-Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "swmaestrong.MVP-MacOS";
+				PRODUCT_BUNDLE_IDENTIFIER = swmaestrong.Pawcus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -673,7 +672,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MVP_MacOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MVP_MacOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pawcus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pawcus";
 			};
 			name = Debug;
 		};
@@ -691,7 +690,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MVP_MacOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MVP_MacOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pawcus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pawcus";
 			};
 			name = Release;
 		};
@@ -730,7 +729,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BD98933A2DD9C46800F40A9B /* Build configuration list for PBXProject "MVP_MacOS" */ = {
+		BD98933A2DD9C46800F40A9B /* Build configuration list for PBXProject "Pawcus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD9893622DD9C46A00F40A9B /* Debug */,
@@ -739,7 +738,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BD9893642DD9C46A00F40A9B /* Build configuration list for PBXNativeTarget "MVP_MacOS" */ = {
+		BD9893642DD9C46A00F40A9B /* Build configuration list for PBXNativeTarget "Pawcus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD9893652DD9C46A00F40A9B /* Debug */,
@@ -748,7 +747,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BD9893672DD9C46A00F40A9B /* Build configuration list for PBXNativeTarget "MVP_MacOSTests" */ = {
+		BD9893672DD9C46A00F40A9B /* Build configuration list for PBXNativeTarget "PawcusTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD9893682DD9C46A00F40A9B /* Debug */,
@@ -757,7 +756,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BD98936A2DD9C46A00F40A9B /* Build configuration list for PBXNativeTarget "MVP_MacOSUITests" */ = {
+		BD98936A2DD9C46A00F40A9B /* Build configuration list for PBXNativeTarget "PawcusUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD98936B2DD9C46A00F40A9B /* Debug */,
