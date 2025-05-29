@@ -13,7 +13,7 @@
 		BD1B700C2DE5830B00E481E2 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B700B2DE5830B00E481E2 /* AppConfig.swift */; };
 		BD9893722DD9C47A00F40A9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD98936D2DD9C47A00F40A9B /* Assets.xcassets */; };
 		BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD98936E2DD9C47A00F40A9B /* ContentView.swift */; };
-		BD9893742DD9C47A00F40A9B /* MVP_MacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893702DD9C47A00F40A9B /* MVP_MacOSApp.swift */; };
+		BD9893742DD9C47A00F40A9B /* PawcusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893702DD9C47A00F40A9B /* PawcusApp.swift */; };
 		BD9893912DD9DC0200F40A9B /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893902DD9DC0200F40A9B /* DependencyInjection.swift */; };
 		BD9893A12DD9DD1300F40A9B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893A02DD9DD1300F40A9B /* HomeView.swift */; };
 		BD9893A52DD9DD2400F40A9B /* LeaderBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893A42DD9DD2400F40A9B /* LeaderBoardView.swift */; };
@@ -53,7 +53,7 @@
 		BD98936D2DD9C47A00F40A9B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD98936E2DD9C47A00F40A9B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BD98936F2DD9C47A00F40A9B /* Pawcus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pawcus.entitlements; sourceTree = "<group>"; };
-		BD9893702DD9C47A00F40A9B /* MVP_MacOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVP_MacOSApp.swift; sourceTree = "<group>"; };
+		BD9893702DD9C47A00F40A9B /* PawcusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawcusApp.swift; sourceTree = "<group>"; };
 		BD9893902DD9DC0200F40A9B /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
 		BD9893A02DD9DD1300F40A9B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BD9893A42DD9DD2400F40A9B /* LeaderBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardView.swift; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 		BD98938F2DD9DBE000F40A9B /* App */ = {
 			isa = PBXGroup;
 			children = (
-				BD9893702DD9C47A00F40A9B /* MVP_MacOSApp.swift */,
+				BD9893702DD9C47A00F40A9B /* PawcusApp.swift */,
 				BD9893902DD9DC0200F40A9B /* DependencyInjection.swift */,
 			);
 			path = App;
@@ -444,7 +444,7 @@
 				BD1B70092DE57F7000E481E2 /* APIEndpoint.swift in Sources */,
 				BD1B6FB32DDED98D00E481E2 /* RootView.swift in Sources */,
 				BD9893A52DD9DD2400F40A9B /* LeaderBoardView.swift in Sources */,
-				BD9893742DD9C47A00F40A9B /* MVP_MacOSApp.swift in Sources */,
+				BD9893742DD9C47A00F40A9B /* PawcusApp.swift in Sources */,
 				BD9893A12DD9DD1300F40A9B /* HomeView.swift in Sources */,
 				BD9893912DD9DC0200F40A9B /* DependencyInjection.swift in Sources */,
 				BD9893A92DD9DD3500F40A9B /* AnalysisView.swift in Sources */,

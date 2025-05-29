@@ -12,7 +12,13 @@ struct ContentView: View {
         case home = "Home"
         case leaderboard = "LeaderBoard"
         case analysis = "Analysis"
-
+        var imageName : String {
+            switch self {
+            case .home: return "house.fill"
+            case .leaderboard: return "chart.bar.fill"
+            case .analysis: return "magnifyingglass.circle.fill"
+            }
+        }
         var id: String { rawValue }
     }
     @StateObject var leaderViewModel: LeaderBoardViewModel = LeaderBoardViewModel()
@@ -22,8 +28,8 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             List(Tab.allCases, selection: $selection) { tab in
-                Text(tab.rawValue)
-                    .tag(tab)
+                Label(tab.rawValue, systemImage: tab.imageName)
+                .tag(tab)
             }
             .listStyle(.sidebar)
             .navigationTitle("Tabs")
