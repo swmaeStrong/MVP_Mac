@@ -18,6 +18,7 @@ final class ActivityLogger {
     private var lastTitle: String?
     private var lastAppName: String?
     private var lastTimestamp: Date?
+    private var lastFlushDate: Date?
     private var appLogLocalDataSource: AppLogLocalDataSource
     
     init(appLogLocalDataSource: AppLogLocalDataSource) {
@@ -31,32 +32,50 @@ final class ActivityLogger {
 
     /// 1초에 한번씩 보고있는 타이틀을 로깅해 SwiftData에 저장
     private func startLogging() {
+        lastFlushDate = Date()
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             guard let log = self.getActiveAppInfo() else { return }
 
+            let now = Date()
             if log.title != self.lastTitle {
                 // 앱 전환 감지
                 let newAppName = log.app
                 let newTitle = log.title
-                let now = Date()
                 let duration = now.timeIntervalSince(self.lastTimestamp ?? now)
                 // 이전 세션 기록
                 if let context = self.context,
                    let prevApp = self.lastAppName,
                    let prevTitle = self.lastTitle {
                     let sessionLog = UsageLog(timestamp: now, duration: duration, title: prevTitle, app: prevApp)
-                    try? appLogLocalDataSource.insertAppLog(sessionLog, context: context)
+                    try? self.appLogLocalDataSource.insertAppLog(sessionLog, context: context)
                 }
                 // 상태 업데이트
                 self.lastAppName = newAppName
                 self.lastTitle = newTitle
                 self.lastTimestamp = now
+                self.lastFlushDate = now
+            } else if let lastFlush = self.lastFlushDate, now.timeIntervalSince(lastFlush) >= 10 {
+                // 5분 경과시 강제 저장
+                if let context = self.context,
+                   let prevApp = self.lastAppName,
+                   let prevTitle = self.lastTitle,
+                   let lastTimestamp = self.lastTimestamp {
+                    let duration = now.timeIntervalSince(lastTimestamp)
+                    let sessionLog = UsageLog(timestamp: now, duration: duration, title: prevTitle, app: prevApp)
+                    try? self.appLogLocalDataSource.insertAppLog(sessionLog, context: context)
+                    self.lastFlushDate = now
+                    self.lastTimestamp = now
+                }
             }
         }
     }
     
     func stopLogging() {
+        lastTitle = nil
+        lastAppName = nil
+        lastTimestamp = nil
+        lastFlushDate = nil
         timer?.invalidate()
         timer = nil
     }
@@ -86,4 +105,3 @@ final class ActivityLogger {
         return UsageLog(timestamp: .now, duration: 0, title: titleString, app: appName)
     }
 }
-    

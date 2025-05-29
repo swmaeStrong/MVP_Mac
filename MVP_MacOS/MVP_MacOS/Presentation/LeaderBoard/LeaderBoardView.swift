@@ -75,6 +75,10 @@ struct LeaderBoardView: View {
             .padding(.vertical)
         }
         .onAppear {
+            Task {
+                await viewModel.loadCategories()
+                await viewModel.loadUserTop10Ranks()
+            }
             print(userID)
             print(userNickname)
         }

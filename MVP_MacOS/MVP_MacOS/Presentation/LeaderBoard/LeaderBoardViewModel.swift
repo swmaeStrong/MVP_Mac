@@ -25,7 +25,6 @@ final class LeaderBoardViewModel: ObservableObject {
             await loadCategories()
             await loadUserTop10Ranks()
         }
-        
     }
     
     @MainActor
@@ -49,19 +48,6 @@ final class LeaderBoardViewModel: ObservableObject {
         let ranks = userRankItems[selectedCategory]?.sorted(by: { $0.score > $1.score }) ?? []
         return Array(ranks.dropFirst(3))
     }
-    
-//    @MainActor
-//    func loadUserRanks(page: Int? = nil, size: Int? = nil, date: Date) async {
-//        do {
-//            for category in categories {
-//                let userRank = try await fetchLeaderBoardUseCase.fetchLeaderBoard(category: category.category, page: page, size: size, date: date.formattedDateString)
-//                print(userRank)
-//                userRankItems.append(contentsOf: userRank)
-//            }
-//        } catch {
-//            print("Error fetching leaderboard: \(error)")
-//        }
-//    }
     
     @MainActor
     func loadUserTop10Ranks() async {

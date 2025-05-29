@@ -12,16 +12,19 @@ import Factory
 import SwiftData
 
 final class DailyWorkTimeStore: ObservableObject {
-    @AppStorage("dailyWorkSeconds") private var storedSeconds: Int = 0
-    @AppStorage("lastRecordedDate") private var storedDate: String = ""
-
-    @Published private(set) var seconds: Int = 0
+    
     @Injected(\.transferUsageLogsUseCase) private var uploadUseCase
     @Injected(\.activityLogger) private var appUsageLogger
+    
+    @AppStorage("dailyWorkSeconds") private var storedSeconds: Int = 0
+    @AppStorage("lastRecordedDate") private var storedDate: String = ""
+    
+    @Published private(set) var seconds: Int = 0
+    @Published var isRunning = false
+    
     private var timer: AnyCancellable?
     private var autoSendCancellable: AnyCancellable?
-
-    @Published var isRunning = false
+   
     var context: ModelContext?
 
     // MARK: - Initialization
@@ -55,7 +58,6 @@ final class DailyWorkTimeStore: ObservableObject {
 
     // MARK: - 타이머 시작/중지
 
-    /// 5분에 한번씩 보내는 로직
     func start() {
         isRunning = true
         refreshIfNewDay()
@@ -105,11 +107,4 @@ final class DailyWorkTimeStore: ObservableObject {
             print("❌ Failed to delete logs:", error)
         }
     }
-
-    // MARK: - 유틸리티
-
-    var formattedTime: String {
-        seconds.formattedHMSFromSeconds
-    }
-    
 }
