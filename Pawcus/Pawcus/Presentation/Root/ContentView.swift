@@ -45,6 +45,8 @@ struct ContentView: View {
                 Text("Select a tab")
             }
         }
+        .frame(minWidth: 500, minHeight: 300)
+        .background(.white)
         .navigationSplitViewStyle(.balanced)
     }
 }
