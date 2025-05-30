@@ -16,24 +16,17 @@ struct HomeView: View {
     @Injected(\.activityLogger) private var appUsageLogger: ActivityLogger
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Foucs Log")
-                .font(.largeTitle)
-                .fontDesign(.monospaced)
-                .bold()
-            Text("💻 ..")
-                .font(.title2)
-            
-            ZStack {
-                Circle()
-                    .fill(Color.white.opacity(0.5))
-                    .frame(width: 250, height: 250)
-                    .shadow(color: .gray.opacity(0.8), radius: 60, x: 0, y: 0)
-                VStack {
-                    Text(timeStore.seconds.formattedHMSFromSeconds)
-                        .font(.largeTitle)
-                        .bold()
-                        .monospaced()
+        HStack(alignment: .top, spacing: 32) {
+            VStack(spacing: 20) {
+                Text("\(timeStore.seconds.formattedHMSFromSeconds)")
+                    .monospaced()
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 0.7), value: timeStore.seconds.formattedHMSFromSeconds)
+                    .font(.system(size: 70, weight: .bold, design: .monospaced))
+                    .foregroundStyle(.white)
+
+                HStack(spacing: 10){
+                    
                     Button(action: {
                         if timeStore.isRunning {
                             timeStore.stop()
@@ -43,18 +36,38 @@ struct HomeView: View {
                             appUsageLogger.configure(context: modelContext)
                         }
                     }) {
-                        Image(systemName: timeStore.isRunning ? "pause.circle.fill" : "play.circle.fill")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundColor(.black)
+                        Image(systemName: timeStore.isRunning ? "stop.fill" : "play.fill")
+                            .font(.title3)
+                            .padding()
+                            .background(
+                                Capsule()
+                                    .fill(timeStore.isRunning ? Color.indigo.opacity(0.9): Color.red.opacity(0.4))
+                            )
+                            .foregroundColor(.white)
                     }
                     .buttonStyle(.plain)
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "arrow.trianglehead.counterclockwise")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                    }
+                    .buttonStyle(.plain)
+                
                 }
             }
         }
         .navigationTitle("Home")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .foregroundColor(.black)
+        .frame(minWidth: 400, minHeight: 100)
+        .foregroundColor(.primary)
+        .background(
+            LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.9), Color.indigo.opacity(0.7)]),
+                           startPoint: .topLeading,
+                           endPoint: .bottomTrailing)
+            .ignoresSafeArea()
+        )
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button {
@@ -62,7 +75,7 @@ struct HomeView: View {
                         await timeStore.sendLogs()
                     }
                 } label: {
-                    Image(systemName: "paperplane.fill")
+                    Label("Send Logs", systemImage: "paperplane.fill")
                 }
             }
             ToolbarItem(placement: .automatic) {
@@ -71,11 +84,36 @@ struct HomeView: View {
                         await timeStore.deleteLogs()
                     }
                 } label: {
-                    Image(systemName: "trash")
+                    Label("Delete Logs", systemImage: "trash")
                 }
             }
         }
     }
 }
 
+#Preview {
+    HomeView()
+        .modelContainer(for: [AppLogEntity.self], inMemory: true)
+        .environmentObject(DailyWorkTimeStore())
 
+}
+
+struct TimerCard: View {
+    let value: Int
+    //let label: String
+
+    var body: some View {
+        VStack(spacing: 4) {
+            ZStack {
+                Text(String(value))
+                    .font(.system(size: 40, weight: .bold, design: .monospaced))
+                    .foregroundColor(.white)
+                    .id(value)
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 0.8), value: value)
+            }
+        }
+        .padding()
+        .frame(width: 100, height: 100)
+    }
+}

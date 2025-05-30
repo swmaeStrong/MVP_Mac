@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD04746C2DE941A600960470 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD04746B2DE941A600960470 /* HomeViewModel.swift */; };
 		BD1B6FB32DDED98D00E481E2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB22DDED98D00E481E2 /* RootView.swift */; };
 		BD1B6FB92DDF09DB00E481E2 /* DailyWorkTimeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeStore.swift */; };
 		BD1B70092DE57F7000E481E2 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		BD0473F92DE835C400960470 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		BD04746B2DE941A600960470 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		BD1B6FB22DDED98D00E481E2 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkTimeStore.swift; sourceTree = "<group>"; };
 		BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				BD9893A02DD9DD1300F40A9B /* HomeView.swift */,
+				BD04746B2DE941A600960470 /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				BD9893A92DD9DD3500F40A9B /* AnalysisView.swift in Sources */,
 				BD9893AB2DD9DD4200F40A9B /* AnalysisViewModel.swift in Sources */,
 				BD9893A72DD9DD2D00F40A9B /* LeaderBoardViewModel.swift in Sources */,
+				BD04746C2DE941A600960470 /* HomeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
