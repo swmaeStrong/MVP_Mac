@@ -23,7 +23,6 @@ final class LeaderBoardViewModel: ObservableObject {
     init() {
         Task {
             await loadCategories()
-            await loadUserTop10Ranks()
         }
     }
     
@@ -50,10 +49,10 @@ final class LeaderBoardViewModel: ObservableObject {
     }
     
     @MainActor
-    func loadUserTop10Ranks() async {
+    func loadUserTop10RanksByCategory(page: Int? = nil, size: Int? = nil) async {
         do {
-            let userRanks = try await fetchLeaderBoardUseCase.fetchGlobalTop10UserRanks()
-            userRankItems = userRanks
+            let userRanks = try await fetchLeaderBoardUseCase.fetchLeaderBoard(category: selectedCategory, page: page, size: size, date: selectedDate.formattedDateString)
+            userRankItems[selectedCategory] = userRanks
         } catch {
             print("Error fetching leaderboard: \(error)")
         }

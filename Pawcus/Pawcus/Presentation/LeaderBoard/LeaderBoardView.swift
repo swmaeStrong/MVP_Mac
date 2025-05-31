@@ -17,12 +17,6 @@ enum DateRangeType: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
-private let shortDateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd"
-    return formatter
-}()
-
 struct LeaderBoardView: View {
     @ObservedObject var viewModel: LeaderBoardViewModel
     @State private var selectedRange: DateRangeType = .today
@@ -73,6 +67,9 @@ struct LeaderBoardView: View {
                                         .foregroundColor(category == viewModel.selectedCategory ? .white : .primary)
                                         .onTapGesture {
                                             viewModel.selectedCategory = category
+                                            Task {
+                                                await viewModel.loadUserTop10RanksByCategory()
+                                            }
                                         }
                                 }
                             }
@@ -121,7 +118,7 @@ struct LeaderBoardView: View {
             .onAppear {
                 Task {
                     await viewModel.loadCategories()
-                    await viewModel.loadUserTop10Ranks()
+                    await viewModel.loadUserTop10RanksByCategory()
                 }
             }
             
