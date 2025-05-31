@@ -17,7 +17,7 @@ final class LeaderBoardViewModel: ObservableObject {
     @Published var selectedCategory: String = "Development"
     @Published var top3Ranks: [String: [UserRankItem]] = [:]
     @Published var otherRanks: [String: [UserRankItem]] = [:]
-    
+    @Published var selectedDate: Date = Date()
     private var categories: [AppCategory] = []
     
     init() {
