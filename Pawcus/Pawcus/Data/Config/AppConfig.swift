@@ -12,4 +12,16 @@ enum AppConfig {
         let domain = Bundle.main.infoDictionary?["BASE_DOMAIN"] as? String ?? ""
         return "http://\(domain)"
     }
+
+    static var supabaseKey: String {
+        return Bundle.main.infoDictionary?["SUPABASE_KEY"] as? String ?? ""
+    }
+
+    static var supabaseDomain: String {
+        return Bundle.main.infoDictionary?["SUPABASE_DOMAIN"] as? String ?? ""
+    }
+
+    static var supabaseURL: URL? {
+        return URL(string: "https://\(supabaseDomain)")
+    }
 }
