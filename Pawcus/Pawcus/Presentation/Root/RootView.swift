@@ -15,88 +15,13 @@ struct RootView: View {
     @EnvironmentObject private var timeStore: DailyWorkTimeStore
     var body: some View {
         if username.isEmpty {
-            UsernamePromptView()
+            LoginView()
         } else {
             ContentView()
                 .onAppear {
                     timeStore.context = modelContext
                 }
         }
-    }
-}
-
-struct UsernamePromptView: View {
-    @Injected(\.registerUserUseCase) private var useCase: RegisterUserUseCase
-    @State private var tempInput: String = ""
-    @State private var isValidNickname: Bool? = nil
-    @State private var isChecking: Bool = false
-    @State private var statusMessage: String? = nil
-    
-    var body: some View {
-        VStack(spacing: 16) {
-            Text("닉네임을 입력해주세요")
-                .font(.title2)
-            HStack {
-                TextField("닉네임", text: $tempInput)
-                    .textFieldStyle(.roundedBorder)
-                    .onChange(of: tempInput) {
-                        isValidNickname = nil
-                        statusMessage = nil
-                    }
-                    
-                Button("중복 확인") {
-                    Task {
-                        await validateNickname()
-                    }
-                }
-                .disabled(tempInput.trimmingCharacters(in: .whitespaces).isEmpty || isChecking)
-            }
-            
-            HStack {
-                if isChecking {
-                    ProgressView().scaleEffect(0.5)
-                } else if let isValid = isValidNickname {
-                    Image(systemName: isValid ? "checkmark.circle.fill" : "xmark.circle.fill")
-                        .foregroundColor(isValid ? .green : .red)
-                }
-                
-                if let message = statusMessage {
-                    Text(message)
-                        .foregroundColor((isValidNickname ?? false) ? Color(red: 0.0, green: 0.5, blue: 0.0) : .red)
-                        .font(.footnote)
-                }
-            }
-            
-            Button("시작하기") {
-                Task {
-                    do {
-                        let trimmedNickname = tempInput.trimmingCharacters(in: .whitespaces)
-                        try await useCase.registerUser(nickname: trimmedNickname)
-                        UserDefaults.standard.set(0, forKey: "dailyWorkSeconds")
-                    } catch {
-                        statusMessage = error.localizedDescription
-                    }
-                }
-                
-            }
-            .disabled(!(isValidNickname ?? false))
-        }
-        .padding()
-        .frame(width: 300)
-    }
-    
-    func validateNickname() async {
-        isChecking = true
-        isValidNickname = nil
-        statusMessage = nil
-        do {
-            let valid = try await useCase.checkNicknameAvailability(nickname: tempInput.trimmingCharacters(in: .whitespaces))
-            isValidNickname = valid
-            statusMessage = valid ? "사용 가능한 닉네임입니다." : "이미 사용 중인 닉네임입니다."
-        } catch {
-            statusMessage = error.localizedDescription
-        }
-        isChecking = false
     }
 }
 

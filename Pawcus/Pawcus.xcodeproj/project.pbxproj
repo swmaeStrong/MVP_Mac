@@ -13,6 +13,9 @@
 		BD0474E62DEAB03900960470 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0474E52DEAB03900960470 /* ProfileView.swift */; };
 		BD0474EA2DEB365700960470 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = BD0474E92DEB365700960470 /* Auth */; };
 		BD0474EC2DEB365700960470 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = BD0474EB2DEB365700960470 /* Supabase */; };
+		BD0474EF2DEB4C5800960470 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0474EE2DEB4C5800960470 /* LoginView.swift */; };
+		BD0474F12DEB4CFA00960470 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0474F02DEB4CFA00960470 /* LoginViewModel.swift */; };
+		BD0474F32DEB58CA00960470 /* GuestModePromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0474F22DEB58CA00960470 /* GuestModePromptView.swift */; };
 		BD1B6FB32DDED98D00E481E2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB22DDED98D00E481E2 /* RootView.swift */; };
 		BD1B6FB92DDF09DB00E481E2 /* DailyWorkTimeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeStore.swift */; };
 		BD1B70092DE57F7000E481E2 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */; };
@@ -52,6 +55,9 @@
 		BD04746B2DE941A600960470 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		BD0474AA2DE98F7800960470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD0474E52DEAB03900960470 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		BD0474EE2DEB4C5800960470 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		BD0474F02DEB4CFA00960470 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		BD0474F22DEB58CA00960470 /* GuestModePromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestModePromptView.swift; sourceTree = "<group>"; };
 		BD1B6FB22DDED98D00E481E2 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkTimeStore.swift; sourceTree = "<group>"; };
 		BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
@@ -160,11 +166,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BD0474ED2DEB4C4800960470 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				BD0474EE2DEB4C5800960470 /* LoginView.swift */,
+				BD0474F02DEB4CFA00960470 /* LoginViewModel.swift */,
+				BD0474F22DEB58CA00960470 /* GuestModePromptView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		BD1B6FB12DDED94800E481E2 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				BD98936E2DD9C47A00F40A9B /* ContentView.swift */,
 				BD1B6FB22DDED98D00E481E2 /* RootView.swift */,
+				BD98936E2DD9C47A00F40A9B /* ContentView.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -224,8 +240,8 @@
 			isa = PBXGroup;
 			children = (
 				BD9893702DD9C47A00F40A9B /* PawcusApp.swift */,
-				BD9893902DD9DC0200F40A9B /* DependencyInjection.swift */,
 				BD0474AA2DE98F7800960470 /* AppDelegate.swift */,
+				BD9893902DD9DC0200F40A9B /* DependencyInjection.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -266,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeStore.swift */,
+				BD0474ED2DEB4C4800960470 /* Login */,
 				BD1B6FB12DDED94800E481E2 /* Root */,
 				BD98939D2DD9DCEB00F40A9B /* Home */,
 				BD98939F2DD9DCF000F40A9B /* LeaderBoard */,
@@ -473,7 +490,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD0474F12DEB4CFA00960470 /* LoginViewModel.swift in Sources */,
 				BD9893AE2DD9DD6100F40A9B /* AppLogLocalDataSource.swift in Sources */,
+				BD0474EF2DEB4C5800960470 /* LoginView.swift in Sources */,
+				BD0474F32DEB58CA00960470 /* GuestModePromptView.swift in Sources */,
 				BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */,
 				BD1B6FB92DDF09DB00E481E2 /* DailyWorkTimeStore.swift in Sources */,
 				BD1B700C2DE5830B00E481E2 /* AppConfig.swift in Sources */,
