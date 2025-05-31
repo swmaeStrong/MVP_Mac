@@ -10,8 +10,6 @@ import SwiftUI
 
 struct LeaderBoardView: View {
     @ObservedObject var viewModel: LeaderBoardViewModel
-    @AppStorage("userNickname") private var userNickname: String = ""
-    @AppStorage("userID") private var userID: String = ""
         
     var body: some View {
         ScrollView(.vertical) {
@@ -79,20 +77,8 @@ struct LeaderBoardView: View {
                 await viewModel.loadCategories()
                 await viewModel.loadUserTop10Ranks()
             }
-            print(userID)
-            print(userNickname)
         }
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                Button(action: {
-                    userNickname = ""
-                    userID = ""
-                    print("새로고침 및 사용자 이름 초기화됨")
-                }) {
-                    Image(systemName: "arrow.clockwise")
-                }
-            }
-        }
+       
         .navigationTitle("LeaderBoard")
     }
 }

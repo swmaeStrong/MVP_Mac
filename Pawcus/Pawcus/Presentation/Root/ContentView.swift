@@ -12,11 +12,13 @@ struct ContentView: View {
         case home = "Home"
         case leaderboard = "LeaderBoard"
         case analysis = "Analysis"
+        case profile = "Profile"
         var imageName : String {
             switch self {
             case .home: return "house.fill"
             case .leaderboard: return "chart.bar.fill"
             case .analysis: return "magnifyingglass.circle.fill"
+            case .profile: return "person.crop.circle.fill"
             }
         }
         var id: String { rawValue }
@@ -41,6 +43,8 @@ struct ContentView: View {
                 LeaderBoardView(viewModel: leaderViewModel)
             case .analysis:
                 AnalysisView(viewModel: analysisViewModel)
+            case .profile:
+                ProfileView()
             case .none:
                 Text("Select a tab")
             }
@@ -55,4 +59,3 @@ struct ContentView: View {
     ContentView()
         .environmentObject(DailyWorkTimeStore())
 }
-
