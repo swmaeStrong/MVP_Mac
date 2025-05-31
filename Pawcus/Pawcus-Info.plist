@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>SUPublicEDKey</key>
+    <string>XYqUVZF83dzRohHy5RGDM0wYkGdJlKVqvsikWBAKAmk=</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.2</string>
+    <key>CFBundleVersion</key>
+    <string>2</string>
     <key>SUFeedURL</key>
     <string>http://localhost:8080/appcast.xml</string>
 	<key>BASE_DOMAIN</key>

@@ -149,6 +149,13 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		BD0474E72DEB02E800960470 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BD1B6FB12DDED94800E481E2 /* Root */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				BD9893712DD9C47A00F40A9B /* Pawcus */,
+				BD0474E72DEB02E800960470 /* Frameworks */,
 				BD9893402DD9C46800F40A9B /* Products */,
 			);
 			sourceTree = "<group>";
