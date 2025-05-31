@@ -11,7 +11,7 @@ import Factory
 
 struct LoginView: View {
     @State private var showUsernamePrompt = false
-    @StateObject private var viewModel = LoginViewModel()
+    @StateObject private var viewModel = LoginViewModel(authRepository: LoginService())
 
     var body: some View {
         VStack(spacing: 16) {
@@ -20,7 +20,9 @@ struct LoginView: View {
             
             // MARK: - Google Login
             Button(action: {
-                viewModel.loginWithGoogle()
+                Task {
+                    await viewModel.loginWithGoogle()
+                }
             }) {
                 HStack(spacing: 8) {
                     Image("GoogleLogo")

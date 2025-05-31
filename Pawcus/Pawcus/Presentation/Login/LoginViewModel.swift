@@ -14,18 +14,14 @@ import Supabase
 final class LoginViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var isGuest: Bool = false
+    private let authRepository: AuthRepository
     
-    func loginWithGoogle() {
-        let supabase = AppDelegate.shared.supabaseClient!
-        Task {
-            do {
-                let session = try await supabase.auth.signInWithOAuth(provider: .google, redirectTo: URL(string: "pawcus://login-callback"))
-                print("Google login successful: \(session)")
-                isLoggedIn = true
-            } catch {
-                print("Google login failed: \(error)")
-            }
-        }
+    init(authRepository: AuthRepository) {
+        self.authRepository = authRepository
+    }
+    
+    func loginWithGoogle() async {
+        isLoggedIn = await authRepository.loginWithGoogle()
     }
 
     func continueAsGuest() {
