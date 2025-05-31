@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Factory
+import Sparkle
 
 struct ProfileView: View {
     @AppStorage("userNickname") private var userNickname: String = ""
@@ -22,7 +23,11 @@ struct ProfileView: View {
                 .font(.title2)
             Text("Pro Plan: false")
                 .foregroundColor(.gray)
-
+            Button("업데이트 확인") {
+                AppDelegate.shared.updaterController?.checkForUpdates(nil)
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.regular)
             Button("로그아웃") {
                 userNickname = ""
                 userID = ""
