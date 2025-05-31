@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 import SwiftData
 import Factory
+import Sparkle
 
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
@@ -28,7 +29,6 @@ struct HomeView: View {
                 .font(.system(size: 70, weight: .bold, design: .monospaced))
             
             HStack(spacing: 10){
-                
                 Button(action: {
                     if timeStore.isRunning {
                         timeStore.stop()

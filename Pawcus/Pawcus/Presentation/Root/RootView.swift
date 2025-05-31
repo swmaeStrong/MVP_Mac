@@ -72,10 +72,12 @@ struct UsernamePromptView: View {
                     do {
                         let trimmedNickname = tempInput.trimmingCharacters(in: .whitespaces)
                         try await useCase.registerUser(nickname: trimmedNickname)
+                        UserDefaults.standard.set(0, forKey: "dailyWorkSeconds")
                     } catch {
                         statusMessage = error.localizedDescription
                     }
                 }
+                
             }
             .disabled(!(isValidNickname ?? false))
         }

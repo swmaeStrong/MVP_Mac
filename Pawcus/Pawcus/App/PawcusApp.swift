@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct PawcusApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     @StateObject private var dailyWorkTimeStore = DailyWorkTimeStore()
     init() {
         ensureAccessibilityPermission()
