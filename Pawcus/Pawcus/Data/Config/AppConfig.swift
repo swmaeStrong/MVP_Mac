@@ -21,7 +21,7 @@ enum AppConfig {
         return Bundle.main.infoDictionary?["SUPABASE_DOMAIN"] as? String ?? ""
     }
 
-    static var supabaseURL: URL? {
-        return URL(string: "https://\(supabaseDomain)")
+    static var supabaseURL: String {
+        return "https://\(supabaseDomain)"
     }
 }
