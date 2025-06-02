@@ -24,4 +24,6 @@ enum AppConfig {
     static var supabaseURL: String {
         return "https://\(supabaseDomain)"
     }
+    
+    static var redirectToURL = URL(string: "pawcus://login-callback")!
 }

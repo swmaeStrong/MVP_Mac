@@ -15,57 +15,70 @@ struct GuestModePromptView: View {
     @State private var isValidNickname: Bool? = nil
     @State private var isChecking: Bool = false
     @State private var statusMessage: String? = nil
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text("Please enter a nickname")
-                .font(.title2)
-            HStack {
-                TextField("Nickname", text: $tempInput)
-                    .textFieldStyle(.roundedBorder)
-                    .onChange(of: tempInput) {
-                        isValidNickname = nil
-                        statusMessage = nil
+        NavigationStack {
+            VStack(spacing: 16) {
+                Text("Please enter a nickname")
+                    .font(.title2)
+                HStack {
+                    TextField("Nickname", text: $tempInput)
+                        .textFieldStyle(.roundedBorder)
+                        .onChange(of: tempInput) {
+                            isValidNickname = nil
+                            statusMessage = nil
+                        }
+
+                    Button("Check") {
+                        Task {
+                            await validateNickname()
+                        }
+                    }
+                    .disabled(tempInput.trimmingCharacters(in: .whitespaces).isEmpty || isChecking)
+                }
+
+                HStack {
+                    if isChecking {
+                        ProgressView().scaleEffect(0.5)
+                    } else if let isValid = isValidNickname {
+                        Image(systemName: isValid ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .foregroundColor(isValid ? .green : .red)
                     }
 
-                Button("Check availability") {
-                    Task {
-                        await validateNickname()
-                    }
-                }
-                .disabled(tempInput.trimmingCharacters(in: .whitespaces).isEmpty || isChecking)
-            }
-
-            HStack {
-                if isChecking {
-                    ProgressView().scaleEffect(0.5)
-                } else if let isValid = isValidNickname {
-                    Image(systemName: isValid ? "checkmark.circle.fill" : "xmark.circle.fill")
-                        .foregroundColor(isValid ? .green : .red)
-                }
-
-                if let message = statusMessage {
-                    Text(message)
-                        .foregroundColor((isValidNickname ?? false) ? Color.green : .red)
-                        .font(.footnote)
-                }
-            }
-
-            Button("Start") {
-                Task {
-                    do {
-                        let trimmedNickname = tempInput.trimmingCharacters(in: .whitespaces)
-                        try await useCase.registerUser(nickname: trimmedNickname)
-                        UserDefaults.standard.set(0, forKey: "dailyWorkSeconds")
-                    } catch {
-                        statusMessage = error.localizedDescription
+                    if let message = statusMessage {
+                        Text(message)
+                            .foregroundColor((isValidNickname ?? false) ? Color.green : .red)
+                            .font(.footnote)
                     }
                 }
             }
-            .disabled(!(isValidNickname ?? false))
+            .padding()
+            .frame(width: 300)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Confirm") {
+                        Task {
+                            do {
+                                let trimmedNickname = tempInput.trimmingCharacters(in: .whitespaces)
+                                try await useCase.registerUser(nickname: trimmedNickname)
+                                UserDefaults.standard.set(0, forKey: "dailyWorkSeconds")
+                                dismiss()
+                            } catch {
+                                statusMessage = error.localizedDescription
+                            }
+                        }
+                    }
+                    .disabled(!(isValidNickname ?? false))
+                }
+            }
         }
-        .padding()
-        .frame(width: 300)
     }
 
     func validateNickname() async {
