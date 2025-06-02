@@ -36,3 +36,12 @@ func ensureAccessibilityPermission() {
         print("✅ 손쉬운 사용 권한 확인됨")
     }
 }
+
+let supabase = SupabaseClient(
+    supabaseURL: URL(string: AppConfig.supabaseURL)!,
+    supabaseKey: AppConfig.supabaseKey,
+    options: .init(
+        auth: .init(redirectToURL: AppConfig.redirectToURL),
+        global: .init(logger: ConsoleLogger())
+    )
+)

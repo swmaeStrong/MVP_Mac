@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Factory
+import Supabase
 
 struct LoginView: View {
     @State private var showUsernamePrompt = false
@@ -19,31 +20,17 @@ struct LoginView: View {
                 .font(.title2)
             
             // MARK: - Google Login
-            Button(action: {
+            SocialSignInButton(logoImageName: "GoogleLogo", title: "Sign in with Google", action: {
                 Task {
                     await viewModel.loginWithGoogle()
                 }
-            }) {
-                HStack(spacing: 8) {
-                    Image("GoogleLogo")
-                        .resizable()
-                        .frame(width: 18, height: 18)
-                    
-                    Text("Sign in with Google")
-                        .fontWeight(.medium)
-                        .font(Font.custom("Roboto", size: 14))
-                        .kerning(0.25)
-                        .foregroundColor(Color(red: 0.24, green: 0.25, blue: 0.26))
+            })
+            
+            SocialSignInButton(logoImageName: "GithubLogo", title: "Sign in with Github", action: {
+                Task {
+                    await viewModel.loginWithGithub()
                 }
-                .frame(width: 346, height: 40)
-                .background(Color.white)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color(red: 0.85, green: 0.86, blue: 0.88), lineWidth: 1)
-                )
-                .cornerRadius(20)
-            }
-            .buttonStyle(PlainButtonStyle())
+            })
             Button("Guest Mode") {
                 showUsernamePrompt = true
             }
@@ -54,5 +41,36 @@ struct LoginView: View {
             GuestModePromptView()
                 .interactiveDismissDisabled(false)
         }
+    }
+}
+
+struct SocialSignInButton: View {
+    let logoImageName: String
+    let title: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                Image(logoImageName)
+                    .resizable()
+                    .frame(width: 18, height: 18)
+
+                Text(title)
+                    .fontWeight(.medium)
+                    .font(Font.custom("Roboto", size: 14))
+                    .kerning(0.25)
+                    .foregroundColor(Color(red: 0.24, green: 0.25, blue: 0.26))
+            }
+            .frame(width: 346, height: 40)
+            .background(Color.white)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color(red: 0.85, green: 0.86, blue: 0.88), lineWidth: 1)
+            )
+            .cornerRadius(20)
+        }
+        .buttonStyle(PlainButtonStyle())
+
     }
 }

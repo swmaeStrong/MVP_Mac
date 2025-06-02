@@ -10,18 +10,18 @@ import Supabase
 
 final class SupabaseAuthService {
     
-    let client: SupabaseClient = SupabaseClient(
-        supabaseURL: URL(string: AppConfig.supabaseURL)!,
-        supabaseKey: AppConfig.supabaseKey,
-        options: .init(
-            auth: .init(redirectToURL: AppConfig.redirectToURL),
-            global: .init(logger: ConsoleLogger())
-        )
-    )
+//    let client: SupabaseClient = SupabaseClient(
+//        supabaseURL: URL(string: AppConfig.supabaseURL)!,
+//        supabaseKey: AppConfig.supabaseKey,
+//        options: .init(
+//            auth: .init(redirectToURL: AppConfig.redirectToURL),
+//            global: .init(logger: ConsoleLogger())
+//        )
+//    )
     
     func loginWithGoogle() async -> Bool {
         do {
-            let session = try await client.auth.signInWithOAuth(
+            let session = try await supabase.auth.signInWithOAuth(
                 provider: .google,
                 redirectTo: AppConfig.redirectToURL
             )
@@ -29,6 +29,20 @@ final class SupabaseAuthService {
             return true
         } catch {
             print("Google login failed: \(error)")
+            return false
+        }
+    }
+    
+    func loginWithGithub() async -> Bool {
+        do {
+            let session = try await supabase.auth.signInWithOAuth(
+                provider: .github,
+                redirectTo: AppConfig.redirectToURL
+            )
+            print("Github login successful: \(session)")
+            return true
+        } catch {
+            print("Github login failed: \(error)")
             return false
         }
     }
