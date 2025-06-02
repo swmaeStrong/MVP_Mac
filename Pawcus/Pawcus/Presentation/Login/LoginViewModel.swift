@@ -19,7 +19,11 @@ final class LoginViewModel: ObservableObject {
     func loginWithGoogle() async {
         isLoggedIn = await supabaseAuthService.loginWithGoogle()
     }
-
+    
+    func loginWithGithub() async {
+        isLoggedIn = await supabaseAuthService.loginWithGithub()
+    }
+    
     func continueAsGuest() {
         isGuest = true
         isLoggedIn = true
