@@ -11,7 +11,7 @@ import Factory
 
 struct LoginView: View {
     @State private var showUsernamePrompt = false
-    @StateObject private var viewModel = LoginViewModel(authRepository: LoginService())
+    @StateObject private var viewModel = LoginViewModel()
 
     var body: some View {
         VStack(spacing: 16) {
@@ -52,8 +52,7 @@ struct LoginView: View {
         .frame(width: 300)
         .sheet(isPresented: $showUsernamePrompt) {
             GuestModePromptView()
+                .interactiveDismissDisabled(false)
         }
     }
 }
-
-

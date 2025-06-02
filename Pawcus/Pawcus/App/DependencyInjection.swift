@@ -26,6 +26,13 @@ extension Container {
         .singleton
     }
     
+    var authService: Factory<SupabaseAuthService> {
+        Factory(self) {
+            SupabaseAuthService()
+        }
+        .singleton
+    }
+    
     var analysisService: Factory<UsageAnalysisService> {
         Factory(self) {
             UsageAnalysisService()

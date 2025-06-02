@@ -14,14 +14,10 @@ import Supabase
 final class LoginViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var isGuest: Bool = false
-    private let authRepository: AuthRepository
-    
-    init(authRepository: AuthRepository) {
-        self.authRepository = authRepository
-    }
+    private let supabaseAuthService: SupabaseAuthService = SupabaseAuthService()
     
     func loginWithGoogle() async {
-        isLoggedIn = await authRepository.loginWithGoogle()
+        isLoggedIn = await supabaseAuthService.loginWithGoogle()
     }
 
     func continueAsGuest() {
