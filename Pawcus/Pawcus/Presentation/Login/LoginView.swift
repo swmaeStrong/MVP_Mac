@@ -11,35 +11,38 @@ import Factory
 import Supabase
 
 struct LoginView: View {
+    @AppStorage("userNickname") private var userNickname = ""
+    @AppStorage("isLoggedIn") private var isLoggedIn = false
     @State private var showUsernamePrompt = false
+    
     @StateObject private var viewModel = LoginViewModel()
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text("Welcome to Pawcus 🐾")
-                .font(.title2)
-            
-            // MARK: - Google Login
-            SocialSignInButton(logoImageName: "GoogleLogo", title: "Sign in with Google", action: {
-                Task {
-                    await viewModel.loginWithGoogle()
+        if viewModel.isGuest || viewModel.isLoggedIn {
+            UserNamePromptView(dd: $viewModel.isGuest)
+        } else if !viewModel.isLoggedIn {
+            VStack(spacing: 16) {
+                Text("Welcome to Pawcus 🐾")
+                    .font(.title2)
+                
+                // MARK: - Google Login
+                SocialSignInButton(logoImageName: "GoogleLogo", title: "Sign in with Google", action: {
+                    Task {
+                        await viewModel.loginWithGoogle()
+                    }
+                })
+                
+                SocialSignInButton(logoImageName: "GithubLogo", title: "Sign in with Github", action: {
+                    Task {
+                        await viewModel.loginWithGithub()
+                    }
+                })
+                Button("Guest Mode") {
+                    viewModel.isGuest = true
                 }
-            })
-            
-            SocialSignInButton(logoImageName: "GithubLogo", title: "Sign in with Github", action: {
-                Task {
-                    await viewModel.loginWithGithub()
-                }
-            })
-            Button("Guest Mode") {
-                showUsernamePrompt = true
             }
-        }
-        .padding()
-        .frame(width: 300)
-        .sheet(isPresented: $showUsernamePrompt) {
-            GuestModePromptView()
-                .interactiveDismissDisabled(false)
+            .padding()
+            .frame(width: 300)
         }
     }
 }

@@ -29,13 +29,15 @@ struct ProfileView: View {
             .buttonStyle(.bordered)
             .controlSize(.regular)
             Button("로그아웃") {
+                
+                Task {
+                    await SupabaseAuthService().logout()
+                    try appLogLocalDataSource.removeAllAppLogs(context: context)
+                }
                 userNickname = ""
                 userID = ""
                 storedSeconds = 0
                 storedDate = ""
-                Task {
-                    try appLogLocalDataSource.removeAllAppLogs(context: context)
-                }
             }
             .foregroundColor(.red)
         }

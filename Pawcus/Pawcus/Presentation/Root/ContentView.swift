@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("userNickname") private var username: String = ""
+
     enum Tab: String, CaseIterable, Identifiable, Hashable {
         case home = "Home"
         case leaderboard = "LeaderBoard"
@@ -15,7 +17,7 @@ struct ContentView: View {
         case profile = "Profile"
         var imageName : String {
             switch self {
-            case .home: return "house.fill"
+            case .home:  return "house.fill"
             case .leaderboard: return "chart.bar.fill"
             case .analysis: return "magnifyingglass.circle.fill"
             case .profile: return "person.crop.circle.fill"
@@ -25,7 +27,7 @@ struct ContentView: View {
     }
     @StateObject var leaderViewModel: LeaderBoardViewModel = LeaderBoardViewModel()
     @StateObject var analysisViewModel: AnalysisViewModel = AnalysisViewModel()
-
+    
     @State private var selection: Tab? = .home
     var body: some View {
         NavigationSplitView {
@@ -49,9 +51,6 @@ struct ContentView: View {
                 Text("Select a tab")
             }
         }
-        .frame(minWidth: 500, minHeight: 300)
-        .background(.white)
-        .navigationSplitViewStyle(.balanced)
     }
 }
 

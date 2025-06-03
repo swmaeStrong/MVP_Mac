@@ -7,17 +7,10 @@
 
 import Foundation
 import Supabase
+import SwiftUI
 
 final class SupabaseAuthService {
-    
-//    let client: SupabaseClient = SupabaseClient(
-//        supabaseURL: URL(string: AppConfig.supabaseURL)!,
-//        supabaseKey: AppConfig.supabaseKey,
-//        options: .init(
-//            auth: .init(redirectToURL: AppConfig.redirectToURL),
-//            global: .init(logger: ConsoleLogger())
-//        )
-//    )
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     
     func loginWithGoogle() async -> Bool {
         do {
@@ -26,6 +19,7 @@ final class SupabaseAuthService {
                 redirectTo: AppConfig.redirectToURL
             )
             print("Google login successful: \(session)")
+            isLoggedIn = true
             return true
         } catch {
             print("Google login failed: \(error)")
@@ -40,10 +34,21 @@ final class SupabaseAuthService {
                 redirectTo: AppConfig.redirectToURL
             )
             print("Github login successful: \(session)")
+            isLoggedIn = true
             return true
         } catch {
             print("Github login failed: \(error)")
             return false
+        }
+    }
+    
+    func logout() async {
+        do {
+            try await supabase.auth.signOut()
+            isLoggedIn = false
+            print("Logout successful")
+        } catch {
+            print("Logout failed: \(error)")
         }
     }
 }
@@ -53,4 +58,3 @@ struct ConsoleLogger: SupabaseLogger {
         print(message)
     }
 }
-
