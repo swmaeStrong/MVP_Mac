@@ -9,12 +9,13 @@ import Foundation
 import SwiftUI
 import Factory
 
-struct GuestModePromptView: View {
+struct UserNamePromptView: View {
     @Injected(\.registerUserUseCase) private var useCase: RegisterUserUseCase
     @State private var tempInput: String = ""
     @State private var isValidNickname: Bool? = nil
     @State private var isChecking: Bool = false
     @State private var statusMessage: String? = nil
+    @Binding var dd: Bool
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -58,7 +59,8 @@ struct GuestModePromptView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
-                        dismiss()
+                        Task { await SupabaseAuthService().logout() }
+                        dd = false 
                     }
                 }
 
@@ -69,7 +71,6 @@ struct GuestModePromptView: View {
                                 let trimmedNickname = tempInput.trimmingCharacters(in: .whitespaces)
                                 try await useCase.registerUser(nickname: trimmedNickname)
                                 UserDefaults.standard.set(0, forKey: "dailyWorkSeconds")
-                                dismiss()
                             } catch {
                                 statusMessage = error.localizedDescription
                             }

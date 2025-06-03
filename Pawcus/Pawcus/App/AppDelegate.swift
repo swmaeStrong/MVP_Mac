@@ -13,7 +13,6 @@ import Supabase
 class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
     static var shared: AppDelegate!
     var updaterController: SPUStandardUpdaterController?
-    var supabaseClient: SupabaseClient!
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         AppDelegate.shared = self
@@ -21,12 +20,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
             startingUpdater: true,
             updaterDelegate: self,
             userDriverDelegate: nil
-        )
-        
-        // Supabase 설정
-        supabaseClient = SupabaseClient(
-            supabaseURL: URL(string: AppConfig.supabaseURL)!,
-            supabaseKey: AppConfig.supabaseKey
         )
     }
 }
