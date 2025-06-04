@@ -34,10 +34,13 @@ struct ProfileView: View {
                     await SupabaseAuthService().logout()
                     try appLogLocalDataSource.removeAllAppLogs(context: context)
                 }
-                userNickname = ""
-                userID = ""
-                storedSeconds = 0
-                storedDate = ""
+                let defaults = UserDefaults.standard
+                defaults.removeObject(forKey: "userNickname")
+                defaults.removeObject(forKey: "userID")
+                defaults.removeObject(forKey: "dailyWorkSeconds")
+                defaults.removeObject(forKey: "lastRecordedDate")
+                defaults.removeObject(forKey: "accessToken")
+                defaults.removeObject(forKey: "refreshToken")
             }
             .foregroundColor(.red)
         }

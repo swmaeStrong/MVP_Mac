@@ -8,7 +8,7 @@
 import Foundation
 
 struct UsageLogDTO: Codable {
-    let userId: String
+//    let userId: String
     let title: String
     let app: String
     let duration: Double
