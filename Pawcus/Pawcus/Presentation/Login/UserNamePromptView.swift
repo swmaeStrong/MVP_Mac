@@ -15,6 +15,8 @@ struct UserNamePromptView: View {
     @State private var isValidNickname: Bool? = nil
     @State private var isChecking: Bool = false
     @State private var statusMessage: String? = nil
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+
     @Binding var dd: Bool
     @Environment(\.dismiss) private var dismiss
 
@@ -70,6 +72,7 @@ struct UserNamePromptView: View {
                             do {
                                 let trimmedNickname = tempInput.trimmingCharacters(in: .whitespaces)
                                 try await useCase.registerUser(nickname: trimmedNickname)
+                                isLoggedIn = true
                                 UserDefaults.standard.set(0, forKey: "dailyWorkSeconds")
                             } catch {
                                 statusMessage = error.localizedDescription

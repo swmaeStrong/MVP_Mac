@@ -14,13 +14,6 @@ final class UserRegisterService {
         self.session = session
     }
     
-    struct ServerResponse: Codable {
-        let isSuccess: Bool
-        let code: String?
-        let message: String?
-        let data: Bool?
-    }
-    
     /// 닉네임의 중복을 검증하는 로직
     func isNicknameDuplicated(_ nickname: String) async throws -> Bool {
         let endpoint = APIEndpoint.checkNickname(nickname: nickname)
@@ -31,14 +24,15 @@ final class UserRegisterService {
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
             throw URLError(.badServerResponse)
         }
-        let result = try JSONDecoder().decode(ServerResponse.self, from: data)
+        let result = try JSONDecoder().decode(ServerNicknameResponse.self, from: data)
         guard result.isSuccess else {
             throw NSError(domain: "UserRegisterService", code: (response as? HTTPURLResponse)?.statusCode ?? -1, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }
         return result.data ?? true
     }
     
-    func registerUser(uuid: String, nickname: String) async throws -> Bool {
+    /// 서버 리스폰스 구조 변경에 맞춰 수정
+    func registerUser(uuid: String, nickname: String) async throws -> UserData {
         let endpoint = APIEndpoint.registerUser
         let url = endpoint.url()
         var request = URLRequest(url: url)
@@ -51,9 +45,9 @@ final class UserRegisterService {
             throw URLError(.badServerResponse)
         }
         let result = try JSONDecoder().decode(ServerResponse.self, from: data)
-        guard result.isSuccess else {
+        guard result.isSuccess, let userData = result.data else {
             throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }
-        return result.isSuccess
+        return userData
     }
 }

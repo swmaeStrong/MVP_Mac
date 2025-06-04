@@ -23,12 +23,9 @@ final class RegisterUserRepositoryImpl: RegisterUserRepository {
     
     func registerUser(nickname: String) async throws  {
         let uuid = UUID().uuidString
-        let success = try await service.registerUser(uuid: uuid, nickname: nickname)
-        if success {
-            @AppStorage("userNickname") var savedNickname: String = ""
-            @AppStorage("userID") var savedUserID: String = ""
-            savedNickname = nickname
-            savedUserID = uuid
-        }
+        let userData = try await service.registerUser(uuid: uuid, nickname: nickname)
+        UserDefaults.standard.set(nickname, forKey: "userNickname")
+        UserDefaults.standard.set(uuid, forKey: "userID")
+        UserDefaults.standard.set(userData.createdAt, forKey: "createdAt")
     }
 }
