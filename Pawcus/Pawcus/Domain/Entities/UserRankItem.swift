@@ -8,9 +8,8 @@
 import Foundation
 
 struct UserRankItem: Codable {
-//    var id = UUID()
-    var userId: String = ""
-    var nickname: String
-    var score: Double
-    var rank: Int
+    let userId: String
+    let nickname: String
+    let score: Double
+    let rank: Int
 }

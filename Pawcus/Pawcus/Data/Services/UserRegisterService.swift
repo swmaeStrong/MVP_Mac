@@ -24,7 +24,7 @@ final class UserRegisterService {
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
             throw URLError(.badServerResponse)
         }
-        let result = try JSONDecoder().decode(ServerNicknameResponse.self, from: data)
+        let result = try JSONDecoder().decode(ServerResponse<Bool>.self, from: data)
         guard result.isSuccess else {
             throw NSError(domain: "UserRegisterService", code: (response as? HTTPURLResponse)?.statusCode ?? -1, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }
@@ -44,7 +44,7 @@ final class UserRegisterService {
         guard let http = response as? HTTPURLResponse else {
             throw URLError(.badServerResponse)
         }
-        let result = try JSONDecoder().decode(ServerResponse.self, from: data)
+        let result = try JSONDecoder().decode(ServerResponse<UserData>.self, from: data)
         guard result.isSuccess, let userData = result.data else {
             throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }

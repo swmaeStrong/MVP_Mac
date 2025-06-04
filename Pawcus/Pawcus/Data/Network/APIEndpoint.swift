@@ -62,7 +62,7 @@ enum APIEndpoint {
         case .getCategories:
             return APIEndpoint.baseURL.appendingPathComponent(path)
         case .getUserRanksByCategory(let category, let page, let size, let date):
-            var components = URLComponents(url: APIEndpoint.baseURL.appendingPathComponent("/leaderboard/\(category)"), resolvingAgainstBaseURL: false)!
+            var components = URLComponents(url: APIEndpoint.baseURL.appendingPathComponent("/leaderboard/\(category)/daily"), resolvingAgainstBaseURL: false)!
             var items: [URLQueryItem] = []
             if let page = page {
                 items.append(URLQueryItem(name: "page", value: "\(page)"))

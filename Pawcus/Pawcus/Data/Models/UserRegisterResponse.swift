@@ -13,16 +13,9 @@ struct UserData: Codable {
     let createdAt: String
 }
 
-struct ServerNicknameResponse: Codable {
+struct ServerResponse<T: Decodable>: Decodable {
     let isSuccess: Bool
     let code: String?
     let message: String?
-    let data: Bool?
-}
-
-struct ServerResponse: Codable {
-    let isSuccess: Bool
-    let code: String?
-    let message: String?
-    let data: UserData?
+    let data: T?
 }
