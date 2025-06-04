@@ -17,6 +17,8 @@ final class RegisterUserUseCase {
     }
     
     func registerUser(nickname: String) async throws {
-        try await repository.registerUser(nickname: nickname)
+        if try await repository.registerUser(nickname: nickname) {
+            try await repository.getGuestToken()
+        }
     }
 }

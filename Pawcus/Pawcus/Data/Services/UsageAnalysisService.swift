@@ -24,8 +24,8 @@ final class UsageAnalysisService {
             throw URLError(.badServerResponse)
         }
 
-        let categories = try JSONDecoder().decode([AppCategory].self, from: data)
-        return categories
+        let categories = try JSONDecoder().decode(ServerResponse<[AppCategory]>.self, from: data)
+        return categories.data ?? []
     }
     
     func fetchUsageCategoryStat(userId: String, date: String) async throws -> [UsageCategoryStatDTO]{

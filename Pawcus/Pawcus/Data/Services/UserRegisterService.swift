@@ -31,7 +31,6 @@ final class UserRegisterService {
         return result.data ?? true
     }
     
-    /// 서버 리스폰스 구조 변경에 맞춰 수정
     func registerUser(uuid: String, nickname: String) async throws -> UserData {
         let endpoint = APIEndpoint.registerUser
         let url = endpoint.url()
@@ -49,5 +48,33 @@ final class UserRegisterService {
             throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }
         return userData
+    }
+    
+    func getGuestToken() async throws -> TokenData {
+        guard let userId = UserDefaults.standard.string(forKey: "userId"),
+              let createdAt = UserDefaults.standard.string(forKey: "createdAt") else {
+            throw NSError(domain: "UserRegisterService", code: 0, userInfo: [NSLocalizedDescriptionKey: "Missing userID or createdAt in UserDefaults"])
+        }
+
+        let endpoint = APIEndpoint.getGuestToken
+        let url = endpoint.url()
+        var request = URLRequest(url: url)
+        request.httpMethod = endpoint.method
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let body = ["userId": userId, "createdAt": createdAt]
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, response) = try await session.data(for: request)
+        guard let http = response as? HTTPURLResponse else {
+            throw URLError(.badServerResponse)
+        }
+
+        let result = try JSONDecoder().decode(ServerResponse<TokenData>.self, from: data)
+        guard let tokenData = result.data else {
+            throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
+        }
+
+        return tokenData
     }
 }

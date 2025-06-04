@@ -13,9 +13,7 @@ struct UserData: Codable {
     let createdAt: String
 }
 
-struct ServerResponse<T: Decodable>: Decodable {
-    let isSuccess: Bool
-    let code: String?
-    let message: String?
-    let data: T?
+struct TokenData: Codable {
+    let accessToken: String
+    let refreshToken: String
 }

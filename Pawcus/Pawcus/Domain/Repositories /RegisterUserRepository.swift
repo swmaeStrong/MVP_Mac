@@ -9,5 +9,6 @@ import Foundation
 
 protocol RegisterUserRepository {
     func checkNicknameAvailability(nickname: String) async throws -> Bool
-    func registerUser(nickname: String) async throws
+    func registerUser(nickname: String) async throws -> Bool
+    func getGuestToken() async throws
 }

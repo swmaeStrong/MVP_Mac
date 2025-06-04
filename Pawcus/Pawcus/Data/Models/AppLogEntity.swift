@@ -43,7 +43,7 @@ extension AppLogEntity {
     func toDTO() -> UsageLogDTO {
         let userId = UserDefaults.standard.string(forKey: "userID") ?? UUID().uuidString
         return UsageLogDTO(
-            userId: userId,
+//            userId: userId,
             title: title,
             app: app,
             duration: duration,

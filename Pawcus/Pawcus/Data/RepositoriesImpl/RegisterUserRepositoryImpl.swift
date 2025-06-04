@@ -21,11 +21,20 @@ final class RegisterUserRepositoryImpl: RegisterUserRepository {
         return isValid
     }
     
-    func registerUser(nickname: String) async throws  {
+    func registerUser(nickname: String) async throws -> Bool {
         let uuid = UUID().uuidString
         let userData = try await service.registerUser(uuid: uuid, nickname: nickname)
         UserDefaults.standard.set(nickname, forKey: "userNickname")
-        UserDefaults.standard.set(uuid, forKey: "userID")
+        UserDefaults.standard.set(uuid, forKey: "userId")
         UserDefaults.standard.set(userData.createdAt, forKey: "createdAt")
+        return true
     }
+    
+    func getGuestToken() async throws {
+        let tokenData = try await service.getGuestToken()
+        print("토큰: \(tokenData.accessToken)")
+        UserDefaults.standard.set(tokenData.accessToken, forKey: "accessToken")
+        UserDefaults.standard.set(tokenData.refreshToken, forKey: "refreshToken")
+    }
+
 }
