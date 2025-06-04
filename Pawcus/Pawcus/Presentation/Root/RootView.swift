@@ -12,15 +12,15 @@ import Supabase
 
 struct RootView: View {
     @AppStorage("userNickname") private var username: String = ""
-    @State private var isLoggedIn: Bool = false
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    @State private var session: Session?
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var timeStore: DailyWorkTimeStore
 
-    @State private var session: Session?
-
     var body: some View {
         Group {
-            if isLoggedIn {
+            // isLoggedIn(게스트 모드) 또는 session(로그인 세션) 둘 중 하나라도 있으면 ContentView로 이동
+            if isLoggedIn || session != nil {
                 ContentView()
                     .onAppear {
                         timeStore.context = modelContext
@@ -33,10 +33,9 @@ struct RootView: View {
             Task {
                 do {
                     self.session = try await supabase.auth.session
-                    self.isLoggedIn = true
                 } catch {
                     print("Failed to fetch session:", error)
-                    self.isLoggedIn = false
+                    self.session = nil
                 }
             }
         }
