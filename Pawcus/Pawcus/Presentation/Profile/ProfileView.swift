@@ -39,8 +39,8 @@ struct ProfileView: View {
                 defaults.removeObject(forKey: "userID")
                 defaults.removeObject(forKey: "dailyWorkSeconds")
                 defaults.removeObject(forKey: "lastRecordedDate")
-                defaults.removeObject(forKey: "accessToken")
-                defaults.removeObject(forKey: "refreshToken")
+                KeychainHelper.standard.save("", service: "com.pawcus.token", account: "accessToken")
+                KeychainHelper.standard.save("", service: "com.pawcus.token", account: "refreshToken")
             }
             .foregroundColor(.red)
         }
