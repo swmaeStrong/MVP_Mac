@@ -21,7 +21,7 @@ final class UserRegisterService {
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method
         let (data, response) = try await session.data(for: request)
-        guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
             throw URLError(.badServerResponse)
         }
         let result = try JSONDecoder().decode(ServerResponse<Bool>.self, from: data)
@@ -40,7 +40,7 @@ final class UserRegisterService {
         let body = ["userId": uuid, "nickname": nickname]
         request.httpBody = try JSONEncoder().encode(body)
         let (data, response) = try await session.data(for: request)
-        guard let http = response as? HTTPURLResponse else {
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
             throw URLError(.badServerResponse)
         }
         let result = try JSONDecoder().decode(ServerResponse<UserData>.self, from: data)
@@ -66,7 +66,7 @@ final class UserRegisterService {
         request.httpBody = try JSONEncoder().encode(body)
 
         let (data, response) = try await session.data(for: request)
-        guard let http = response as? HTTPURLResponse else {
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
             throw URLError(.badServerResponse)
         }
 
