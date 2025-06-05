@@ -25,8 +25,8 @@ final class UserRankService {
             throw URLError(.badServerResponse)
         }
 
-        let ranks = try JSONDecoder().decode([UserRankItem].self, from: data)
-        return ranks
+        let ranks = try JSONDecoder().decode(ServerResponse<[UserRankItem]>.self, from: data)
+        return ranks.data ?? []
     }
        
     func fetchUserTop10Ranks() async throws -> [String: [UserRankItem]] {

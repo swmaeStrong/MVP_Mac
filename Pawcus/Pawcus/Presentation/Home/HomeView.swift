@@ -12,6 +12,7 @@ import Factory
 import Sparkle
 
 struct HomeView: View {
+    @AppStorage("dailyWorkSeconds") private var storedSeconds: Int = 0
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var timeStore: DailyWorkTimeStore
     @Injected(\.activityLogger) private var appUsageLogger: ActivityLogger
@@ -22,7 +23,7 @@ struct HomeView: View {
                 .monospaced()
                 .bold()
                 .font(.largeTitle)
-            Text("\(timeStore.seconds.formattedHMSFromSeconds)")
+            Text("\(storedSeconds.formattedHMSFromSeconds)")
                 .monospaced()
                 .transition(.opacity)
                 .animation(.easeInOut(duration: 0.7), value: timeStore.seconds.formattedHMSFromSeconds)
