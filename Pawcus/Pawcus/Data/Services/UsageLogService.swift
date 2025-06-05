@@ -19,6 +19,8 @@ final class UsageLogService {
         let endpoint = APIEndpoint.uploadLog
         var request = URLRequest(url: endpoint.url())
         request.httpMethod = endpoint.method
+        request.addJSONHeader()
+        request.addBearerTokenIfAvailable()
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try JSONEncoder().encode(logs)
 
