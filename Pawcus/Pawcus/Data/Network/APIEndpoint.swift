@@ -18,7 +18,7 @@ enum APIEndpoint {
     case getUserTop10Ranks
     case getUserLogs(userId: String, date: String)
     case getGuestToken
-    
+    case tokenRefresh
     
     var path: String {
         switch self {
@@ -38,6 +38,8 @@ enum APIEndpoint {
             return "usage-log"
         case .getGuestToken:
             return "/guest-users/get-token"
+        case .tokenRefresh:
+            return "/auth/refresh"
         }
     }
 
@@ -51,6 +53,7 @@ enum APIEndpoint {
         case .getUserTop10Ranks: return "GET"
         case .getUserLogs: return "GET"
         case .getGuestToken: return "POST"
+        case .tokenRefresh: return "POST"
         }
     }
 
@@ -91,6 +94,8 @@ enum APIEndpoint {
             ]
             return components.url!
         case .getGuestToken:
+            return APIEndpoint.baseURL.appendingPathComponent(path)
+        case .tokenRefresh:
             return APIEndpoint.baseURL.appendingPathComponent(path)
         }
     }

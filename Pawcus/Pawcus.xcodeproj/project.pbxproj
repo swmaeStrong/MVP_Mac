@@ -20,6 +20,7 @@
 		BD1B6FB92DDF09DB00E481E2 /* DailyWorkTimeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeStore.swift */; };
 		BD1B70092DE57F7000E481E2 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */; };
 		BD1B700C2DE5830B00E481E2 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B700B2DE5830B00E481E2 /* AppConfig.swift */; };
+		BD4D143C2DF2C81200533171 /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4D143B2DF2C81200533171 /* StatisticView.swift */; };
 		BD9893722DD9C47A00F40A9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD98936D2DD9C47A00F40A9B /* Assets.xcassets */; };
 		BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD98936E2DD9C47A00F40A9B /* ContentView.swift */; };
 		BD9893742DD9C47A00F40A9B /* PawcusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893702DD9C47A00F40A9B /* PawcusApp.swift */; };
@@ -62,6 +63,7 @@
 		BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkTimeStore.swift; sourceTree = "<group>"; };
 		BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
 		BD1B700B2DE5830B00E481E2 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		BD4D143B2DF2C81200533171 /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
 		BD98933F2DD9C46800F40A9B /* Pawcus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pawcus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9893502DD9C46A00F40A9B /* PawcusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PawcusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD98935A2DD9C46A00F40A9B /* PawcusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PawcusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				BD0474E52DEAB03900960470 /* ProfileView.swift */,
+				BD4D143B2DF2C81200533171 /* StatisticView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				BD9893A12DD9DD1300F40A9B /* HomeView.swift in Sources */,
 				BD0474AB2DE98F7800960470 /* AppDelegate.swift in Sources */,
 				BD9893912DD9DC0200F40A9B /* DependencyInjection.swift in Sources */,
+				BD4D143C2DF2C81200533171 /* StatisticView.swift in Sources */,
 				BD9893A92DD9DD3500F40A9B /* AnalysisView.swift in Sources */,
 				BD9893AB2DD9DD4200F40A9B /* AnalysisViewModel.swift in Sources */,
 				BD9893A72DD9DD2D00F40A9B /* LeaderBoardViewModel.swift in Sources */,
