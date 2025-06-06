@@ -15,12 +15,14 @@ struct ContentView: View {
         case leaderboard = "LeaderBoard"
         case analysis = "Analysis"
         case profile = "Profile"
+        case web = "web"
         var imageName : String {
             switch self {
             case .home:  return "house.fill"
             case .leaderboard: return "chart.bar.fill"
             case .analysis: return "magnifyingglass.circle.fill"
             case .profile: return "person.crop.circle.fill"
+            case .web: return "plus.circle.fill"
             }
         }
         var id: String { rawValue }
@@ -47,6 +49,8 @@ struct ContentView: View {
                 AnalysisView(viewModel: analysisViewModel)
             case .profile:
                 ProfileView()
+            case .web:
+                StatisticView()
             case .none:
                 Text("Select a tab")
             }
