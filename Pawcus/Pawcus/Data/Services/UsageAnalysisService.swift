@@ -38,7 +38,7 @@ final class UsageAnalysisService {
             throw URLError(.badServerResponse)
         }
 
-        let stat = try JSONDecoder().decode([UsageCategoryStatDTO].self, from: data)
-        return stat
+        let stat = try JSONDecoder().decode(ServerResponse<[UsageCategoryStatDTO]>.self, from: data)
+        return stat.data ?? []
     }
 }
