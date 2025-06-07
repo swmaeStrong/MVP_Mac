@@ -11,39 +11,30 @@ import Factory
 import Supabase
 
 struct LoginView: View {
-    @AppStorage("userNickname") private var userNickname = ""
-    @AppStorage("isLoggedIn") private var isLoggedIn = false
-    @State private var showUsernamePrompt = false
-    
     @StateObject private var viewModel = LoginViewModel()
-
     var body: some View {
-        if viewModel.isGuest || viewModel.isLoggedIn {
-            UserNamePromptView(dd: $viewModel.isGuest)
-        } else if !viewModel.isLoggedIn {
-            VStack(spacing: 16) {
-                Text("Welcome to Pawcus 🐾")
-                    .font(.title2)
-                
-                // MARK: - Google Login
-                SocialSignInButton(logoImageName: "GoogleLogo", title: "Sign in with Google", action: {
-                    Task {
-                        await viewModel.loginWithGoogle()
-                    }
-                })
-                
-                SocialSignInButton(logoImageName: "GithubLogo", title: "Sign in with Github", action: {
-                    Task {
-                        await viewModel.loginWithGithub()
-                    }
-                })
-                Button("Guest Mode") {
-                    viewModel.isGuest = true
-                }
+        VStack(spacing: 16) {
+            Text("Welcome to Pawcus 🐾")
+                .font(.title2)
+            
+            SocialSignInButton(logoImageName: "GoogleLogo", title: "Sign in with Google") {
+                Task { await viewModel.loginWithGoogle() }
             }
-            .padding()
-            .frame(width: 300)
+            
+            SocialSignInButton(logoImageName: "GithubLogo", title: "Sign in with Github") {
+                Task { await viewModel.loginWithGithub() }
+            }
+            
+            Button("Guest Mode") {
+                viewModel.continueAsGuest()
+            }
         }
+        .padding()
+        .frame(width: 300)
+        .sheet(isPresented: $viewModel.showUsernamePrompt) {
+            UserNamePromptView(dd: $viewModel.showUsernamePrompt)
+        }
+        
     }
 }
 
@@ -51,14 +42,14 @@ struct SocialSignInButton: View {
     let logoImageName: String
     let title: String
     let action: () -> Void
-
+    
     var body: some View {
         Button(action: action) {
             HStack(spacing: 8) {
                 Image(logoImageName)
                     .resizable()
                     .frame(width: 18, height: 18)
-
+                
                 Text(title)
                     .fontWeight(.medium)
                     .font(Font.custom("Roboto", size: 14))
@@ -74,6 +65,6 @@ struct SocialSignInButton: View {
             .cornerRadius(20)
         }
         .buttonStyle(PlainButtonStyle())
-
+        
     }
 }

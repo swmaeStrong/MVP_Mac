@@ -9,22 +9,29 @@
 import Foundation
 import Combine
 import Supabase
+import SwiftUI
 
+@MainActor
 final class LoginViewModel: ObservableObject {
-    @Published var isLoggedIn: Bool = false
-    @Published var isGuest: Bool = false
+    @AppStorage("userNickname") private var nickname: String = ""
+    @Published var showUsernamePrompt = false
     private let supabaseAuthService: SupabaseAuthService = SupabaseAuthService()
     
     func loginWithGoogle() async {
-        isLoggedIn = await supabaseAuthService.loginWithGoogle()
+        let success = await supabaseAuthService.loginWithGoogle()
+        if success {
+            showUsernamePrompt = true
+        }
     }
     
     func loginWithGithub() async {
-        isLoggedIn = await supabaseAuthService.loginWithGithub()
+        let success = await supabaseAuthService.loginWithGithub()
+        if success {
+            showUsernamePrompt = true
+        }
     }
     
     func continueAsGuest() {
-        isGuest = true
-        isLoggedIn = true
+        showUsernamePrompt = true
     }
 }

@@ -62,7 +62,8 @@ struct UserNamePromptView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         Task { await SupabaseAuthService().logout() }
-                        dd = false 
+                        dd = false
+                        dismiss()
                     }
                 }
 
