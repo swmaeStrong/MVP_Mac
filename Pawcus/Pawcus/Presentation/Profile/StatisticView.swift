@@ -10,7 +10,7 @@ import SwiftUI
 
 struct StatisticView: View {
     var body: some View {
-        WebView(url: URL(string: "https://mvp-web-view.vercel.app")!)
+        WebView(url: URL(string: "https://mvp-web-view.vercel.app/test")!)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
@@ -22,7 +22,15 @@ struct WebView: NSViewRepresentable {
 
     func makeNSView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
-        config.preferences.javaScriptEnabled = true
+        let contentController = WKUserContentController()
+        contentController.add(context.coordinator, name: "tokenHandler")
+        config.userContentController = contentController
+
+        // Enable Web Inspector (developer mode)
+        let preferences = WKPreferences()
+        preferences.setValue(true, forKey: "developerExtrasEnabled")
+        config.preferences = preferences
+
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
         return webView
@@ -37,9 +45,31 @@ struct WebView: NSViewRepresentable {
         Coordinator()
     }
 
-    class Coordinator: NSObject, WKNavigationDelegate {
+    class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             webView.evaluateJavaScript("localStorage.helloworld = 'hello from macOS';")
+        }
+
+        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+            if message.name == "tokenHandler" {
+                if let body = message.body as? [String: Any],
+                   let type = body["type"] as? String,
+                   type == "request_token" {
+
+                    let accessToken = KeychainHelper.standard.read(service: "accessToken", account: "com.pawcus.token") ?? "no_access_token"
+                    let refreshToken = KeychainHelper.standard.read(service: "refreshToken", account: "com.pawcus.token") ?? "no_refresh_token"
+
+                    let script = """
+                        if (window.receiveTokenFromSwift) {
+                            window.receiveTokenFromSwift('\(accessToken)', '\(refreshToken)');
+                        }
+                    """
+
+                    DispatchQueue.main.async {
+                        message.webView?.evaluateJavaScript(script, completionHandler: nil)
+                    }
+                }
+            }
         }
     }
 }

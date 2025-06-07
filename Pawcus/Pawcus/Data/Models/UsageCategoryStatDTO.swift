@@ -8,9 +8,9 @@
 import Foundation
 
 struct UsageCategoryStatDTO: Codable {
-    var category: String
-    var duration: Double
-    var color: String
+    let category: String
+    let duration: Double
+    let color: String
 }
 
 extension UsageCategoryStatDTO {

@@ -21,6 +21,7 @@ struct PawcusApp: App {
         WindowGroup {
             RootView()
                 .environmentObject(dailyWorkTimeStore)
+//            StatisticView()
         }
         .modelContainer(for: [AppLogEntity.self])
     }
