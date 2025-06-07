@@ -19,7 +19,6 @@ final class AnalysisViewModel: ObservableObject {
     func load() async {
         do {
            usageCategoryStat = try await analysisUseCase.fetchUsageCategoryStat(date: Date())
-            print(usageCategoryStat)
         } catch {
             print("ErrorAnalysysfetchUsageCategoryStat: \(error)")
         }

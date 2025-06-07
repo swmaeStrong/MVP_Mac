@@ -71,7 +71,7 @@ struct UserNamePromptView: View {
                         Task {
                             do {
                                 let trimmedNickname = tempInput.trimmingCharacters(in: .whitespaces)
-                                try await useCase.registerUser(nickname: trimmedNickname)
+                                try await useCase.registerGuest(nickname: trimmedNickname)
                                 isLoggedIn = true
                                 UserDefaults.standard.set(0, forKey: "dailyWorkSeconds")
                             } catch {

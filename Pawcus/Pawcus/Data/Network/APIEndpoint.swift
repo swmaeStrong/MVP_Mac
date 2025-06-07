@@ -11,7 +11,7 @@ enum APIEndpoint {
     static let baseURL = URL(string: AppConfig.baseURL)!
     
     case checkNickname(nickname: String)
-    case registerUser
+    case registerGuest
     case uploadLog
     case getCategories
     case getUserRanksByCategory(category: String, page: Int?, size: Int?, date: String)
@@ -24,7 +24,7 @@ enum APIEndpoint {
         switch self {
         case .checkNickname:
             return "/guest-users/is-nickname-duplicated"
-        case .registerUser:
+        case .registerGuest:
             return "/guest-users"
         case .uploadLog:
             return "/usage-log"
@@ -46,7 +46,7 @@ enum APIEndpoint {
     var method: String {
         switch self {
         case .checkNickname: return "GET"
-        case .registerUser: return "POST"
+        case .registerGuest: return "POST"
         case .uploadLog: return "POST"
         case .getCategories: return "GET"
         case .getUserRanksByCategory: return "GET"
@@ -63,7 +63,7 @@ enum APIEndpoint {
             var components = URLComponents(url: APIEndpoint.baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)!
             components.queryItems = [URLQueryItem(name: "nickname", value: nickname)]
             return components.url!
-        case .registerUser:
+        case .registerGuest:
             return APIEndpoint.baseURL.appendingPathComponent(path)
         case .uploadLog:
             return APIEndpoint.baseURL.appendingPathComponent(path)

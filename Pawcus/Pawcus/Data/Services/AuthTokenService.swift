@@ -18,7 +18,7 @@ final class TokenManager {
     private init() {}
 
     func getAccessToken() -> String {
-        if let accessToken = KeychainHelper.standard.read(service: "accessToken", account: "com.pawcus.token"){
+        if let accessToken = KeychainHelper.standard.read(service: "com.pawcus.token", account: "accessToken"){
             return accessToken
         } else {
             return ""
@@ -26,7 +26,7 @@ final class TokenManager {
     }
 
     func refreshAccessTokenForGuest() async throws {
-        if let refreshToken = KeychainHelper.standard.read(service: "refreshToken", account: "com.pawcus.token") {
+        if let refreshToken = KeychainHelper.standard.read(service: "com.pawcus.token", account: "refreshToken") {
             // 🔁 RTK로 토큰 재발급
             let url = APIEndpoint.tokenRefresh.url()
             var request = URLRequest(url: url)
@@ -63,7 +63,7 @@ final class TokenManager {
     }
 
     private func saveTokens(_ tokens: TokenData) {
-        KeychainHelper.standard.save(tokens.accessToken, service: "accessToken", account: "com.pawcus.token")
-        KeychainHelper.standard.save(tokens.refreshToken, service: "refreshToken", account: "com.pawcus.token")
+        KeychainHelper.standard.save(tokens.accessToken, service: "com.pawcus.token", account: "accessToken")
+        KeychainHelper.standard.save(tokens.refreshToken, service: "com.pawcus.token", account: "refreshToken")
     }
 }

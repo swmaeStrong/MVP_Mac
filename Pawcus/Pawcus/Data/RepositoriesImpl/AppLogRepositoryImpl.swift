@@ -17,7 +17,6 @@ final class AppLogRepositoryImpl: AppLogRepository {
         self.appLogLocalDataSource = appLogLocalDataSource
     }
     
-    @MainActor
     func uploadLogsToServer(context: ModelContext) async throws {
         Task {
             let logs = appLogLocalDataSource.fetchAllAppLogs(context: context)
@@ -34,7 +33,6 @@ final class AppLogRepositoryImpl: AppLogRepository {
         }
     }
     
-    @MainActor
     func clearLocalLogs(context: ModelContext) async throws {
         do {
             try appLogLocalDataSource.removeAllAppLogs(context: context)

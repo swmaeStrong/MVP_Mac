@@ -31,8 +31,8 @@ final class UserRegisterService {
         return result.data ?? true
     }
     
-    func registerUser(uuid: String, nickname: String) async throws -> UserData {
-        let endpoint = APIEndpoint.registerUser
+    func registerGuest(uuid: String, nickname: String) async throws -> UserData {
+        let endpoint = APIEndpoint.registerGuest
         let url = endpoint.url()
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method

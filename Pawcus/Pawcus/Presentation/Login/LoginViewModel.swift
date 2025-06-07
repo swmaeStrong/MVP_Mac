@@ -10,7 +10,6 @@ import Foundation
 import Combine
 import Supabase
 
-@MainActor
 final class LoginViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var isGuest: Bool = false
