@@ -12,14 +12,13 @@ import SwiftUI
 final class SupabaseAuthService {
     @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     
-    func loginWithGoogle() async -> Bool {
+    func loginWithGoogle() async -> Bool  {
         do {
             let session = try await supabase.auth.signInWithOAuth(
                 provider: .google,
                 redirectTo: AppConfig.redirectToURL
             )
             print("Google login successful: \(session)")
-            isLoggedIn = true
             return true
         } catch {
             print("Google login failed: \(error)")
@@ -34,7 +33,6 @@ final class SupabaseAuthService {
                 redirectTo: AppConfig.redirectToURL
             )
             print("Github login successful: \(session)")
-            isLoggedIn = true
             return true
         } catch {
             print("Github login failed: \(error)")
