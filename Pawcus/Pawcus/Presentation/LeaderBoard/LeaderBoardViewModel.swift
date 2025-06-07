@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Factory
 
+@MainActor
 final class LeaderBoardViewModel: ObservableObject {
     @Injected(\.fetchLeaderBoardUseCase) private var fetchLeaderBoardUseCase
     
@@ -26,11 +27,9 @@ final class LeaderBoardViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     func loadCategories() async {
         do {
             let categories = try await fetchLeaderBoardUseCase.fetchLeaderBoardCategories()
-            print(categories)
             self.categories = categories
             self.categoryNames = categories.map { $0.category }
         } catch {
@@ -48,7 +47,7 @@ final class LeaderBoardViewModel: ObservableObject {
         return Array(ranks.dropFirst(3))
     }
     
-    @MainActor
+    
     func loadUserTop10RanksByCategory(page: Int? = nil, size: Int? = nil) async {
         do {
             let userRanks = try await fetchLeaderBoardUseCase.fetchLeaderBoard(category: selectedCategory, page: page, size: size, date: selectedDate.formattedDateString)

@@ -56,8 +56,8 @@ struct WebView: NSViewRepresentable {
                    let type = body["type"] as? String,
                    type == "request_token" {
 
-                    let accessToken = KeychainHelper.standard.read(service: "accessToken", account: "com.pawcus.token") ?? "no_access_token"
-                    let refreshToken = KeychainHelper.standard.read(service: "refreshToken", account: "com.pawcus.token") ?? "no_refresh_token"
+                    let accessToken = KeychainHelper.standard.read(service: "com.pawcus.token", account: "accessToken") ?? "no_access_token"
+                    let refreshToken = KeychainHelper.standard.read(service: "com.pawcus.token", account: "refreshToken") ?? "no_refresh_token"
 
                     let script = """
                         if (window.receiveTokenFromSwift) {

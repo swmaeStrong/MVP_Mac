@@ -38,6 +38,9 @@ struct RootView: View {
                     self.session = nil
                 }
             }
+            print(UserDefaults.standard.string(forKey: "userId") ?? "")
+            print(UserDefaults.standard.string(forKey: "createdAt") ?? "")
+
         }
     }
 }

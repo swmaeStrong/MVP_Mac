@@ -98,7 +98,6 @@ final class DailyWorkTimeStore: ObservableObject {
     }
 
     // MARK: - 로그 전송/삭제
-    @MainActor
     func sendLogs() async {
         guard let context = context else { return }
         do {
@@ -108,7 +107,6 @@ final class DailyWorkTimeStore: ObservableObject {
         }
     }
 
-    @MainActor
     func deleteLogs() async {
         guard let context = context else { return }
         do {

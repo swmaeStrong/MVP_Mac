@@ -21,9 +21,9 @@ final class RegisterUserRepositoryImpl: RegisterUserRepository {
         return isValid
     }
     
-    func registerUser(nickname: String) async throws -> Bool {
+    func registerGuest(nickname: String) async throws -> Bool {
         let uuid = UUID().uuidString
-        let userData = try await service.registerUser(uuid: uuid, nickname: nickname)
+        let userData = try await service.registerGuest(uuid: uuid, nickname: nickname)
         UserDefaults.standard.set(nickname, forKey: "userNickname")
         UserDefaults.standard.set(uuid, forKey: "userId")
         UserDefaults.standard.set(userData.createdAt, forKey: "createdAt")
