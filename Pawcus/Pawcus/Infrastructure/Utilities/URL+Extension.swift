@@ -12,8 +12,8 @@ extension URLRequest {
         self.setValue("application/json", forHTTPHeaderField: "Content-Type")
     }
     
-    mutating func addBearerTokenIfAvailable() {
-        let token = TokenManager.shared.getAccessToken()
+    mutating func addBearerToken() {
+        let token = TokenManager.getAccessToken()
         self.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
 }

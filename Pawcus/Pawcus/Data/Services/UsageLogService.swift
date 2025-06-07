@@ -19,13 +19,13 @@ final class UsageLogService {
         var request = URLRequest(url: endpoint.url())
         request.httpMethod = endpoint.method
         request.addJSONHeader()
-        request.addBearerTokenIfAvailable()
+        request.addBearerToken()
         request.httpBody = try JSONEncoder().encode(logs)
 
         let (_, response) = try await session.data(for: request)
         if let http = response as? HTTPURLResponse, (400...499).contains(http.statusCode) {
             // 🔄 토큰 재발급 시도
-            try await TokenManager.shared.refreshAccessTokenForGuest()
+            try await TokenManager.refreshAccessToken()
             // 📦 재시도 (토큰 교체 후)
             return try await uploadLogs(logs: logs)
         }
