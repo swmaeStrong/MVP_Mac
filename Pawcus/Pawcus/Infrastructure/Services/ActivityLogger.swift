@@ -56,7 +56,7 @@ final class ActivityLogger {
                 self.lastTimestamp = now
                 self.lastFlushDate = now
             } else if let lastFlush = self.lastFlushDate, now.timeIntervalSince(lastFlush) >= 10 {
-                // 5분 경과시 강제 저장
+                // 10초 경과시 강제 저장
                 if let context = self.context,
                    let prevApp = self.lastAppName,
                    let prevTitle = self.lastTitle,

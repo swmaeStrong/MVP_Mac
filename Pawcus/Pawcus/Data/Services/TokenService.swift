@@ -12,12 +12,9 @@ enum AuthError: Error {
     case noUserData
 }
 
-final class TokenManager {
-    static let shared = TokenManager()
-
-    private init() {}
-
-    func getAccessToken() -> String {
+enum TokenManager {
+    
+    static func getAccessToken() -> String {
         if let accessToken = KeychainHelper.standard.read(service: "com.pawcus.token", account: "accessToken"){
             return accessToken
         } else {
@@ -25,7 +22,7 @@ final class TokenManager {
         }
     }
 
-    func refreshAccessTokenForGuest() async throws {
+    static func refreshAccessToken() async throws {
         if let refreshToken = KeychainHelper.standard.read(service: "com.pawcus.token", account: "refreshToken") {
             // 🔁 RTK로 토큰 재발급
             let url = APIEndpoint.tokenRefresh.url()
@@ -62,7 +59,7 @@ final class TokenManager {
         }
     }
 
-    private func saveTokens(_ tokens: TokenData) {
+    static private func saveTokens(_ tokens: TokenData) {
         KeychainHelper.standard.save(tokens.accessToken, service: "com.pawcus.token", account: "accessToken")
         KeychainHelper.standard.save(tokens.refreshToken, service: "com.pawcus.token", account: "refreshToken")
     }
