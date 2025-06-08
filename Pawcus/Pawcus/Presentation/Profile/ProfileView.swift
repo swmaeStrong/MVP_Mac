@@ -36,7 +36,7 @@ struct ProfileView: View {
                 }
                 let defaults = UserDefaults.standard
                 defaults.removeObject(forKey: "userNickname")
-                defaults.removeObject(forKey: "userID")
+                defaults.removeObject(forKey: "userId")
                 defaults.removeObject(forKey: "dailyWorkSeconds")
                 defaults.removeObject(forKey: "lastRecordedDate")
                 KeychainHelper.standard.save("", service: "com.pawcus.token", account: "accessToken")

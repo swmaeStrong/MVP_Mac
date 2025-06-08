@@ -244,7 +244,6 @@
 			children = (
 				BD9893702DD9C47A00F40A9B /* PawcusApp.swift */,
 				BD0474AA2DE98F7800960470 /* AppDelegate.swift */,
-				BD9893902DD9DC0200F40A9B /* DependencyInjection.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -275,6 +274,7 @@
 		BD9893972DD9DC5C00F40A9B /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				BD9893902DD9DC0200F40A9B /* DependencyInjection.swift */,
 				BD0472A72DE7527400960470 /* Services */,
 				BD0472A12DE7527100960470 /* Utilities */,
 			);
