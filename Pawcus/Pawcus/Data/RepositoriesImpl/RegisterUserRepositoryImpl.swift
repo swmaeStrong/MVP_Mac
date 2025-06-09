@@ -30,6 +30,17 @@ final class RegisterUserRepositoryImpl: RegisterUserRepository {
         return true
     }
     
+    func registerSocialUser(accessToken: String) async throws {
+        let tokenData = try await service.registerSocialUser(accessToken: accessToken)
+        // 네트워크 호출 결과로 받은 토큰을 로컬에 저장
+        KeychainHelper.standard.save(tokenData.accessToken,
+                                     service: "com.pawcus.token",
+                                     account: "accessToken")
+        KeychainHelper.standard.save(tokenData.refreshToken,
+                                     service: "com.pawcus.token",
+                                     account: "refreshToken")
+    }
+    
     func getGuestToken() async throws {
         let tokenData = try await service.getGuestToken()
         print("토큰: \(tokenData.accessToken)")
