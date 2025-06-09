@@ -97,4 +97,26 @@ final class UserRegisterService {
 
         return tokenData
     }
+    
+    /// 닉네임 업데이트
+    func updateNickname(_ newNickname: String) async throws {
+        let endpoint = APIEndpoint.updateNickname
+        let url = endpoint.url()
+        var request = URLRequest(url: url)
+        request.httpMethod = endpoint.method
+        request.addJSONHeader()
+        request.addBearerToken()
+        let body = ["nickname": newNickname]
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, response) = try await session.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw URLError(.badServerResponse)
+        }
+
+        let result = try JSONDecoder().decode(ServerResponse<SimpleUserData>.self, from: data)
+        guard result.isSuccess, let _ = result.data else {
+            throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
+        }
+    }
 }

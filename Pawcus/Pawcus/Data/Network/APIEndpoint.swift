@@ -20,6 +20,7 @@ enum APIEndpoint {
     case getUserLogs(userId: String, date: String)
     case getGuestToken
     case tokenRefresh
+    case updateNickname
     
     var path: String {
         switch self {
@@ -43,6 +44,8 @@ enum APIEndpoint {
             return "/guest-users/get-token"
         case .tokenRefresh:
             return "/auth/refresh"
+        case .updateNickname:
+            return "guest-users/nickname"
         }
     }
 
@@ -58,6 +61,7 @@ enum APIEndpoint {
         case .getUserLogs: return "GET"
         case .getGuestToken: return "POST"
         case .tokenRefresh: return "POST"
+        case .updateNickname: return "PATCH"
         }
     }
 
