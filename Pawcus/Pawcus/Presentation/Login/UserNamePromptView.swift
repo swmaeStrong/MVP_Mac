@@ -15,9 +15,9 @@ struct UserNamePromptView: View {
     @State private var isValidNickname: Bool? = nil
     @State private var isChecking: Bool = false
     @State private var statusMessage: String? = nil
-    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+   // @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    @AppStorage("userNickname") private var username: String = ""
 
-    @Binding var dd: Bool
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -26,7 +26,7 @@ struct UserNamePromptView: View {
                 Text("Please enter a nickname")
                     .font(.title2)
                 HStack {
-                    TextField("Nickname", text: $tempInput)
+                    TextField(username.isEmpty ? "Nickname" : username, text: $tempInput)
                         .textFieldStyle(.roundedBorder)
                         .onChange(of: tempInput) {
                             isValidNickname = nil
@@ -61,10 +61,16 @@ struct UserNamePromptView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
-                        Task { await SupabaseAuthService().logout() }
-                        dd = false
+                        if username.isEmpty {
+                            Task {
+                                await SupabaseAuthService().logout()
+                            }
+                        }
+                       // Task { await SupabaseAuthService().logout() }
+//                        dd = false
                         dismiss()
                     }
+                    .disabled(username.isEmpty)
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
@@ -72,8 +78,10 @@ struct UserNamePromptView: View {
                         Task {
                             do {
                                 let trimmedNickname = tempInput.trimmingCharacters(in: .whitespaces)
-                                try await useCase.registerGuest(nickname: trimmedNickname)
-                                isLoggedIn = true
+                                // TODO: - Nickname Patch 로 변경할 예정
+//                                try await useCase.registerGuest(nickname: trimmedNickname)
+                                username = trimmedNickname
+                                dismiss() 
                                 UserDefaults.standard.set(0, forKey: "dailyWorkSeconds")
                             } catch {
                                 statusMessage = error.localizedDescription

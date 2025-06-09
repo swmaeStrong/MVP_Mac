@@ -26,15 +26,11 @@ struct LoginView: View {
             }
             
             Button("Guest Mode") {
-                viewModel.continueAsGuest()
+                Task { await viewModel.continueAsGuest() }
             }
         }
         .padding()
         .frame(width: 300)
-        .sheet(isPresented: $viewModel.showUsernamePrompt) {
-            UserNamePromptView(dd: $viewModel.showUsernamePrompt)
-        }
-        
     }
 }
 

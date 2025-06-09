@@ -10,6 +10,7 @@ import Factory
 import Sparkle
 
 struct ProfileView: View {
+    @State private var isEditingNickname: Bool = false
     @AppStorage("userNickname") private var userNickname: String = ""
     @AppStorage("userID") private var userID: String = ""
     @AppStorage("dailyWorkSeconds") private var storedSeconds: Int = 0
@@ -19,8 +20,15 @@ struct ProfileView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Text("닉네임: \(userNickname)")
-                .font(.title2)
+            HStack {
+                Text("닉네임: \(userNickname)")
+                    .font(.title2)
+                Image(systemName: "pencil")
+                    .foregroundColor(.blue)
+                    .onTapGesture {
+                        isEditingNickname = true
+                    }
+            }
             Text("Pro Plan: false")
                 .foregroundColor(.gray)
             Button("업데이트 확인") {
@@ -37,6 +45,7 @@ struct ProfileView: View {
                 let defaults = UserDefaults.standard
                 defaults.removeObject(forKey: "userNickname")
                 defaults.removeObject(forKey: "userId")
+                defaults.removeObject(forKey: "isLoggedIn")
                 defaults.removeObject(forKey: "dailyWorkSeconds")
                 defaults.removeObject(forKey: "lastRecordedDate")
                 KeychainHelper.standard.save("", service: "com.pawcus.token", account: "accessToken")
@@ -45,6 +54,9 @@ struct ProfileView: View {
             .foregroundColor(.red)
         }
         .padding()
+        .sheet(isPresented: $isEditingNickname) {
+            UserNamePromptView()
+        }
     }
 }
 

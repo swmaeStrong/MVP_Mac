@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @AppStorage("userNickname") private var username: String = ""
-
+    @State private var showUsernamePrompt: Bool = false
+    
     enum Tab: String, CaseIterable, Identifiable, Hashable {
         case home = "Home"
         case leaderboard = "LeaderBoard"
@@ -35,7 +36,7 @@ struct ContentView: View {
         NavigationSplitView {
             List(Tab.allCases, selection: $selection) { tab in
                 Label(tab.rawValue, systemImage: tab.imageName)
-                .tag(tab)
+                    .tag(tab)
             }
             .listStyle(.sidebar)
             .navigationTitle("Tabs")
@@ -54,6 +55,12 @@ struct ContentView: View {
             case .none:
                 Text("Select a tab")
             }
+        }
+        .onAppear {
+            showUsernamePrompt = username.isEmpty
+        }
+        .sheet(isPresented: $showUsernamePrompt) {
+            UserNamePromptView()
         }
     }
 }
