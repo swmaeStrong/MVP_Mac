@@ -50,6 +50,26 @@ final class UserRegisterService {
         return userData
     }
     
+    /// 소셜 로그인 회원 등록
+    func registerSocialUser(accessToken: String) async throws -> TokenData {
+        let endpoint = APIEndpoint.registerSocialUser
+        let url = endpoint.url()
+        var request = URLRequest(url: url)
+        request.httpMethod = endpoint.method
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let body = ["accessToken": accessToken]
+        request.httpBody = try JSONEncoder().encode(body)
+        let (data, response) = try await session.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw URLError(.badServerResponse)
+        }
+        let result = try JSONDecoder().decode(ServerResponse<TokenData>.self, from: data)
+        guard result.isSuccess, let tokenData = result.data else {
+            throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
+        }
+        return tokenData
+    }
+    
     func getGuestToken() async throws -> TokenData {
         guard let userId = UserDefaults.standard.string(forKey: "userId"),
               let createdAt = UserDefaults.standard.string(forKey: "createdAt") else {
