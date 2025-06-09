@@ -21,4 +21,8 @@ final class RegisterUserUseCase {
             try await repository.getGuestToken()
         }
     }
+    
+    func registerSocialUser(accessToken: String) async throws {
+        try await repository.registerSocialUser(accessToken: accessToken)
+    }
 }
