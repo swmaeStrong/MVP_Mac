@@ -12,6 +12,7 @@ enum APIEndpoint {
     
     case checkNickname(nickname: String)
     case registerGuest
+    case registerSocialUser
     case uploadLog
     case getCategories
     case getUserRanksByCategory(category: String, page: Int?, size: Int?, date: String)
@@ -26,6 +27,8 @@ enum APIEndpoint {
             return "/guest-users/is-nickname-duplicated"
         case .registerGuest:
             return "/guest-users"
+        case .registerSocialUser:
+            return "/auth/social-login"
         case .uploadLog:
             return "/usage-log"
         case .getCategories:
@@ -47,6 +50,7 @@ enum APIEndpoint {
         switch self {
         case .checkNickname: return "GET"
         case .registerGuest: return "POST"
+        case .registerSocialUser: return "POST"
         case .uploadLog: return "POST"
         case .getCategories: return "GET"
         case .getUserRanksByCategory: return "GET"
@@ -63,12 +67,7 @@ enum APIEndpoint {
             var components = URLComponents(url: APIEndpoint.baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)!
             components.queryItems = [URLQueryItem(name: "nickname", value: nickname)]
             return components.url!
-        case .registerGuest:
-            return APIEndpoint.baseURL.appendingPathComponent(path)
-        case .uploadLog:
-            return APIEndpoint.baseURL.appendingPathComponent(path)
-        case .getCategories:
-            return APIEndpoint.baseURL.appendingPathComponent(path)
+            
         case .getUserRanksByCategory(let category, let page, let size, let date):
             var components = URLComponents(url: APIEndpoint.baseURL.appendingPathComponent("/leaderboard/\(category)/daily"), resolvingAgainstBaseURL: false)!
             var items: [URLQueryItem] = []
@@ -81,8 +80,6 @@ enum APIEndpoint {
             items.append(URLQueryItem(name: "date", value: date))
             components.queryItems = items
             return components.url!
-        case .getUserTop10Ranks:
-            return APIEndpoint.baseURL.appendingPathComponent(path)
         case .getUserLogs(userId: let userId, date: let date):
             var components = URLComponents(
                 url: APIEndpoint.baseURL.appendingPathComponent(path),
@@ -93,9 +90,7 @@ enum APIEndpoint {
                 URLQueryItem(name: "date", value: date)
             ]
             return components.url!
-        case .getGuestToken:
-            return APIEndpoint.baseURL.appendingPathComponent(path)
-        case .tokenRefresh:
+        default:
             return APIEndpoint.baseURL.appendingPathComponent(path)
         }
     }
