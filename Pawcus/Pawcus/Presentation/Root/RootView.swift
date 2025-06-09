@@ -18,7 +18,7 @@ struct RootView: View {
     @EnvironmentObject private var timeStore: DailyWorkTimeStore
     
     var body: some View {
-        if !username.isEmpty  {
+        if isLoggedIn  {
             ContentView()
                 .onAppear {
                     timeStore.context = modelContext
