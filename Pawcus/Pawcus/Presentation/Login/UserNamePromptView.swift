@@ -10,15 +10,8 @@ import SwiftUI
 import Factory
 
 struct UserNamePromptView: View {
-    @Injected(\.registerUserUseCase) private var useCase: RegisterUserUseCase
-    @State private var tempInput: String = ""
-    @State private var isValidNickname: Bool? = nil
-    @State private var isChecking: Bool = false
-    @State private var statusMessage: String? = nil
-   // @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
-    @AppStorage("userNickname") private var username: String = ""
-
     @Environment(\.dismiss) private var dismiss
+    @StateObject private var vm = UserNamePromptViewModel()
 
     var body: some View {
         NavigationStack {
@@ -26,85 +19,54 @@ struct UserNamePromptView: View {
                 Text("Please enter a nickname")
                     .font(.title2)
                 HStack {
-                    TextField(username.isEmpty ? "Nickname" : username, text: $tempInput)
+                    TextField("Nickname", text: $vm.tempInput)
                         .textFieldStyle(.roundedBorder)
-                        .onChange(of: tempInput) {
-                            isValidNickname = nil
-                            statusMessage = nil
+                        .onChange(of: vm.tempInput) {
+                            vm.isValidNickname = nil
+                            vm.statusMessage = nil
                         }
-
+                    
                     Button("Check") {
-                        Task {
-                            await validateNickname()
-                        }
+                        Task { await vm.validate() }
                     }
-                    .disabled(tempInput.trimmingCharacters(in: .whitespaces).isEmpty || isChecking)
+                    .disabled(vm.tempInput.trimmingCharacters(in: .whitespaces).isEmpty || vm.isChecking)
                 }
-
-                HStack {
-                    if isChecking {
-                        ProgressView().scaleEffect(0.5)
-                    } else if let isValid = isValidNickname {
-                        Image(systemName: isValid ? "checkmark.circle.fill" : "xmark.circle.fill")
-                            .foregroundColor(isValid ? .green : .red)
-                    }
-
-                    if let message = statusMessage {
+                if let message = vm.statusMessage {
+                    HStack {
+                        if vm.isChecking {
+                            ProgressView().scaleEffect(0.5)
+                        } else if let image = vm.nicknameStatusImage {
+                            Image(systemName: image)
+                                .foregroundColor(vm.nicknameStatusColor)
+                        }
                         Text(message)
-                            .foregroundColor((isValidNickname ?? false) ? Color.green : .red)
                             .font(.footnote)
+                            .foregroundColor(vm.nicknameStatusColor)
                     }
                 }
             }
             .padding()
             .frame(width: 300)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        if username.isEmpty {
-                            Task {
-                                await SupabaseAuthService().logout()
-                            }
-                        }
-                       // Task { await SupabaseAuthService().logout() }
-//                        dd = false
-                        dismiss()
+                if vm.showCancelButton() {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Cancel") { dismiss() }
                     }
-                    .disabled(username.isEmpty)
                 }
-
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Confirm") {
                         Task {
-                            do {
-                                let trimmedNickname = tempInput.trimmingCharacters(in: .whitespaces)
-                                // TODO: - Nickname Patch 로 변경할 예정
-//                                try await useCase.registerGuest(nickname: trimmedNickname)
-                                username = trimmedNickname
-                                dismiss() 
-                                UserDefaults.standard.set(0, forKey: .dailyWorkSeconds)
-                            } catch {
-                                statusMessage = error.localizedDescription
-                            }
+                            await vm.confirm()
                         }
                     }
-                    .disabled(!(isValidNickname ?? false))
+                    .disabled(!(vm.isValidNickname ?? false))
                 }
             }
         }
-    }
-
-    func validateNickname() async {
-        isChecking = true
-        isValidNickname = nil
-        statusMessage = nil
-        do {
-            let valid = try await useCase.checkNicknameAvailability(nickname: tempInput.trimmingCharacters(in: .whitespaces))
-            isValidNickname = valid
-            statusMessage = valid ? "Nickname is available." : "Nickname is already taken."
-        } catch {
-            statusMessage = error.localizedDescription
+        .onReceive(vm.$didConfirm) { didConfirm in
+            if didConfirm {
+                dismiss()
+            }
         }
-        isChecking = false
     }
 }
