@@ -25,7 +25,7 @@ enum APIEndpoint {
     var path: String {
         switch self {
         case .checkNickname:
-            return "/guest-users/is-nickname-duplicated"
+            return "/user/nickname/check"
         case .registerGuest:
             return "/guest-users"
         case .registerSocialUser:
