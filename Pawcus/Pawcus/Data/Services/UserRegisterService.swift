@@ -41,7 +41,6 @@ final class UserRegisterService {
         request.httpBody = try JSONEncoder().encode(body)
         let (data, response) = try await session.data(for: request)
         guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
-            print(response as? HTTPURLResponse)
             throw URLError(.badServerResponse)
         }
         print(http)
@@ -101,7 +100,7 @@ final class UserRegisterService {
     }
     
     /// 닉네임 업데이트
-    func updateNickname(_ newNickname: String) async throws {
+    func updateNickname(_ newNickname: String) async throws -> Bool {
         let endpoint = APIEndpoint.updateNickname
         let url = endpoint.url()
         var request = URLRequest(url: url)
@@ -120,5 +119,6 @@ final class UserRegisterService {
         guard result.isSuccess, let _ = result.data else {
             throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }
+        return true 
     }
 }
