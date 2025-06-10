@@ -10,7 +10,6 @@ import Supabase
 import SwiftUI
 
 final class SupabaseAuthService {
-    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     
     func loginWithGoogle() async -> Bool  {
         do {
@@ -43,7 +42,7 @@ final class SupabaseAuthService {
     func logout() async {
         do {
             try await supabase.auth.signOut()
-            isLoggedIn = false
+            UserDefaults.standard.set(false, forKey: .isLoggedIn)
             print("Logout successful")
         } catch {
             print("Logout failed: \(error)")
