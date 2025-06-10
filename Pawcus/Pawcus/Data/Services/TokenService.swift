@@ -39,8 +39,8 @@ enum TokenManager {
             saveTokens(newTokens)
         } else {
             // ⛔ RTK까지 만료 → userId + createdAt로 재발급
-            guard let userId = UserDefaults.standard.string(forKey: "userId"),
-                  let createdAt = UserDefaults.standard.string(forKey: "createdAt") else {
+            guard let userId = UserDefaults.standard.string(forKey: .userId),
+                  let createdAt = UserDefaults.standard.string(forKey: .createdAt) else {
                 throw AuthError.noUserData
             }
 

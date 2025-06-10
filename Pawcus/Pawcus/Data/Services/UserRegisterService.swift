@@ -72,8 +72,8 @@ final class UserRegisterService {
     }
     
     func getGuestToken() async throws -> TokenData {
-        guard let userId = UserDefaults.standard.string(forKey: "userId"),
-              let createdAt = UserDefaults.standard.string(forKey: "createdAt") else {
+        guard let userId = UserDefaults.standard.string(forKey: .userId),
+              let createdAt = UserDefaults.standard.string(forKey: .createdAt) else {
             throw NSError(domain: "UserRegisterService", code: 0, userInfo: [NSLocalizedDescriptionKey: "Missing userID or createdAt in UserDefaults"])
         }
 

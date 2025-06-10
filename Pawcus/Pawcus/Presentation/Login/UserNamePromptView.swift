@@ -82,7 +82,7 @@ struct UserNamePromptView: View {
 //                                try await useCase.registerGuest(nickname: trimmedNickname)
                                 username = trimmedNickname
                                 dismiss() 
-                                UserDefaults.standard.set(0, forKey: "dailyWorkSeconds")
+                                UserDefaults.standard.set(0, forKey: .dailyWorkSeconds)
                             } catch {
                                 statusMessage = error.localizedDescription
                             }
