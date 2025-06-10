@@ -25,4 +25,8 @@ final class RegisterUserUseCase {
     func registerSocialUser(accessToken: String) async throws {
         try await repository.registerSocialUser(accessToken: accessToken)
     }
+    
+    func updateNickname(_ nickname: String) async throws {
+        try await repository.updateNickname(nickname)
+    }
 }
