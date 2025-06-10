@@ -12,7 +12,7 @@ enum APIEndpoint {
     
     case checkNickname(nickname: String)
     case registerGuest
-    case registerSocialUser
+    case loginSocialUser
     case uploadLog
     case getCategories
     case getUserRanksByCategory(category: String, page: Int?, size: Int?, date: String)
@@ -27,8 +27,8 @@ enum APIEndpoint {
         case .checkNickname:
             return "/user/nickname/check"
         case .registerGuest:
-            return "/guest-users"
-        case .registerSocialUser:
+            return "/user"
+        case .loginSocialUser:
             return "/auth/social-login"
         case .uploadLog:
             return "/usage-log"
@@ -53,7 +53,7 @@ enum APIEndpoint {
         switch self {
         case .checkNickname: return "GET"
         case .registerGuest: return "POST"
-        case .registerSocialUser: return "POST"
+        case .loginSocialUser: return "POST"
         case .uploadLog: return "POST"
         case .getCategories: return "GET"
         case .getUserRanksByCategory: return "GET"

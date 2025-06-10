@@ -45,7 +45,7 @@ final class LoginViewModel: ObservableObject {
     
     func continueAsGuest() async {
         do {
-            try await registerUserUseCase.registerGuest(nickname: "")
+            try await registerUserUseCase.registerGuest()
         } catch {
             
         }
