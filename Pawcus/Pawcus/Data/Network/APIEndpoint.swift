@@ -12,7 +12,7 @@ enum APIEndpoint {
     
     case checkNickname(nickname: String)
     case registerGuest
-    case registerSocialUser
+    case loginSocialUser
     case uploadLog
     case getCategories
     case getUserRanksByCategory(category: String, page: Int?, size: Int?, date: String)
@@ -20,14 +20,15 @@ enum APIEndpoint {
     case getUserLogs(userId: String, date: String)
     case getGuestToken
     case tokenRefresh
+    case updateNickname
     
     var path: String {
         switch self {
         case .checkNickname:
-            return "/guest-users/is-nickname-duplicated"
+            return "/user/nickname/check"
         case .registerGuest:
-            return "/guest-users"
-        case .registerSocialUser:
+            return "/user"
+        case .loginSocialUser:
             return "/auth/social-login"
         case .uploadLog:
             return "/usage-log"
@@ -40,9 +41,11 @@ enum APIEndpoint {
         case .getUserLogs:
             return "usage-log"
         case .getGuestToken:
-            return "/guest-users/get-token"
+            return "/user/get-token"
         case .tokenRefresh:
             return "/auth/refresh"
+        case .updateNickname:
+            return "user/nickname"
         }
     }
 
@@ -50,7 +53,7 @@ enum APIEndpoint {
         switch self {
         case .checkNickname: return "GET"
         case .registerGuest: return "POST"
-        case .registerSocialUser: return "POST"
+        case .loginSocialUser: return "POST"
         case .uploadLog: return "POST"
         case .getCategories: return "GET"
         case .getUserRanksByCategory: return "GET"
@@ -58,6 +61,7 @@ enum APIEndpoint {
         case .getUserLogs: return "GET"
         case .getGuestToken: return "POST"
         case .tokenRefresh: return "POST"
+        case .updateNickname: return "PATCH"
         }
     }
 

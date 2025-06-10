@@ -13,6 +13,11 @@ struct UserData: Codable {
     let createdAt: String
 }
 
+struct SimpleUserData: Codable {
+    let userId: String
+    let nickname: String
+}
+
 struct TokenData: Codable {
     let accessToken: String
     let refreshToken: String

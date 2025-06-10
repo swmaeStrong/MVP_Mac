@@ -19,7 +19,7 @@ final class AnalysisRepositoryImpl: AnalysisRepository {
     }
     
     func getUsageCategoryStat(userId: String? = nil , date: Date) async throws -> [UsageCategoryStat] {
-        let userId = UserDefaults.standard.string(forKey: "userId") ?? UUID().uuidString
+        let userId = UserDefaults.standard.string(forKey: .userId) ?? UUID().uuidString
         return try await service.fetchUsageCategoryStat(userId: userId, date: date.formattedDateString).map{$0.toDomain()}
     }
 }
