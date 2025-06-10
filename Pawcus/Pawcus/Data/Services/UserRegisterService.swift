@@ -31,13 +31,13 @@ final class UserRegisterService {
         return result.data ?? true
     }
     
-    func registerGuest(uuid: String, nickname: String) async throws -> UserData {
+    func registerGuest(uuid: String) async throws -> UserData {
         let endpoint = APIEndpoint.registerGuest
         let url = endpoint.url()
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body = ["userId": uuid, "nickname": nickname]
+        let body = ["userId": uuid]
         request.httpBody = try JSONEncoder().encode(body)
         let (data, response) = try await session.data(for: request)
         guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
@@ -52,7 +52,7 @@ final class UserRegisterService {
     
     /// 소셜 로그인 회원 등록
     func registerSocialUser(accessToken: String) async throws -> TokenData {
-        let endpoint = APIEndpoint.registerSocialUser
+        let endpoint = APIEndpoint.loginSocialUser
         let url = endpoint.url()
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method

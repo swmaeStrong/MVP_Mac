@@ -21,10 +21,10 @@ final class RegisterUserRepositoryImpl: RegisterUserRepository {
         return isValid
     }
     
-    func registerGuest(nickname: String) async throws -> Bool {
+    func registerGuest() async throws -> Bool {
         let uuid = UUID().uuidString
-        let userData = try await service.registerGuest(uuid: uuid, nickname: nickname)
-        UserDefaults.standard.set(nickname, forKey: "userNickname")
+        let userData = try await service.registerGuest(uuid: uuid)
+        UserDefaults.standard.set(userData.nickname, forKey: "userNickname")
         UserDefaults.standard.set(uuid, forKey: "userId")
         UserDefaults.standard.set(userData.createdAt, forKey: "createdAt")
         isLoggedIn = true
