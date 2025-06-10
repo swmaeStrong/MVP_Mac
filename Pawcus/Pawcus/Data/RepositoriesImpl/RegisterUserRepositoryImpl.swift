@@ -21,6 +21,12 @@ final class RegisterUserRepositoryImpl: RegisterUserRepository {
         return isValid
     }
     
+    func updateNickname(_ nickname: String) async throws {
+        if try await service.updateNickname(nickname) {
+            UserDefaults.standard.set(nickname, forKey: "userNickname")
+        }
+    }
+    
     func registerGuest() async throws -> Bool {
         let uuid = UUID().uuidString
         let userData = try await service.registerGuest(uuid: uuid)

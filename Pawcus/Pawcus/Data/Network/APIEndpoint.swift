@@ -45,7 +45,7 @@ enum APIEndpoint {
         case .tokenRefresh:
             return "/auth/refresh"
         case .updateNickname:
-            return "guest-users/nickname"
+            return "user/nickname"
         }
     }
 
