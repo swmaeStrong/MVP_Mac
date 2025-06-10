@@ -41,8 +41,10 @@ final class UserRegisterService {
         request.httpBody = try JSONEncoder().encode(body)
         let (data, response) = try await session.data(for: request)
         guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            print(response as? HTTPURLResponse)
             throw URLError(.badServerResponse)
         }
+        print(http)
         let result = try JSONDecoder().decode(ServerResponse<UserData>.self, from: data)
         guard result.isSuccess, let userData = result.data else {
             throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
