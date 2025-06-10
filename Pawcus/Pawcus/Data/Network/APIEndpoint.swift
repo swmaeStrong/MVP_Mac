@@ -41,7 +41,7 @@ enum APIEndpoint {
         case .getUserLogs:
             return "usage-log"
         case .getGuestToken:
-            return "/guest-users/get-token"
+            return "/user/get-token"
         case .tokenRefresh:
             return "/auth/refresh"
         case .updateNickname:
