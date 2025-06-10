@@ -21,6 +21,7 @@
 		BD1B70092DE57F7000E481E2 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */; };
 		BD1B700C2DE5830B00E481E2 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B700B2DE5830B00E481E2 /* AppConfig.swift */; };
 		BD4D143C2DF2C81200533171 /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4D143B2DF2C81200533171 /* StatisticView.swift */; };
+		BD56F7C82DF7FCFB00475A27 /* UserNamePromptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56F7C72DF7FCFB00475A27 /* UserNamePromptViewModel.swift */; };
 		BD9893722DD9C47A00F40A9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD98936D2DD9C47A00F40A9B /* Assets.xcassets */; };
 		BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD98936E2DD9C47A00F40A9B /* ContentView.swift */; };
 		BD9893742DD9C47A00F40A9B /* PawcusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893702DD9C47A00F40A9B /* PawcusApp.swift */; };
@@ -64,6 +65,7 @@
 		BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
 		BD1B700B2DE5830B00E481E2 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		BD4D143B2DF2C81200533171 /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
+		BD56F7C72DF7FCFB00475A27 /* UserNamePromptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNamePromptViewModel.swift; sourceTree = "<group>"; };
 		BD98933F2DD9C46800F40A9B /* Pawcus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pawcus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9893502DD9C46A00F40A9B /* PawcusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PawcusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD98935A2DD9C46A00F40A9B /* PawcusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PawcusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +177,7 @@
 				BD0474EE2DEB4C5800960470 /* LoginView.swift */,
 				BD0474F02DEB4CFA00960470 /* LoginViewModel.swift */,
 				BD0474F22DEB58CA00960470 /* UserNamePromptView.swift */,
+				BD56F7C72DF7FCFB00475A27 /* UserNamePromptViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				BD1B700C2DE5830B00E481E2 /* AppConfig.swift in Sources */,
 				BD1B70092DE57F7000E481E2 /* APIEndpoint.swift in Sources */,
 				BD1B6FB32DDED98D00E481E2 /* RootView.swift in Sources */,
+				BD56F7C82DF7FCFB00475A27 /* UserNamePromptViewModel.swift in Sources */,
 				BD0474E62DEAB03900960470 /* ProfileView.swift in Sources */,
 				BD9893A52DD9DD2400F40A9B /* LeaderBoardView.swift in Sources */,
 				BD9893742DD9C47A00F40A9B /* PawcusApp.swift in Sources */,

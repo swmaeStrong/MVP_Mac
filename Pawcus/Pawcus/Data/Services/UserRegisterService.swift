@@ -31,18 +31,19 @@ final class UserRegisterService {
         return result.data ?? true
     }
     
-    func registerGuest(uuid: String, nickname: String) async throws -> UserData {
+    func registerGuest(uuid: String) async throws -> UserData {
         let endpoint = APIEndpoint.registerGuest
         let url = endpoint.url()
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body = ["userId": uuid, "nickname": nickname]
+        let body = ["userId": uuid]
         request.httpBody = try JSONEncoder().encode(body)
         let (data, response) = try await session.data(for: request)
         guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
             throw URLError(.badServerResponse)
         }
+        print(http)
         let result = try JSONDecoder().decode(ServerResponse<UserData>.self, from: data)
         guard result.isSuccess, let userData = result.data else {
             throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
@@ -52,7 +53,7 @@ final class UserRegisterService {
     
     /// 소셜 로그인 회원 등록
     func registerSocialUser(accessToken: String) async throws -> TokenData {
-        let endpoint = APIEndpoint.registerSocialUser
+        let endpoint = APIEndpoint.loginSocialUser
         let url = endpoint.url()
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method
@@ -71,8 +72,8 @@ final class UserRegisterService {
     }
     
     func getGuestToken() async throws -> TokenData {
-        guard let userId = UserDefaults.standard.string(forKey: "userId"),
-              let createdAt = UserDefaults.standard.string(forKey: "createdAt") else {
+        guard let userId = UserDefaults.standard.string(forKey: .userId),
+              let createdAt = UserDefaults.standard.string(forKey: .createdAt) else {
             throw NSError(domain: "UserRegisterService", code: 0, userInfo: [NSLocalizedDescriptionKey: "Missing userID or createdAt in UserDefaults"])
         }
 
@@ -96,5 +97,28 @@ final class UserRegisterService {
         }
 
         return tokenData
+    }
+    
+    /// 닉네임 업데이트
+    func updateNickname(_ newNickname: String) async throws -> Bool {
+        let endpoint = APIEndpoint.updateNickname
+        let url = endpoint.url()
+        var request = URLRequest(url: url)
+        request.httpMethod = endpoint.method
+        request.addJSONHeader()
+        request.addBearerToken()
+        let body = ["nickname": newNickname]
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, response) = try await session.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw URLError(.badServerResponse)
+        }
+
+        let result = try JSONDecoder().decode(ServerResponse<SimpleUserData>.self, from: data)
+        guard result.isSuccess, let _ = result.data else {
+            throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
+        }
+        return true 
     }
 }

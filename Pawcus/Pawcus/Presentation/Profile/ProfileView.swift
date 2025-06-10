@@ -43,11 +43,11 @@ struct ProfileView: View {
                     try appLogLocalDataSource.removeAllAppLogs(context: context)
                 }
                 let defaults = UserDefaults.standard
-                defaults.removeObject(forKey: "userNickname")
-                defaults.removeObject(forKey: "userId")
-                defaults.removeObject(forKey: "isLoggedIn")
-                defaults.removeObject(forKey: "dailyWorkSeconds")
-                defaults.removeObject(forKey: "lastRecordedDate")
+                defaults.remove(.userNickname)
+                defaults.remove(.userId)
+                defaults.remove(.isLoggedIn)
+                defaults.remove(.dailyWorkSeconds)
+                defaults.remove(.lastRecordedDate)
                 KeychainHelper.standard.save("", service: "com.pawcus.token", account: "accessToken")
                 KeychainHelper.standard.save("", service: "com.pawcus.token", account: "refreshToken")
             }
