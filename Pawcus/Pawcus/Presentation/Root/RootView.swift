@@ -14,15 +14,11 @@ struct RootView: View {
     @AppStorage("userNickname") private var username: String = ""
     @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     @State private var session: Session?
-    @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var timeStore: DailyWorkTimeStore
     
     var body: some View {
         if isLoggedIn  {
             ContentView()
-                .onAppear {
-                    timeStore.context = modelContext
-                }
         } else {
             LoginView()
         }

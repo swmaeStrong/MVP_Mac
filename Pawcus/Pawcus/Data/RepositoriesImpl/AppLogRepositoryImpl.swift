@@ -17,15 +17,15 @@ final class AppLogRepositoryImpl: AppLogRepository {
         self.appLogLocalDataSource = appLogLocalDataSource
     }
     
-    func uploadLogsToServer(context: ModelContext) async throws {
+    func uploadLogsToServer() async throws {
         Task {
-            let logs = appLogLocalDataSource.fetchAllAppLogs(context: context)
+            let logs = appLogLocalDataSource.fetchAllAppLogs()
                 .map { $0.toDTO()}
             if !logs.isEmpty {
                 do {
                     try await service.uploadLogs(logs: logs)
                     print("✅ Logs uploaded successfully")
-                    try await clearLocalLogs(context: context)
+                    try await clearLocalLogs()
                 } catch {
                     print("❌ Failed to upload logs:", error)
                 }
@@ -33,9 +33,9 @@ final class AppLogRepositoryImpl: AppLogRepository {
         }
     }
     
-    func clearLocalLogs(context: ModelContext) async throws {
+    func clearLocalLogs() async throws {
         do {
-            try appLogLocalDataSource.removeAllAppLogs(context: context)
+            try appLogLocalDataSource.removeAllAppLogs()
             print("Deleate All Log")
         } catch {
             print("Faild to delete all data")
