@@ -14,7 +14,6 @@ import Sparkle
 struct HomeView: View {
     // MARK: - Properties
     @AppStorage("dailyWorkSeconds") private var storedSeconds: Int = 0
-    @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var timeStore: DailyWorkTimeStore
     @Injected(\.activityLogger) private var appUsageLogger: ActivityLogger
     
@@ -84,7 +83,7 @@ struct HomeView: View {
             appUsageLogger.stopLogging()
         } else {
             timeStore.start()
-            appUsageLogger.configure(context: modelContext)
+            appUsageLogger.startLogging()
         }
     }
 

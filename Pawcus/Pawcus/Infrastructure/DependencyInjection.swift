@@ -11,17 +11,26 @@ import SwiftData
 
 extension Container {
     
+    var modelContext: Factory<ModelContext> {
+        Factory(self) {
+            let schema = Schema([AppLogEntity.self])
+            let container = try! ModelContainer(for: schema)
+            return ModelContext(container)
+        }
+        .singleton
+    }
+    
     // MARK: - 싱글톤 인스턴스
     var appLogLocalDataSource: Factory<AppLogLocalDataSource>{
         Factory(self) {
-            AppLogLocalDataSource()
+            AppLogLocalDataSource(context: self.modelContext())
         }
         .singleton
     }
     
     var activityLogger: Factory<ActivityLogger> {
         Factory(self) {
-            ActivityLogger(appLogLocalDataSource: AppLogLocalDataSource())
+            ActivityLogger(appLogLocalDataSource: self.appLogLocalDataSource())
         }
         .singleton
     }
@@ -49,7 +58,7 @@ extension Container {
     
     var transferUsageLogsUseCase: Factory<TransferUsageLogsUseCase> {
         Factory(self) {
-            TransferUsageLogsUseCase(repository: AppLogRepositoryImpl(service: UsageLogService(), appLogLocalDataSource: AppLogLocalDataSource()))
+            TransferUsageLogsUseCase(repository: AppLogRepositoryImpl(service: UsageLogService(), appLogLocalDataSource: self.appLogLocalDataSource()))
         }
     }
     

@@ -40,7 +40,7 @@ struct ProfileView: View {
                 
                 Task {
                     await SupabaseAuthService().logout()
-                    try appLogLocalDataSource.removeAllAppLogs(context: context)
+                    try appLogLocalDataSource.removeAllAppLogs()
                 }
                 let defaults = UserDefaults.standard
                 defaults.remove(.userNickname)
