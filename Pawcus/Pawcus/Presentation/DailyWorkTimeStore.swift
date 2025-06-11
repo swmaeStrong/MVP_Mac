@@ -57,6 +57,7 @@ final class DailyWorkTimeStore: ObservableObject {
     // MARK: - 타이머 시작/중지
 
     func start() {
+        appUsageLogger.startLogging()
         isRunning = true
         refreshIfNewDay()
         if isRunning {
@@ -76,6 +77,7 @@ final class DailyWorkTimeStore: ObservableObject {
     }
 
     func stop() {
+        appUsageLogger.stopLogging()
         isRunning = false
         timer?.cancel()
         timer = nil
