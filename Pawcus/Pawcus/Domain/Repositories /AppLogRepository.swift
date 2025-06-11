@@ -9,6 +9,6 @@ import Foundation
 import SwiftData
 
 protocol AppLogRepository {
-    func uploadLogsToServer(context: ModelContext) async throws
-    func clearLocalLogs(context: ModelContext) async throws
+    func uploadLogsToServer() async throws
+    func clearLocalLogs() async throws
 }
