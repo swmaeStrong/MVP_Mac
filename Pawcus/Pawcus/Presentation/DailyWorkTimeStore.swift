@@ -25,8 +25,6 @@ final class DailyWorkTimeStore: ObservableObject {
     private var timer: AnyCancellable?
     private var autoSendCancellable: AnyCancellable?
    
-    var context: ModelContext?
-
     // MARK: - Initialization
     init() {
         refreshIfNewDay()
@@ -88,18 +86,16 @@ final class DailyWorkTimeStore: ObservableObject {
 
     // MARK: - 로그 전송/삭제
     func sendLogs() async {
-        guard let context = context else { return }
         do {
-            try await uploadUseCase.syncLogs(context: context)
+            try await uploadUseCase.syncLogs()
         } catch {
             print("❌ Failed to upload logs:", error)
         }
     }
 
     func deleteLogs() async {
-        guard let context = context else { return }
         do {
-            try await uploadUseCase.deleteLog(context: context)
+            try await uploadUseCase.deleteLog()
             print("Successfully deleted logs.")
         } catch {
             print("❌ Failed to delete logs:", error)
