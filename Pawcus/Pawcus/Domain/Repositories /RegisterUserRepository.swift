@@ -12,5 +12,4 @@ protocol RegisterUserRepository {
     func updateNickname(_ nickname: String) async throws
     func registerGuest() async throws -> Bool
     func registerSocialUser(accessToken: String) async throws
-    func getGuestToken() async throws
 }

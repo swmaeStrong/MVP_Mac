@@ -31,7 +31,7 @@ final class UserRegisterService {
         return result.data ?? true
     }
     
-    func registerGuest(uuid: String) async throws -> UserData {
+    func registerGuest(uuid: String) async throws -> TokenData {
         let endpoint = APIEndpoint.registerGuest
         let url = endpoint.url()
         var request = URLRequest(url: url)
@@ -43,12 +43,12 @@ final class UserRegisterService {
         guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
             throw URLError(.badServerResponse)
         }
-        print(http)
-        let result = try JSONDecoder().decode(ServerResponse<UserData>.self, from: data)
-        guard result.isSuccess, let userData = result.data else {
+        let result = try JSONDecoder().decode(ServerResponse<TokenData>.self, from: data)
+        guard result.isSuccess, let tokenData = result.data else {
             throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }
-        return userData
+        
+        return tokenData
     }
     
     /// 소셜 로그인 회원 등록
@@ -66,33 +66,6 @@ final class UserRegisterService {
         }
         let result = try JSONDecoder().decode(ServerResponse<TokenData>.self, from: data)
         guard result.isSuccess, let tokenData = result.data else {
-            throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
-        }
-        return tokenData
-    }
-    
-    func getGuestToken() async throws -> TokenData {
-        guard let userId = UserDefaults.standard.string(forKey: .userId),
-              let createdAt = UserDefaults.standard.string(forKey: .createdAt) else {
-            throw NSError(domain: "UserRegisterService", code: 0, userInfo: [NSLocalizedDescriptionKey: "Missing userID or createdAt in UserDefaults"])
-        }
-
-        let endpoint = APIEndpoint.getGuestToken
-        let url = endpoint.url()
-        var request = URLRequest(url: url)
-        request.httpMethod = endpoint.method
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let body = ["userId": userId, "createdAt": createdAt]
-        request.httpBody = try JSONEncoder().encode(body)
-
-        let (data, response) = try await session.data(for: request)
-        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
-            throw URLError(.badServerResponse)
-        }
-
-        let result = try JSONDecoder().decode(ServerResponse<TokenData>.self, from: data)
-        guard let tokenData = result.data else {
             throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }
 
