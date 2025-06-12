@@ -26,7 +26,6 @@ struct SidebarView: View {
             }
 
             .padding(.top, 5)
-            S
             Divider()
                 .padding()
             
