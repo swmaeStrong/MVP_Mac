@@ -104,5 +104,4 @@ claude.md
 .claude/
 **/.claude/
 
-## VS 코드 관련 파일 
-.vscode/
+buildServer.json
