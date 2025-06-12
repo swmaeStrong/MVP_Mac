@@ -21,8 +21,8 @@ struct PawcusApp: App {
         WindowGroup {
             RootView()
                 .environmentObject(dailyWorkTimeStore)
-//            StatisticView()
         }
+        .windowStyle(HiddenTitleBarWindowStyle())
         .modelContainer(for: [AppLogEntity.self])
     }
 }
