@@ -24,6 +24,9 @@ jobs:
     
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        lfs: true
+        submodules: true
       
     - name: Setup version
       id: version
@@ -36,6 +39,17 @@ jobs:
           echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
         fi
     
+    - name: Debug project structure
+      run: |
+        echo "Current directory:"
+        pwd
+        echo "Directory contents:"
+        ls -la
+        echo "Pawcus directory contents:"
+        ls -la Pawcus/
+        echo "Project file contents:"
+        ls -la Pawcus/Pawcus.xcodeproj/
+        
     - name: Build app
       run: |
         xcodebuild -project Pawcus/Pawcus.xcodeproj \
