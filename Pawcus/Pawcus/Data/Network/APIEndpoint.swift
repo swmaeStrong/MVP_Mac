@@ -18,7 +18,6 @@ enum APIEndpoint {
     case getUserRanksByCategory(category: String, page: Int?, size: Int?, date: String)
     case getUserTop10Ranks
     case getUserLogs(userId: String, date: String)
-    case getGuestToken
     case tokenRefresh
     case updateNickname
     case getUserInfo
@@ -41,8 +40,6 @@ enum APIEndpoint {
             return "leaderboard/top-users"
         case .getUserLogs:
             return "usage-log"
-        case .getGuestToken:
-            return "/user/get-token"
         case .tokenRefresh:
             return "/auth/refresh"
         case .updateNickname:
@@ -62,7 +59,6 @@ enum APIEndpoint {
         case .getUserRanksByCategory: return "GET"
         case .getUserTop10Ranks: return "GET"
         case .getUserLogs: return "GET"
-        case .getGuestToken: return "POST"
         case .tokenRefresh: return "POST"
         case .updateNickname: return "PATCH"
         case .getUserInfo: return "GET"

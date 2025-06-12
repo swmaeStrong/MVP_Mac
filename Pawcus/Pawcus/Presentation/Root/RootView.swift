@@ -11,10 +11,7 @@ import Factory
 import Supabase
 
 struct RootView: View {
-    @AppStorage("userNickname") private var username: String = ""
-    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
-    @State private var session: Session?
-    @EnvironmentObject private var timeStore: DailyWorkTimeStore
+    @AppStorage(UserDefaultKey.isLoggedIn.rawValue) private var isLoggedIn: Bool = false
     
     var body: some View {
         if isLoggedIn  {

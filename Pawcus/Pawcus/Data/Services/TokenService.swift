@@ -27,7 +27,7 @@ enum TokenManager {
             // 🔁 RTK로 토큰 재발급
             let url = APIEndpoint.tokenRefresh.url()
             var request = URLRequest(url: url)
-            request.httpMethod = APIEndpoint.tokenRefresh.method
+            request.httpMethod = APIEndpoint.tokenRefresh.method.rawValue
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = try JSONEncoder().encode(["refreshToken": refreshToken])
 
@@ -37,29 +37,10 @@ enum TokenManager {
             }
             let newTokens = try JSONDecoder().decode(TokenData.self, from: data)
             saveTokens(newTokens)
-        } else {
-            // ⛔ RTK까지 만료 → userId + createdAt로 재발급
-            guard let userId = UserDefaults.standard.string(forKey: .userId),
-                  let createdAt = UserDefaults.standard.string(forKey: .createdAt) else {
-                throw AuthError.noUserData
-            }
-
-            let url = APIEndpoint.getGuestToken.url()
-            var request = URLRequest(url: url)
-            request.httpMethod = APIEndpoint.getGuestToken.method
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = try JSONEncoder().encode(["userId": userId, "createdAt": createdAt])
-
-            let (data, response) = try await URLSession.shared.data(for: request)
-            guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
-                throw AuthError.tokenRefreshFailed
-            }
-            let newTokens = try JSONDecoder().decode(ServerResponse<TokenData>.self, from: data)
-            saveTokens(newTokens.data!)
-        }
+        } 
     }
 
-    static private func saveTokens(_ tokens: TokenData) {
+    static func saveTokens(_ tokens: TokenData) {
         KeychainHelper.standard.save(tokens.accessToken, service: "com.pawcus.token", account: "accessToken")
         KeychainHelper.standard.save(tokens.refreshToken, service: "com.pawcus.token", account: "refreshToken")
     }
