@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -90,46 +90,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		BD0472732DE7517300960470 /* Entities */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Entities;
-			sourceTree = "<group>";
-		};
-		BD04727C2DE7518400960470 /* UseCases */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = UseCases;
-			sourceTree = "<group>";
-		};
-		BD0472822DE7519D00960470 /* Repositories  */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Repositories ";
-			sourceTree = "<group>";
-		};
-		BD0472872DE7522500960470 /* RepositoriesImpl */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RepositoriesImpl;
-			sourceTree = "<group>";
-		};
-		BD0472912DE7523000960470 /* Services */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Services;
-			sourceTree = "<group>";
-		};
-		BD0472992DE7524300960470 /* Models */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Models;
-			sourceTree = "<group>";
-		};
-		BD0472A12DE7527100960470 /* Utilities */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		BD0472A72DE7527400960470 /* Services */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Services;
-			sourceTree = "<group>";
-		};
+		BD0472732DE7517300960470 /* Entities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Entities; sourceTree = "<group>"; };
+		BD04727C2DE7518400960470 /* UseCases */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = UseCases; sourceTree = "<group>"; };
+		BD0472822DE7519D00960470 /* Repositories  */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Repositories "; sourceTree = "<group>"; };
+		BD0472872DE7522500960470 /* RepositoriesImpl */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = RepositoriesImpl; sourceTree = "<group>"; };
+		BD0472912DE7523000960470 /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
+		BD0472992DE7524300960470 /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
+		BD0472A12DE7527100960470 /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
+		BD0472A72DE7527400960470 /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -450,6 +418,7 @@
 				};
 			};
 			buildConfigurationList = BD98933A2DD9C46800F40A9B /* Build configuration list for PBXProject "Pawcus" */;
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -463,7 +432,6 @@
 				BD0474A72DE98F3500960470 /* XCRemoteSwiftPackageReference "Sparkle" */,
 				BD0474E82DEB365700960470 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 			);
-			preferredProjectObjectVersion = 77;
 			productRefGroup = BD9893402DD9C46800F40A9B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
