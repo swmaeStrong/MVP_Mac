@@ -15,7 +15,6 @@ struct HomeView: View {
     // MARK: - Properties
     @AppStorage("dailyWorkSeconds") private var storedSeconds: Int = 0
     @EnvironmentObject private var timeStore: DailyWorkTimeStore
-    @Injected(\.activityLogger) private var appUsageLogger: ActivityLogger
     
     // MARK: - Body
     var body: some View {
@@ -55,7 +54,9 @@ struct HomeView: View {
     }
 
     private var playPauseButton: some View {
-        Button(action: toggleTimer) {
+        Button(action: {
+            timeStore.isRunning ? timeStore.stop() : timeStore.start()
+        }) {
             Image(systemName: timeStore.isRunning ? "stop.fill" : "play.fill")
                 .font(.title3)
                 .padding()
@@ -69,26 +70,13 @@ struct HomeView: View {
     }
 
     private var resetButton: some View {
-        Button(action: resetTimer) {
+        Button(action: {
+            timeStore.reset()
+        }) {
             Image(systemName: "arrow.trianglehead.counterclockwise")
                 .font(.title2)
         }
         .buttonStyle(.plain)
-    }
-
-    // MARK: - Actions
-    private func toggleTimer() {
-        if timeStore.isRunning {
-            timeStore.stop()
-            appUsageLogger.stopLogging()
-        } else {
-            timeStore.start()
-            appUsageLogger.startLogging()
-        }
-    }
-
-    private func resetTimer() {
-        timeStore.reset()
     }
 }
 
