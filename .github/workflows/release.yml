@@ -13,14 +13,14 @@ on:
 
 jobs:
   build-and-release:
-    runs-on: macos-latest
+    runs-on: macos-14
     
     steps:
     
-    - name: Set up Xcode 15.4
+    - name: Set up Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-          xcode-version: '15.4'
+          xcode-version: '15.0'
     
     - name: Checkout code
       uses: actions/checkout@v4
