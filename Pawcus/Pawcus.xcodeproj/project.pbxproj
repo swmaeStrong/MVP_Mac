@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		460148701DEB4A2D8738B67A /* TimerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460148701DEB4A2D8738B67B /* TimerButton.swift */; };
+		8275703ACFEE46D7A8345181 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275703ACFEE46D7A8345182 /* TabItem.swift */; };
 		BD04746C2DE941A600960470 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD04746B2DE941A600960470 /* HomeViewModel.swift */; };
 		BD0474A92DE98F3500960470 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = BD0474A82DE98F3500960470 /* Sparkle */; };
 		BD0474AB2DE98F7800960470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0474AA2DE98F7800960470 /* AppDelegate.swift */; };
@@ -33,6 +35,7 @@
 		BD9893AB2DD9DD4200F40A9B /* AnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893AA2DD9DD4200F40A9B /* AnalysisViewModel.swift */; };
 		BD9893AE2DD9DD6100F40A9B /* AppLogLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893AD2DD9DD6100F40A9B /* AppLogLocalDataSource.swift */; };
 		BD9893BA2DDC503000F40A9B /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = BD9893B92DDC503000F40A9B /* Factory */; };
+		FBD5CCC8C3B4449EAD68AB13 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD5CCC8C3B4449EAD68AB14 /* SidebarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		460148701DEB4A2D8738B67B /* TimerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButton.swift; sourceTree = "<group>"; };
+		8275703ACFEE46D7A8345182 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		BD0473F92DE835C400960470 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		BD04746B2DE941A600960470 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		BD0474AA2DE98F7800960470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +86,7 @@
 		BD9893AA2DD9DD4200F40A9B /* AnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewModel.swift; sourceTree = "<group>"; };
 		BD9893AD2DD9DD6100F40A9B /* AppLogLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogLocalDataSource.swift; sourceTree = "<group>"; };
 		BD9893C32DDDB7B600F40A9B /* Pawcus-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pawcus-Info.plist"; sourceTree = SOURCE_ROOT; };
+		FBD5CCC8C3B4449EAD68AB14 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -187,6 +193,9 @@
 			children = (
 				BD1B6FB22DDED98D00E481E2 /* RootView.swift */,
 				BD98936E2DD9C47A00F40A9B /* ContentView.swift */,
+				8275703ACFEE46D7A8345182 /* TabItem.swift */,
+				FBD5CCC8C3B4449EAD68AB14 /* SidebarView.swift */,
+				460148701DEB4A2D8738B67B /* TimerButton.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -517,6 +526,9 @@
 				BD9893AB2DD9DD4200F40A9B /* AnalysisViewModel.swift in Sources */,
 				BD9893A72DD9DD2D00F40A9B /* LeaderBoardViewModel.swift in Sources */,
 				BD04746C2DE941A600960470 /* HomeViewModel.swift in Sources */,
+				8275703ACFEE46D7A8345181 /* TabItem.swift in Sources */,
+				FBD5CCC8C3B4449EAD68AB13 /* SidebarView.swift in Sources */,
+				460148701DEB4A2D8738B67A /* TimerButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

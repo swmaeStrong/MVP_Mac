@@ -97,3 +97,12 @@ iOSInjectionProject/
 # Xcode 사용자별 설정 무시
 **/xcuserdata/
 Pawcus/.continue/
+
+# Claude Code 관련 파일
+CLAUDE.md
+claude.md
+.claude/
+**/.claude/
+
+## VS 코드 관련 파일 
+.vscode/
