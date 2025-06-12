@@ -1,0 +1,169 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., 1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  build-and-release:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Select Xcode
+      run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+      
+    - name: Setup version
+      id: version
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          echo "tag=v${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+        else
+          echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Build app
+      run: |
+        xcodebuild -project Pawcus/Pawcus.xcodeproj \
+                   -scheme Pawcus \
+                   -configuration Release \
+                   -derivedDataPath ./DerivedData \
+                   -archivePath ./Pawcus.xcarchive \
+                   archive
+                   
+    - name: Export app
+      run: |
+        xcodebuild -exportArchive \
+                   -archivePath ./Pawcus.xcarchive \
+                   -exportPath ./Export \
+                   -exportOptionsPlist ./export_options.plist
+                   
+    - name: Create export options
+      run: |
+        cat > export_options.plist << EOF
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+            <key>method</key>
+            <string>developer-id</string>
+            <key>teamID</key>
+            <string>\${{ secrets.TEAM_ID }}</string>
+            <key>signingCertificate</key>
+            <string>Developer ID Application</string>
+            <key>signingStyle</key>
+            <string>manual</string>
+            <key>provisioningProfiles</key>
+            <dict/>
+        </dict>
+        </plist>
+        EOF
+        
+    - name: Create DMG
+      run: |
+        mkdir -p ./Release
+        cp -R ./Export/Pawcus.app ./Release/
+        hdiutil create -volname "Pawcus" -srcfolder ./Release -ov -format UDZO ./Pawcus.dmg
+        
+    - name: Create ZIP
+      run: |
+        cd ./Release
+        zip -r ../Pawcus.zip Pawcus.app
+        cd ..
+        
+    - name: Calculate checksums
+      run: |
+        shasum -a 256 Pawcus.dmg > Pawcus.dmg.sha256
+        shasum -a 256 Pawcus.zip > Pawcus.zip.sha256
+        
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.version.outputs.tag }}
+        release_name: Pawcus ${{ steps.version.outputs.version }}
+        body: |
+          ## Pawcus ${{ steps.version.outputs.version }}
+          
+          ### Installation
+          
+          **Homebrew (Recommended):**
+          ```bash
+          brew tap swmaeStrong/pawcus
+          brew install --cask pawcus
+          ```
+          
+          **Direct Download:**
+          - Download `Pawcus.dmg` for installer
+          - Download `Pawcus.zip` for portable version
+          
+          ### Changes
+          - Bug fixes and improvements
+          
+          ### System Requirements
+          - macOS 13.0 or later
+          - Accessibility permissions required
+          
+        draft: false
+        prerelease: false
+        
+    - name: Upload DMG
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Pawcus.dmg
+        asset_name: Pawcus.dmg
+        asset_content_type: application/octet-stream
+        
+    - name: Upload ZIP
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Pawcus.zip
+        asset_name: Pawcus.zip
+        asset_content_type: application/zip
+        
+    - name: Upload DMG checksum
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Pawcus.dmg.sha256
+        asset_name: Pawcus.dmg.sha256
+        asset_content_type: text/plain
+        
+    - name: Upload ZIP checksum
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Pawcus.zip.sha256
+        asset_name: Pawcus.zip.sha256
+        asset_content_type: text/plain
+        
+    - name: Trigger Homebrew update
+      run: |
+        curl -X POST \
+          -H "Authorization: token ${{ secrets.HOMEBREW_UPDATE_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/swmaeStrong/homebrew-pawcus/dispatches \
+          -d '{"event_type":"update-cask","client_payload":{"version":"${{ steps.version.outputs.version }}"}}'
