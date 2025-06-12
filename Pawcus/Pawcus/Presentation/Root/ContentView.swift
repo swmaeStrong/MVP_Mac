@@ -16,15 +16,14 @@ struct ContentView: View {
     @StateObject private var analysisViewModel = AnalysisViewModel()
     
     var body: some View {
-        HStack(alignment: .center, spacing: 0) {
-            VStack {
-                SidebarView(selectedTab: $selectedTab)
-                TimerButton()
-            }
+        HStack(spacing: 0) {
+            // Sidebar
+            SidebarView(selectedTab: $selectedTab)
             
             Divider()
                 .ignoresSafeArea()
-        
+            
+            // Main Content
             mainContentView
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
