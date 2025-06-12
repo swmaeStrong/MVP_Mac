@@ -49,6 +49,10 @@ jobs:
         ls -la Pawcus/
         echo "Project file contents:"
         ls -la Pawcus/Pawcus.xcodeproj/
+        echo "Git tracked files:"
+        git ls-files | grep -E "(\.pbxproj|\.xcworkspace)" || echo "No project files tracked"
+        echo "Project.pbxproj first 100 lines:"
+        head -100 Pawcus/Pawcus.xcodeproj/project.pbxproj || echo "Cannot read project file"
         
     - name: Build app
       run: |
