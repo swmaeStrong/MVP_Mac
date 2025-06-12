@@ -9,9 +9,11 @@ import Foundation
 
 final class UserRegisterService {
     private let session: URLSession
+    private let userInfoService: UserInfoService
     
-    init(session: URLSession = .shared) {
+    init(session: URLSession = .shared, userInfoService: UserInfoService = UserInfoService()) {
         self.session = session
+        self.userInfoService = userInfoService
     }
     
     /// 닉네임의 중복을 검증하는 로직
@@ -31,7 +33,7 @@ final class UserRegisterService {
         return result.data ?? true
     }
     
-    func registerGuest(uuid: String) async throws -> UserData {
+    func registerGuest(uuid: String) async throws  {
         let endpoint = APIEndpoint.registerGuest
         let url = endpoint.url()
         var request = URLRequest(url: url)
@@ -43,12 +45,18 @@ final class UserRegisterService {
         guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
             throw URLError(.badServerResponse)
         }
-        print(http)
-        let result = try JSONDecoder().decode(ServerResponse<UserData>.self, from: data)
-        guard result.isSuccess, let userData = result.data else {
+        let result = try JSONDecoder().decode(ServerResponse<TokenData>.self, from: data)
+        guard result.isSuccess, let tokenData = result.data else {
             throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }
-        return userData
+        
+        KeychainHelper.standard.save(tokenData.accessToken,
+                                     service: "com.pawcus.token",
+                                     account: "accessToken")
+        KeychainHelper.standard.save(tokenData.refreshToken,
+                                     service: "com.pawcus.token",
+                                     account: "refreshToken")
+        await fetchAndUpdateUserInfo()
     }
     
     /// 소셜 로그인 회원 등록
@@ -68,6 +76,16 @@ final class UserRegisterService {
         guard result.isSuccess, let tokenData = result.data else {
             throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }
+        
+        KeychainHelper.standard.save(tokenData.accessToken,
+                                     service: "com.pawcus.token",
+                                     account: "accessToken")
+        KeychainHelper.standard.save(tokenData.refreshToken,
+                                     service: "com.pawcus.token",
+                                     account: "refreshToken")
+
+        await fetchAndUpdateUserInfo()
+        
         return tokenData
     }
     
@@ -95,7 +113,11 @@ final class UserRegisterService {
         guard let tokenData = result.data else {
             throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }
-
+        
+        KeychainHelper.standard.save(tokenData.accessToken, service: "com.pawcus.token", account: "accessToken")
+        KeychainHelper.standard.save(tokenData.refreshToken, service: "com.pawcus.token", account: "refreshToken")
+        
+        await fetchAndUpdateUserInfo()
         return tokenData
     }
     
@@ -120,5 +142,26 @@ final class UserRegisterService {
             throw NSError(domain: "UserRegisterService", code: http.statusCode, userInfo: [NSLocalizedDescriptionKey: result.message ?? "Unknown error"])
         }
         return true 
+    }
+    
+    /// 사용자 정보를 가져와서 닉네임을 로컬에 저장
+    private func fetchAndUpdateUserInfo() async {
+        do {
+            let userInfoResponse = try await userInfoService.fetchUserInfo()
+            if let userInfo = userInfoResponse.data {
+                // 닉네임이 있으면 UserDefaults에 저장
+                if !userInfo.nickname.isEmpty {
+                    UserDefaults.standard.set(userInfo.nickname, forKey: .userNickname)
+                    print("User nickname saved: \(userInfo.nickname)")
+                } else {
+                    print("User nickname is empty, will show username prompt")
+                }
+                
+                // 사용자 ID도 저장
+                UserDefaults.standard.set(userInfo.userId, forKey: .userId)
+            }
+        } catch {
+            print("Failed to fetch user info: \(error)")
+        }
     }
 }

@@ -49,10 +49,17 @@ extension Container {
         .singleton
     }
     
+    var userInfoService: Factory<UserInfoService> {
+        Factory(self) {
+            UserInfoService()
+        }
+        .singleton
+    }
+    
     // MARK: - UseCase
     var registerUserUseCase: Factory<RegisterUserUseCase> {
         Factory(self) {
-            RegisterUserUseCase(repository: RegisterUserRepositoryImpl(service: UserRegisterService()))
+            RegisterUserUseCase(repository: RegisterUserRepositoryImpl(service: UserRegisterService(userInfoService: self.userInfoService())))
         }
     }
     

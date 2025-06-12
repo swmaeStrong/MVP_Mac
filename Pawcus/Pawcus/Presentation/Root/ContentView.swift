@@ -24,7 +24,7 @@ struct ContentView: View {
             
             Divider()
                 .ignoresSafeArea()
-            
+        
             mainContentView
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
