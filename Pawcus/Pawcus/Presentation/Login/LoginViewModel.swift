@@ -14,8 +14,8 @@ import Factory
 
 @MainActor
 final class LoginViewModel: ObservableObject {
-    @AppStorage("userNickname") private var nickname: String = ""
-    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    @AppStorage(UserDefaultKey.userNickname.rawValue) private var nickname: String = ""
+    @AppStorage(UserDefaultKey.isLoggedIn.rawValue) private var isLoggedIn: Bool = false
     @Injected(\.registerUserUseCase) private var registerUserUseCase
     private let supabaseAuthService: SupabaseAuthService = SupabaseAuthService()
     

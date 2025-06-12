@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("userNickname") private var username: String = ""
+    @AppStorage(UserDefaultKey.userNickname.rawValue) private var username: String = ""
     @State private var showUsernamePrompt: Bool = false
     @State private var selectedTab: Tab? = .leaderboard
     

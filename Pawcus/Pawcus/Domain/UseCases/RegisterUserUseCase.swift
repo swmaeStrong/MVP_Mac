@@ -7,9 +7,11 @@
 
 final class RegisterUserUseCase {
     private let repository: RegisterUserRepository
+    private let getUserInfoUseCase: GetUserInfoUseCase
     
-    init(repository: RegisterUserRepository) {
+    init(repository: RegisterUserRepository, getUserInfoUseCase: GetUserInfoUseCase) {
         self.repository = repository
+        self.getUserInfoUseCase = getUserInfoUseCase
     }
     
     func checkNicknameAvailability(nickname: String) async throws -> Bool {
@@ -18,13 +20,13 @@ final class RegisterUserUseCase {
     
     func registerGuest() async throws {
         if try await repository.registerGuest() {
-            try await repository.getGuestToken()
+            try await getUserInfoUseCase.execute()
         }
     }
     
     func registerSocialUser(accessToken: String) async throws {
         try await repository.registerSocialUser(accessToken: accessToken)
-
+        try await getUserInfoUseCase.execute()
     }
     
     func updateNickname(_ nickname: String) async throws {

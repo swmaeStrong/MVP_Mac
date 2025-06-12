@@ -160,7 +160,7 @@ final class ActivityLogger {
     
     /// 자동화 권한 알림을 표시하는 메서드
     private func showAutomationPermissionAlert() {
-        guard let app = NSApplication.shared.delegate as? NSObject else { return }
+        guard let _ = NSApplication.shared.delegate as? NSObject else { return }
         
         let alert = NSAlert()
         alert.messageText = "브라우저 자동화 권한 필요"
