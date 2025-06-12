@@ -16,6 +16,7 @@ struct RootView: View {
     var body: some View {
         if isLoggedIn  {
             ContentView()
+                .frame(minWidth: 450, minHeight: 500)
         } else {
             LoginView()
         }
