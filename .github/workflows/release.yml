@@ -23,6 +23,26 @@ jobs:
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: 'latest'
+    
+    - name: Install Developer ID certificate
+      env:
+        DEVELOPER_ID_APPLICATION_CERT: ${{ secrets.DEVELOPER_ID_APPLICATION_CERT }}
+        DEVELOPER_ID_APPLICATION_PASSWORD: ${{ secrets.DEVELOPER_ID_APPLICATION_PASSWORD }}
+        KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+      run: |
+        # Create keychain
+        security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+        security default-keychain -s build.keychain
+        security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+        security set-keychain-settings -t 3600 -u build.keychain
+        
+        # Import certificate
+        echo "$DEVELOPER_ID_APPLICATION_CERT" | base64 --decode > certificate.p12
+        security import certificate.p12 -k build.keychain -P "$DEVELOPER_ID_APPLICATION_PASSWORD" -T /usr/bin/codesign
+        security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" build.keychain
+        
+        # Clean up
+        rm certificate.p12
       
     - name: Setup version
       id: version
