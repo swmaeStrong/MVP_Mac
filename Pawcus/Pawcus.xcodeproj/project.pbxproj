@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		460148701DEB4A2D8738B67A /* TimerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460148701DEB4A2D8738B67B /* TimerButton.swift */; };
 		8275703ACFEE46D7A8345181 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275703ACFEE46D7A8345182 /* TabItem.swift */; };
-		BD04746C2DE941A600960470 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD04746B2DE941A600960470 /* HomeViewModel.swift */; };
 		BD0474A92DE98F3500960470 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = BD0474A82DE98F3500960470 /* Sparkle */; };
 		BD0474AB2DE98F7800960470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0474AA2DE98F7800960470 /* AppDelegate.swift */; };
 		BD0474E62DEAB03900960470 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0474E52DEAB03900960470 /* ProfileView.swift */; };
@@ -28,7 +27,6 @@
 		BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD98936E2DD9C47A00F40A9B /* ContentView.swift */; };
 		BD9893742DD9C47A00F40A9B /* PawcusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893702DD9C47A00F40A9B /* PawcusApp.swift */; };
 		BD9893912DD9DC0200F40A9B /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893902DD9DC0200F40A9B /* DependencyInjection.swift */; };
-		BD9893A12DD9DD1300F40A9B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893A02DD9DD1300F40A9B /* HomeView.swift */; };
 		BD9893A52DD9DD2400F40A9B /* LeaderBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893A42DD9DD2400F40A9B /* LeaderBoardView.swift */; };
 		BD9893A72DD9DD2D00F40A9B /* LeaderBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893A62DD9DD2D00F40A9B /* LeaderBoardViewModel.swift */; };
 		BD9893A92DD9DD3500F40A9B /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893A82DD9DD3500F40A9B /* AnalysisView.swift */; };
@@ -59,7 +57,6 @@
 		460148701DEB4A2D8738B67B /* TimerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButton.swift; sourceTree = "<group>"; };
 		8275703ACFEE46D7A8345182 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		BD0473F92DE835C400960470 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		BD04746B2DE941A600960470 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		BD0474AA2DE98F7800960470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD0474E52DEAB03900960470 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		BD0474EE2DEB4C5800960470 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -79,7 +76,6 @@
 		BD98936F2DD9C47A00F40A9B /* Pawcus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pawcus.entitlements; sourceTree = "<group>"; };
 		BD9893702DD9C47A00F40A9B /* PawcusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawcusApp.swift; sourceTree = "<group>"; };
 		BD9893902DD9DC0200F40A9B /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
-		BD9893A02DD9DD1300F40A9B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BD9893A42DD9DD2400F40A9B /* LeaderBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardView.swift; sourceTree = "<group>"; };
 		BD9893A62DD9DD2D00F40A9B /* LeaderBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardViewModel.swift; sourceTree = "<group>"; };
 		BD9893A82DD9DD3500F40A9B /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
@@ -299,7 +295,6 @@
 				BD1B6FB82DDF09DB00E481E2 /* DailyWorkTimeStore.swift */,
 				BD0474ED2DEB4C4800960470 /* Login */,
 				BD1B6FB12DDED94800E481E2 /* Root */,
-				BD98939D2DD9DCEB00F40A9B /* Home */,
 				BD98939F2DD9DCF000F40A9B /* LeaderBoard */,
 				BD98939E2DD9DCEF00F40A9B /* Analysis */,
 				BD0474E42DEAB02C00960470 /* Profile */,
@@ -313,15 +308,6 @@
 				BD98936D2DD9C47A00F40A9B /* Assets.xcassets */,
 			);
 			path = Resource;
-			sourceTree = "<group>";
-		};
-		BD98939D2DD9DCEB00F40A9B /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				BD9893A02DD9DD1300F40A9B /* HomeView.swift */,
-				BD04746B2DE941A600960470 /* HomeViewModel.swift */,
-			);
-			path = Home;
 			sourceTree = "<group>";
 		};
 		BD98939E2DD9DCEF00F40A9B /* Analysis */ = {
@@ -518,14 +504,12 @@
 				BD0474E62DEAB03900960470 /* ProfileView.swift in Sources */,
 				BD9893A52DD9DD2400F40A9B /* LeaderBoardView.swift in Sources */,
 				BD9893742DD9C47A00F40A9B /* PawcusApp.swift in Sources */,
-				BD9893A12DD9DD1300F40A9B /* HomeView.swift in Sources */,
 				BD0474AB2DE98F7800960470 /* AppDelegate.swift in Sources */,
 				BD9893912DD9DC0200F40A9B /* DependencyInjection.swift in Sources */,
 				BD4D143C2DF2C81200533171 /* StatisticView.swift in Sources */,
 				BD9893A92DD9DD3500F40A9B /* AnalysisView.swift in Sources */,
 				BD9893AB2DD9DD4200F40A9B /* AnalysisViewModel.swift in Sources */,
 				BD9893A72DD9DD2D00F40A9B /* LeaderBoardViewModel.swift in Sources */,
-				BD04746C2DE941A600960470 /* HomeViewModel.swift in Sources */,
 				8275703ACFEE46D7A8345181 /* TabItem.swift in Sources */,
 				FBD5CCC8C3B4449EAD68AB13 /* SidebarView.swift in Sources */,
 				460148701DEB4A2D8738B67A /* TimerButton.swift in Sources */,
