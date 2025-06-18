@@ -28,6 +28,14 @@
 	<string>$(SUPABASE_KEY)</string>
 	<key>SUPublicEDKey</key>
 	<string>XYqUVZF83dzRohHy5RGDM0wYkGdJlKVqvsikWBAKAmk=</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUAutomaticallyUpdate</key>
+	<false/>
+	<key>SUAllowsAutomaticUpdates</key>
+	<true/>
+	<key>SUScheduledCheckInterval</key>
+	<integer>86400</integer>
 	<key>NSAppleEventsUsageDescription</key>
 	<string>Pawcus가 웹 브라우저(Safari, Chrome, Arc 등)에서 현재 보고 있는 URL을 추적하여 사용 통계를 제공하기 위해 Apple Events 권한이 필요합니다.</string>
 </dict>
