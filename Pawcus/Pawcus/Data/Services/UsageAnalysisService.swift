@@ -14,7 +14,7 @@ final class UsageAnalysisService {
         self.session = session
     }
 
-    func fetchAppCategories() async throws -> [AppCategory] {
+    func fetchAppCategories() async throws -> [AppCategoryDTO] {
         let endpoint = APIEndpoint.getCategories
         var request = URLRequest(url: endpoint.url())
         request.httpMethod = endpoint.method
@@ -24,7 +24,7 @@ final class UsageAnalysisService {
             throw URLError(.badServerResponse)
         }
 
-        let categories = try JSONDecoder().decode(ServerResponse<[AppCategory]>.self, from: data)
+        let categories = try JSONDecoder().decode(ServerResponse<[AppCategoryDTO]>.self, from: data)
         return categories.data ?? []
     }
     

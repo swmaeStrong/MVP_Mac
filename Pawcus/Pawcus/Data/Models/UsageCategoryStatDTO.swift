@@ -10,7 +10,6 @@ import Foundation
 struct UsageCategoryStatDTO: Codable {
     let category: String
     let duration: Double
-    let color: String
 }
 
 extension UsageCategoryStatDTO {
@@ -18,7 +17,7 @@ extension UsageCategoryStatDTO {
         UsageCategoryStat(
             category: category,
             duration: duration,
-            color: color
+            color: AppCategoryType(from: category).colorHex
         )
     }
 }

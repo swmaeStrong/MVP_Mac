@@ -59,7 +59,7 @@ struct LeaderBoardView: View {
                     await viewModel.loadUserTop10RanksByCategory()
                 }
             }
-            .onChange(of: viewModel.selectedDate) { _ in
+            .onChange(of: viewModel.selectedDate) {
                 Task {
                     await viewModel.loadUserTop10RanksByCategory()
                 }
@@ -161,6 +161,7 @@ struct LeaderBoardView: View {
                     }
                 }
             }
+            .padding(.horizontal, 8) // 양쪽 여백 추가
         }
     }
     
@@ -189,7 +190,7 @@ struct LeaderBoardView: View {
                             .foregroundColor(.white.opacity(0.7))
                     }
                     Spacer()
-                    Text("\(user.score)")
+                    Text(String(format: "%.1f", user.score))
                         .font(.system(size: 36, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                 }
@@ -449,7 +450,7 @@ struct CategoryPill: View {
                 Text(title)
                     .font(.system(size: 14, weight: .medium))
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 18)
             .padding(.vertical, 10)
             .background(
                 ZStack {
@@ -470,10 +471,10 @@ struct CategoryPill: View {
                 Capsule()
                     .stroke(isSelected ? Color.clear : Color.gray.opacity(0.2), lineWidth: 1)
             )
-            .shadow(color: isSelected ? indigoColor.opacity(0.3) : Color.clear, radius: 8, x: 0, y: 4)
         }
         .buttonStyle(.plain)
-        .scaleEffect(isSelected ? 1.05 : 1.0)
+        .scaleEffect(isSelected ? 1.02 : 1.0) // 스케일링을 줄임 (1.05 -> 1.02)
+        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isSelected)
     }
 }
 
@@ -553,7 +554,7 @@ struct RankingCard: View {
             
             // Score with animation
             VStack(alignment: .trailing, spacing: 2) {
-                Text("\(user.score)")
+                Text(String(format: "%.1f", user.score))
                     .font(.system(size: 24, weight: .bold, design: .rounded))
                     .foregroundColor(rank <= 3 ? rankColor : .primary)
                 Text("points")
