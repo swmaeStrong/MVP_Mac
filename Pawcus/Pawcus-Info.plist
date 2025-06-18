@@ -21,7 +21,7 @@
 		<true/>
 	</dict>
 	<key>SUFeedURL</key>
-	<string>http://localhost:8080/appcast.xml</string>
+	<string>https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/appcast.xml</string>
 	<key>SUPABASE_DOMAIN</key>
 	<string>$(SUPABASE_DOMAIN)</string>
 	<key>SUPABASE_KEY</key>
