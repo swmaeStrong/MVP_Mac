@@ -19,7 +19,7 @@ jobs:
     - name: Set up Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: 'latest'
+        xcode-version: '16.0'
     
     - name: Checkout code
       uses: actions/checkout@v4
@@ -45,15 +45,10 @@ jobs:
                    -configuration Release \
                    -derivedDataPath ./DerivedData \
                    -archivePath ./Pawcus.xcarchive \
+                   CODE_SIGN_IDENTITY="Developer ID Application" \
+                   DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
                    archive
-                   
-    - name: Export app
-      run: |
-        xcodebuild -exportArchive \
-                   -archivePath ./Pawcus.xcarchive \
-                   -exportPath ./Export \
-                   -exportOptionsPlist ./export_options.plist
-                   
+    
     - name: Create export options
       run: |
         cat > export_options.plist << EOF
@@ -64,33 +59,141 @@ jobs:
             <key>method</key>
             <string>developer-id</string>
             <key>teamID</key>
-            <string>\${{ secrets.TEAM_ID }}</string>
+            <string>${{ secrets.TEAM_ID }}</string>
             <key>signingCertificate</key>
             <string>Developer ID Application</string>
             <key>signingStyle</key>
-            <string>manual</string>
-            <key>provisioningProfiles</key>
-            <dict/>
+            <string>automatic</string>
         </dict>
         </plist>
         EOF
+                   
+    - name: Export app
+      run: |
+        xcodebuild -exportArchive \
+                   -archivePath ./Pawcus.xcarchive \
+                   -exportPath ./Export \
+                   -exportOptionsPlist ./export_options.plist \
+                   -allowProvisioningUpdates
+    
+    - name: Notarize app
+      if: ${{ secrets.APPLE_ID && secrets.APPLE_ID_PASSWORD }}
+      run: |
+        # Create a ZIP file for notarization
+        cd ./Export
+        ditto -c -k --sequesterRsrc --keepParent Pawcus.app Pawcus-notarize.zip
         
+        # Submit for notarization
+        xcrun notarytool submit Pawcus-notarize.zip \
+          --apple-id "${{ secrets.APPLE_ID }}" \
+          --password "${{ secrets.APPLE_ID_PASSWORD }}" \
+          --team-id "${{ secrets.TEAM_ID }}" \
+          --wait
+        
+        # Staple the notarization ticket
+        xcrun stapler staple Pawcus.app
+        cd ..
+                   
     - name: Create DMG
       run: |
         mkdir -p ./Release
         cp -R ./Export/Pawcus.app ./Release/
         hdiutil create -volname "Pawcus" -srcfolder ./Release -ov -format UDZO ./Pawcus.dmg
-        
-    - name: Create ZIP
+    
+    - name: Notarize DMG
+      if: ${{ secrets.APPLE_ID && secrets.APPLE_ID_PASSWORD }}
       run: |
-        cd ./Release
-        zip -r ../Pawcus.zip Pawcus.app
+        # Submit DMG for notarization
+        xcrun notarytool submit ./Pawcus.dmg \
+          --apple-id "${{ secrets.APPLE_ID }}" \
+          --password "${{ secrets.APPLE_ID_PASSWORD }}" \
+          --team-id "${{ secrets.TEAM_ID }}" \
+          --wait
+        
+        # Staple the notarization ticket
+        xcrun stapler staple ./Pawcus.dmg
+        
+    - name: Create ZIP for Sparkle
+      run: |
+        cd ./Export
+        # Create a clean zip for Sparkle (without __MACOSX folders)
+        ditto -c -k --sequesterRsrc --keepParent Pawcus.app ../Pawcus.zip
         cd ..
         
-    - name: Calculate checksums
+    - name: Download and setup Sparkle tools
       run: |
+        curl -L -o Sparkle-2.7.0.tar.xz https://github.com/sparkle-project/Sparkle/releases/download/2.7.0/Sparkle-2.7.0.tar.xz
+        tar -xf Sparkle-2.7.0.tar.xz
+        
+    - name: Sign update with EdDSA
+      id: sign_update
+      run: |
+        # Sign the update
+        SIGNATURE=$(./bin/sign_update Pawcus.zip | tail -1)
+        echo "signature=$SIGNATURE" >> $GITHUB_OUTPUT
+        
+    - name: Calculate checksums and file size
+      id: sparkle_info
+      run: |
+        SHA=$(shasum -a 256 Pawcus.zip | awk '{print $1}')
+        SIZE=$(stat -f%z Pawcus.zip)
+        echo "sha256=$SHA" >> $GITHUB_OUTPUT
+        echo "size=$SIZE" >> $GITHUB_OUTPUT
         shasum -a 256 Pawcus.dmg > Pawcus.dmg.sha256
         shasum -a 256 Pawcus.zip > Pawcus.zip.sha256
+        
+    - name: Generate Sparkle appcast.xml
+      run: |
+        cat > appcast.xml << EOF
+        <?xml version="1.0" standalone="yes"?>
+        <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+            <channel>
+                <title>Pawcus</title>
+                <language>en</language>
+                <item>
+                    <title>Version ${{ steps.version.outputs.version }}</title>
+                    <pubDate>$(date -u +"%a, %d %b %Y %H:%M:%S GMT")</pubDate>
+                    <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+                    <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.zip"
+                              sparkle:version="${{ steps.version.outputs.version }}"
+                              sparkle:shortVersionString="${{ steps.version.outputs.version }}"
+                              sparkle:edSignature="${{ steps.sign_update.outputs.signature }}"
+                              length="${{ steps.sparkle_info.outputs.size }}"
+                              type="application/octet-stream" />
+                    <sparkle:deltas>
+                        <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.zip"
+                                   sparkle:version="${{ steps.version.outputs.version }}"
+                                   sparkle:shortVersionString="${{ steps.version.outputs.version }}"
+                                   sparkle:deltaFrom="*"
+                                   length="${{ steps.sparkle_info.outputs.size }}"
+                                   type="application/octet-stream"
+                                   sparkle:edSignature="${{ steps.sign_update.outputs.signature }}" />
+                    </sparkle:deltas>
+                </item>
+            </channel>
+        </rss>
+        EOF
+        
+    - name: Upload to Supabase Storage
+      env:
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      run: |
+        # Upload Pawcus.zip
+        curl -X POST \
+          "$SUPABASE_URL/storage/v1/object/sparkle-updates/Pawcus.zip" \
+          -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" \
+          -H "Content-Type: application/zip" \
+          -H "x-upsert: true" \
+          --data-binary "@Pawcus.zip"
+        
+        # Upload appcast.xml
+        curl -X POST \
+          "$SUPABASE_URL/storage/v1/object/sparkle-updates/appcast.xml" \
+          -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" \
+          -H "Content-Type: application/xml" \
+          -H "x-upsert: true" \
+          --data-binary "@appcast.xml"
         
     - name: Create Release
       id: create_release
@@ -114,6 +217,9 @@ jobs:
           **Direct Download:**
           - Download `Pawcus.dmg` for installer
           - Download `Pawcus.zip` for portable version
+          
+          ### Auto-Update
+          Pawcus will automatically check for updates and notify you when a new version is available.
           
           ### Changes
           - Bug fixes and improvements
@@ -164,6 +270,16 @@ jobs:
         asset_path: ./Pawcus.zip.sha256
         asset_name: Pawcus.zip.sha256
         asset_content_type: text/plain
+        
+    - name: Upload appcast.xml
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./appcast.xml
+        asset_name: appcast.xml
+        asset_content_type: application/xml
         
     - name: Trigger Homebrew update
       run: |
