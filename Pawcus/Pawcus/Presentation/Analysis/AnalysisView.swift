@@ -67,7 +67,7 @@ struct AnalysisView: View {
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.secondary)
                     
-                    Text(timeStore.seconds.formattedDurationFromSeconds)
+                    Text(viewModel.totalTime.formattedDurationFromSeconds)
                         .font(.system(size: 36, weight: .bold, design: .rounded))
                         .foregroundColor(indigoColor)
                 }
