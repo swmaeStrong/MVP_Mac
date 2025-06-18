@@ -144,7 +144,7 @@ struct LeaderBoardView: View {
                 ForEach(viewModel.categoryNames, id: \.self) { category in
                     CategoryPill(
                         title: category,
-                        icon: getCategoryIcon(category),
+                        icon: AppCategoryType(from: category).iconName,
                         isSelected: category == viewModel.selectedCategory,
                         indigoColor: indigoColor
                     ) {

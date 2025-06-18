@@ -46,6 +46,27 @@ enum AppCategoryType: String, CaseIterable {
         }
     }
 
+    var iconName: String {
+        switch self {
+        case .development: return "chevron.left.forwardslash.chevron.right"
+        case .llm: return "brain.head.profile"
+        case .documentation: return "doc.text"
+        case .design: return "paintbrush"
+        case .videoEditing: return "film"
+        case .youtube: return "play.rectangle.fill"
+        case .communication: return "bubble.left.and.bubble.right"
+        case .sns: return "person.2"
+        case .entertainment: return "tv"
+        case .productivity: return "chart.line.uptrend.xyaxis"
+        case .fileManagement: return "folder"
+        case .systemAndUtilities: return "gearshape"
+        case .game: return "gamecontroller"
+        case .education: return "book"
+        case .finance: return "dollarsign.circle"
+        case .uncategorized: return "questionmark.app"
+        }
+    }
+
     init(from rawValue: String) {
         self = AppCategoryType(rawValue: rawValue.lowercased()) ?? .uncategorized
     }
