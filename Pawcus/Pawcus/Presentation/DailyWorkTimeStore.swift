@@ -15,56 +15,26 @@ final class DailyWorkTimeStore: ObservableObject {
     
     @Injected(\.transferUsageLogsUseCase) private var uploadUseCase
     @Injected(\.activityLogger) private var appUsageLogger
-    
-    @AppStorage("dailyWorkSeconds") private var storedSeconds: Int = 0
-    @AppStorage("lastRecordedDate") private var storedDate: String = ""
-    
+        
     @Published private(set) var seconds: Int = 0
     @Published var isRunning = false
+    @Published var isAppDisabled = false
     
     private var timer: AnyCancellable?
     private var autoSendCancellable: AnyCancellable?
-   
-    // MARK: - Initialization
-    init() {
-        refreshIfNewDay()
-        seconds = storedSeconds
-    }
-
-    // MARK: - 상태 갱신 메서드
-    
-    /// 날짜를 갱신하여 누적 시간을 초기화 시키는 메서드
-    func refreshIfNewDay() {
-        let today = Date().formattedDateString
-        if storedDate != today {
-            storedSeconds = 0
-            storedDate = today
-        }
-        seconds = storedSeconds
-    }
-
-    func increment() {
-        seconds += 1
-        storedSeconds = seconds
-    }
-    
-    func reset() {
-        seconds = 0
-        storedSeconds = 0
-        storedDate = Date().formattedDateString
-    }
 
     // MARK: - 타이머 시작/중지
-
+    
     func start() {
+        seconds = 0
         appUsageLogger.startLogging()
         isRunning = true
-        refreshIfNewDay()
+        isAppDisabled = true
         if isRunning {
             timer = Timer.publish(every: 1, on: .main, in: .common)
                 .autoconnect()
                 .sink { [weak self] _ in
-                    self?.increment()
+                    self?.seconds += 1
                 }
             autoSendCancellable = Timer.publish(every: 60, on: .main, in: .common)
                 .autoconnect()
@@ -79,6 +49,7 @@ final class DailyWorkTimeStore: ObservableObject {
     func stop() {
         appUsageLogger.stopLogging()
         isRunning = false
+        isAppDisabled = false
         timer?.cancel()
         timer = nil
         Task {
