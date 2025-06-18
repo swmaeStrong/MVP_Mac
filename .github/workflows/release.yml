@@ -77,22 +77,29 @@ jobs:
                    -allowProvisioningUpdates
     
     - name: Notarize app
-      if: ${{ secrets.APPLE_ID && secrets.APPLE_ID_PASSWORD }}
+      env:
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
       run: |
-        # Create a ZIP file for notarization
-        cd ./Export
-        ditto -c -k --sequesterRsrc --keepParent Pawcus.app Pawcus-notarize.zip
-        
-        # Submit for notarization
-        xcrun notarytool submit Pawcus-notarize.zip \
-          --apple-id "${{ secrets.APPLE_ID }}" \
-          --password "${{ secrets.APPLE_ID_PASSWORD }}" \
-          --team-id "${{ secrets.TEAM_ID }}" \
-          --wait
-        
-        # Staple the notarization ticket
-        xcrun stapler staple Pawcus.app
-        cd ..
+        if [ -n "$APPLE_ID" ] && [ -n "$APPLE_ID_PASSWORD" ]; then
+          echo "Notarizing app..."
+          # Create a ZIP file for notarization
+          cd ./Export
+          ditto -c -k --sequesterRsrc --keepParent Pawcus.app Pawcus-notarize.zip
+          
+          # Submit for notarization
+          xcrun notarytool submit Pawcus-notarize.zip \
+            --apple-id "$APPLE_ID" \
+            --password "$APPLE_ID_PASSWORD" \
+            --team-id "${{ secrets.TEAM_ID }}" \
+            --wait
+          
+          # Staple the notarization ticket
+          xcrun stapler staple Pawcus.app
+          cd ..
+        else
+          echo "Skipping notarization (APPLE_ID or APPLE_ID_PASSWORD not set)"
+        fi
                    
     - name: Create DMG
       run: |
@@ -101,17 +108,24 @@ jobs:
         hdiutil create -volname "Pawcus" -srcfolder ./Release -ov -format UDZO ./Pawcus.dmg
     
     - name: Notarize DMG
-      if: ${{ secrets.APPLE_ID && secrets.APPLE_ID_PASSWORD }}
+      env:
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
       run: |
-        # Submit DMG for notarization
-        xcrun notarytool submit ./Pawcus.dmg \
-          --apple-id "${{ secrets.APPLE_ID }}" \
-          --password "${{ secrets.APPLE_ID_PASSWORD }}" \
-          --team-id "${{ secrets.TEAM_ID }}" \
-          --wait
-        
-        # Staple the notarization ticket
-        xcrun stapler staple ./Pawcus.dmg
+        if [ -n "$APPLE_ID" ] && [ -n "$APPLE_ID_PASSWORD" ]; then
+          echo "Notarizing DMG..."
+          # Submit DMG for notarization
+          xcrun notarytool submit ./Pawcus.dmg \
+            --apple-id "$APPLE_ID" \
+            --password "$APPLE_ID_PASSWORD" \
+            --team-id "${{ secrets.TEAM_ID }}" \
+            --wait
+          
+          # Staple the notarization ticket
+          xcrun stapler staple ./Pawcus.dmg
+        else
+          echo "Skipping DMG notarization (APPLE_ID or APPLE_ID_PASSWORD not set)"
+        fi
         
     - name: Create ZIP for Sparkle
       run: |
