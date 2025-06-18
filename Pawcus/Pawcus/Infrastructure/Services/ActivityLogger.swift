@@ -18,6 +18,7 @@ final class ActivityLogger {
     private var lastAppName: String?
     private var lastTimestamp: Date?
     private var lastFlushDate: Date?
+    private var lastUrl: String?
     private var appLogLocalDataSource: AppLogLocalDataSource
     
     init(appLogLocalDataSource: AppLogLocalDataSource) {
@@ -32,15 +33,17 @@ final class ActivityLogger {
             guard let log = self.getActiveAppInfo() else { return }
 
             let now = Date()
-            if log.title != self.lastTitle {
+            if log.title != self.lastTitle || log.url != self.lastUrl {
                 // 앱 전환 감지
                 let newAppName = log.app
                 let newTitle = log.title
+                let newUrl = log.url
                 let duration = now.timeIntervalSince(self.lastTimestamp ?? now)
                 // 이전 세션 기록
                 if  let prevApp = self.lastAppName,
-                   let prevTitle = self.lastTitle {
-                    let sessionLog = UsageLog(timestamp: now, duration: duration, title: prevTitle, app: prevApp)
+                    let prevTitle = self.lastTitle,
+                    let prevUrl = self.lastUrl {
+                    let sessionLog = UsageLog(timestamp: now, duration: duration, title: prevTitle, app: prevApp, url: prevUrl)
                     try? self.appLogLocalDataSource.insertAppLog(sessionLog)
                 }
                 // 상태 업데이트
@@ -48,13 +51,15 @@ final class ActivityLogger {
                 self.lastTitle = newTitle
                 self.lastTimestamp = now
                 self.lastFlushDate = now
+                self.lastUrl = newUrl
             } else if let lastFlush = self.lastFlushDate, now.timeIntervalSince(lastFlush) >= 10 {
                 // 10초 경과시 강제 저장
                 if let prevApp = self.lastAppName,
                    let prevTitle = self.lastTitle,
-                   let lastTimestamp = self.lastTimestamp {
+                   let lastTimestamp = self.lastTimestamp,
+                    let prevUrl = self.lastUrl {
                     let duration = now.timeIntervalSince(lastTimestamp)
-                    let sessionLog = UsageLog(timestamp: now, duration: duration, title: prevTitle, app: prevApp)
+                    let sessionLog = UsageLog(timestamp: now, duration: duration, title: prevTitle, app: prevApp, url: prevUrl)
                     try? self.appLogLocalDataSource.insertAppLog(sessionLog)
                     self.lastFlushDate = now
                     self.lastTimestamp = now
@@ -68,6 +73,7 @@ final class ActivityLogger {
         lastAppName = nil
         lastTimestamp = nil
         lastFlushDate = nil
+        lastUrl = nil
         timer?.invalidate()
         timer = nil
     }
@@ -95,14 +101,31 @@ final class ActivityLogger {
             }
         }
         
-        // 웹 브라우저인 경우 URL 추출 시도
+        var finalTitle: String
+        var finalUrl: String
+        
+        // 웹 브라우저인 경우: title은 "", domain은 URL 전체
         if isWebBrowser(appName) {
-            if let url = getBrowserURL(appName: appName, pid: pid) {
-                titleString = url
+            if let browserURL = getBrowserURL(appName: appName, pid: pid) {
+                finalTitle = ""
+                finalUrl = browserURL
+            } else {
+                finalTitle = ""
+                finalUrl = ""
             }
+        } else {
+            // 일반 앱인 경우: title은 윈도우 제목, domain은 ""
+            finalTitle = titleString
+            finalUrl = ""
         }
         
-        return UsageLog(timestamp: .now, duration: 0, title: titleString, app: appName)
+        return UsageLog(
+            timestamp: .now, 
+            duration: 0, 
+            title: finalTitle, 
+            app: appName,
+            url: finalUrl
+        )
     }
     
     /// 웹 브라우저인지 확인하는 메서드

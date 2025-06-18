@@ -703,6 +703,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pawcus-Info.plist";
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Pawcus가 웹 브라우저(Safari, Chrome, Arc 등)에서 현재 보고 있는 URL을 추적하여 사용 통계를 제공하기 위해 Apple Events 권한이 필요합니다.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -710,7 +711,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 0.4.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jungwon;
+				PRODUCT_BUNDLE_IDENTIFIER = pawcus.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -734,6 +735,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pawcus-Info.plist";
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Pawcus가 웹 브라우저(Safari, Chrome, Arc 등)에서 현재 보고 있는 URL을 추적하여 사용 통계를 제공하기 위해 Apple Events 권한이 필요합니다.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

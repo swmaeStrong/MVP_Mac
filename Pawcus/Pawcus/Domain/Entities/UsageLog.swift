@@ -13,4 +13,5 @@ struct UsageLog: Codable {
     var duration: TimeInterval
     var title: String
     var app: String
+    var url: String
 }

@@ -8,11 +8,11 @@
 import Foundation
 
 struct UsageLogDTO: Codable {
-//    let userId: String
     let title: String
     let app: String
     let duration: Double
     let timestamp: String
+    let url: String
 }
 
 
