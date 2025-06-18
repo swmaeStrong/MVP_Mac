@@ -16,16 +16,13 @@ jobs:
     runs-on: macos-latest
     
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
     - name: Set up Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '16.1.0'
-    
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+        xcode-version: 'latest'
       
     - name: Setup version
       id: version
