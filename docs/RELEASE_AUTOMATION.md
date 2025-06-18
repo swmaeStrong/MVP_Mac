@@ -10,11 +10,30 @@ Pawcus는 GitHub Actions를 통해 완전히 자동화된 릴리즈 프로세스
 다음 시크릿들이 GitHub 저장소에 설정되어 있어야 합니다:
 
 - **`TEAM_ID`**: Apple Developer Team ID (Xcode 앱 서명용)
+- **`DEVELOPER_ID_APPLICATION_CERT`**: Developer ID Application 인증서 (Base64 인코딩된 .p12 파일)
+- **`DEVELOPER_ID_APPLICATION_PASSWORD`**: Developer ID Application 인증서 비밀번호
+- **`KEYCHAIN_PASSWORD`**: CI 환경 키체인 비밀번호 (임의 설정)
 - **`SUPABASE_URL`**: Supabase 프로젝트 URL
 - **`SUPABASE_SERVICE_ROLE_KEY`**: Supabase 서비스 역할 키 (스토리지 업로드용)
 - **`HOMEBREW_UPDATE_TOKEN`**: Homebrew cask 업데이트 트리거용 GitHub 토큰
 - **`APPLE_ID`**: (선택사항) Notarization을 위한 Apple ID
 - **`APPLE_ID_PASSWORD`**: (선택사항) App-specific password for notarization
+
+### Developer ID 인증서 설정
+1. **인증서 내보내기**:
+   - Keychain Access에서 Developer ID Application 인증서 선택
+   - 우클릭 → "Export" → .p12 파일로 저장
+   - 비밀번호 설정
+
+2. **Base64 인코딩**:
+   ```bash
+   base64 -i certificate.p12 | pbcopy
+   ```
+
+3. **GitHub Secrets에 추가**:
+   - `DEVELOPER_ID_APPLICATION_CERT`: Base64 인코딩된 인증서 내용
+   - `DEVELOPER_ID_APPLICATION_PASSWORD`: 인증서 비밀번호
+   - `KEYCHAIN_PASSWORD`: 임의의 강력한 비밀번호
 
 ### Supabase 스토리지 설정
 1. Supabase 대시보드에서 `sparkle-updates`라는 public 버킷 생성
