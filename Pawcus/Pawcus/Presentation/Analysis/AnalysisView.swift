@@ -198,7 +198,7 @@ struct AnalysisView: View {
                 .frame(width: 4, height: 40)
             
             // Category icon
-            Image(systemName: getCategoryIcon(category.category))
+            Image(systemName: AppCategoryType(from: category.category).iconName)
                 .font(.system(size: 20))
                 .foregroundColor(Color(hex: category.color) ?? indigoColor)
                 .frame(width: 32)
@@ -220,7 +220,7 @@ struct AnalysisView: View {
                     RoundedRectangle(cornerRadius: 4)
                         .fill(Color(hex: category.color) ?? indigoColor)
                         .frame(
-                            width: geometry.size.width * (Double(category.duration) / Double(maxDuration)),
+                            width: max(0, min(geometry.size.width, geometry.size.width * (Double(category.duration) / Double(maxDuration)))),
                             height: 8
                         )
                 }
@@ -256,32 +256,33 @@ struct AnalysisView: View {
     
     // MARK: - Helper Properties
     private var maxDuration: Int {
-        viewModel.usageCategoryStat.map { Int($0.duration) }.max() ?? 1
+        let max = viewModel.usageCategoryStat.map { Int($0.duration) }.max() ?? 0
+        return max > 0 ? max : 1
     }
     
-    // MARK: - Helper Functions
-    private func getCategoryIcon(_ category: String) -> String {
-        switch category.lowercased() {
-        case "productivity":
-            return "chart.line.uptrend.xyaxis"
-        case "development":
-            return "chevron.left.forwardslash.chevron.right"
-        case "communication":
-            return "message.fill"
-        case "entertainment":
-            return "tv.fill"
-        case "social":
-            return "person.2.fill"
-        case "utilities":
-            return "wrench.and.screwdriver.fill"
-        case "education":
-            return "book.fill"
-        case "design":
-            return "paintbrush.fill"
-        default:
-            return "app.fill"
-        }
-    }
+//    // MARK: - Helper Functions
+//    private func getCategoryIcon(_ category: String) -> String {
+//        switch category.lowercased() {
+//        case "productivity":
+//            return "chart.line.uptrend.xyaxis"
+//        case "development":
+//            return "chevron.left.forwardslash.chevron.right"
+//        case "communication":
+//            return "message.fill"
+//        case "entertainment":
+//            return "tv.fill"
+//        case "social":
+//            return "person.2.fill"
+//        case "utilities":
+//            return "wrench.and.screwdriver.fill"
+//        case "education":
+//            return "book.fill"
+//        case "design":
+//            return "paintbrush.fill"
+//        default:
+//            return "app.fill"
+//        }
+//    }
 }
 
 #Preview {

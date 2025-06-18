@@ -16,12 +16,10 @@ extension Date {
     }
     
     var iso8601WithMillisecondsUTC: String {
-        let formatter = ISO8601DateFormatter()
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        formatter.formatOptions = [
-            .withInternetDateTime,
-            .withFractionalSeconds // 밀리초 포함
-        ]
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        formatter.timeZone = TimeZone.current // 로컬 시간 사용
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter.string(from: self)
     }
     
