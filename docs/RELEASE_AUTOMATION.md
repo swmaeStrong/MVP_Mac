@@ -13,6 +13,10 @@ Pawcus는 GitHub Actions를 통해 완전히 자동화된 릴리즈 프로세스
 - **`DEVELOPER_ID_APPLICATION_CERT`**: Developer ID Application 인증서 (Base64 인코딩된 .p12 파일)
 - **`DEVELOPER_ID_APPLICATION_PASSWORD`**: Developer ID Application 인증서 비밀번호
 - **`KEYCHAIN_PASSWORD`**: CI 환경 키체인 비밀번호 (임의 설정)
+- **`BASE_DOMAIN`**: 백엔드 도메인 (예: 3.39.105.127)
+- **`SUPABASE_KEY`**: Supabase JWT 토큰
+- **`SUPABASE_DOMAIN`**: Supabase 프로젝트 도메인
+- **`SUPABASE_ANON_KEY`**: Supabase 익명 키
 - **`SUPABASE_URL`**: Supabase 프로젝트 URL
 - **`SUPABASE_SERVICE_ROLE_KEY`**: Supabase 서비스 역할 키 (스토리지 업로드용)
 - **`HOMEBREW_UPDATE_TOKEN`**: Homebrew cask 업데이트 트리거용 GitHub 토큰
