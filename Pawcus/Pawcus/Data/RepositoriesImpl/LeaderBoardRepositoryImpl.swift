@@ -15,8 +15,16 @@ final class LeaderBoardRepositoryImpl: LeaderBoardRepository {
         self.service = service
     }
     
-    func getLeaderBoardByCategory(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
-        return try await service.fetchUserRanksByCategory(category: category, page: page, size: size, date: date)
+    func getLeaderBoardByCategoryOnDate(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
+        return try await service.fetchUserRanksByCategoryOnDate(category: category, page: page, size: size, date: date)
+    }
+    
+    func getLeaderBoardByCategoryOnWeekly(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
+        return try await service.fetchUserRanksByCategoryOnWeekly(category: category, page: page, size: size, date: date)
+    }
+    
+    func getLeaderBoardByCategoryOnMonthly(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
+        return try await service.fetchUserRanksByCategoryOnMonthly(category: category, page: page, size: size, date: date)
     }
     
     func getTop10UserRanksLeaderBoard() async throws -> [String: [UserRankItem]] {
