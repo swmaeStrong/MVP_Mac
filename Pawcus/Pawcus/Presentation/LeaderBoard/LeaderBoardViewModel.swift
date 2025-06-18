@@ -19,7 +19,7 @@ final class LeaderBoardViewModel: ObservableObject {
     @Published var top3Ranks: [String: [UserRankItem]] = [:]
     @Published var otherRanks: [String: [UserRankItem]] = [:]
     @Published var selectedDate: Date = Date()
-    private var categories: [AppCategory] = []
+    @Published var selectedRange: DateRangeType = .today
     
     init() {
         Task {
@@ -30,7 +30,6 @@ final class LeaderBoardViewModel: ObservableObject {
     func loadCategories() async {
         do {
             let categories = try await fetchLeaderBoardUseCase.fetchLeaderBoardCategories()
-            self.categories = categories
             self.categoryNames = categories.map { $0.category }
         } catch {
             print("❌ Error fetching leaderboard categories: \(error)")
@@ -50,11 +49,32 @@ final class LeaderBoardViewModel: ObservableObject {
     
     func loadUserTop10RanksByCategory(page: Int? = nil, size: Int? = nil) async {
         do {
-            let userRanks = try await fetchLeaderBoardUseCase.fetchLeaderBoard(category: selectedCategory, page: page, size: size, date: selectedDate.formattedDateString)
+            let userRanks: [UserRankItem]
+            
+            switch selectedRange {
+            case .today:
+                userRanks = try await fetchLeaderBoardUseCase.fetchLeaderBoardOnDate(category: selectedCategory, page: page, size: size, date: selectedDate.formattedDateString)
+            case .week:
+                userRanks = try await fetchLeaderBoardUseCase.fetchLeaderBoardOnWeekly(category: selectedCategory, page: page, size: size, date: selectedDate.formattedDateString)
+            case .month:
+                userRanks = try await fetchLeaderBoardUseCase.fetchLeaderBoardOnMonthly(category: selectedCategory, page: page, size: size, date: selectedDate.formattedDateString)
+            case .custom:
+                userRanks = try await fetchLeaderBoardUseCase.fetchLeaderBoardOnDate(category: selectedCategory, page: page, size: size, date: selectedDate.formattedDateString)
+            }
+            
             userRankItems[selectedCategory] = userRanks
         } catch {
             print("Error fetching leaderboard: \(error)")
         }
     }
     
+}
+
+enum DateRangeType: String, CaseIterable, Identifiable {
+    case today = "Today"
+    case week = "This Week"
+    case month = "This Month"
+    case custom = "Custom Date"
+
+    var id: String { rawValue }
 }

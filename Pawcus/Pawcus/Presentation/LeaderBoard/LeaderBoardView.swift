@@ -8,22 +8,11 @@
 import Foundation
 import SwiftUI
 
-enum DateRangeType: String, CaseIterable, Identifiable {
-    case today = "Today"
-    case week = "This Week"
-    case month = "This Month"
-    case custom = "Custom Date"
-
-    var id: String { rawValue }
-}
-
 struct LeaderBoardView: View {
     @ObservedObject var viewModel: LeaderBoardViewModel
-    @State private var selectedRange: DateRangeType = .today
     @State private var isCalendarVisible: Bool = false
     @State private var hoveredRank: Int? = nil
     
-    // Indigo theme color
     private let indigoColor = Color(red: 88/255, green: 86/255, blue: 214/255)
     
     var body: some View {
@@ -64,6 +53,11 @@ struct LeaderBoardView: View {
                     await viewModel.loadUserTop10RanksByCategory()
                 }
             }
+            .onChange(of: viewModel.selectedRange) {
+                Task {
+                    await viewModel.loadUserTop10RanksByCategory()
+                }
+            }
             
             // Calendar overlay
             if isCalendarVisible {
@@ -97,12 +91,14 @@ struct LeaderBoardView: View {
         Menu {
             ForEach(DateRangeType.allCases) { type in
                 Button(action: {
-                    selectedRange = type
-                    handleDateSelection(type)
+                    viewModel.selectedRange = type
+                    Task {
+                        await viewModel.loadUserTop10RanksByCategory()
+                    }
                 }) {
                     HStack {
                         Label(type.rawValue, systemImage: getDateRangeIcon(type))
-                        if selectedRange == type {
+                        if viewModel.selectedRange == type {
                             Spacer()
                             Image(systemName: "checkmark")
                                 .font(.caption)
@@ -116,7 +112,7 @@ struct LeaderBoardView: View {
                     .font(.system(size: 14))
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(selectedRange.rawValue)
+                    Text(viewModel.selectedRange.rawValue)
                         .font(.system(size: 12))
                         .foregroundColor(.secondary)
                     Text(formatDateDisplay())
@@ -182,7 +178,7 @@ struct LeaderBoardView: View {
                 
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("👑 Today's Champion")
+                        Text("👑 \(getChampionTitle())")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.white.opacity(0.9))
                         Text("in \(viewModel.selectedCategory)")
@@ -376,22 +372,6 @@ struct LeaderBoardView: View {
         }
     }
     
-    // MARK: - Helper Functions
-    private func handleDateSelection(_ type: DateRangeType) {
-        switch type {
-        case .today:
-            viewModel.selectedDate = Date()
-        case .week:
-            viewModel.selectedDate = Date()
-        case .month:
-            viewModel.selectedDate = Date()
-        case .custom:
-            withAnimation(.spring(response: 0.3)) {
-                isCalendarVisible = true
-            }
-        }
-    }
-    
     private func formatDateDisplay() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d, yyyy"
@@ -429,6 +409,19 @@ struct LeaderBoardView: View {
             return "person.2"
         default:
             return "app"
+        }
+    }
+    
+    private func getChampionTitle() -> String {
+        switch viewModel.selectedRange {
+        case .today:
+            return "Today's Champion"
+        case .week:
+            return "This Week's Champion"
+        case .month:
+            return "This Month's Champion"
+        case .custom:
+            return "Champion on Selected Date"
         }
     }
 }

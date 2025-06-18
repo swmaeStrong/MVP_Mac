@@ -14,8 +14,38 @@ final class UserRankService {
         self.session = session
     }
 
-    func fetchUserRanksByCategory(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
-        let endpoint = APIEndpoint.getUserRanksByCategory(category: category, page: page, size: size, date: date)
+    func fetchUserRanksByCategoryOnDate(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
+        let endpoint = APIEndpoint.getUserRanksByCategoryOnDate(category: category, page: page, size: size, date: date)
+        var request = URLRequest(url: endpoint.url())
+        request.httpMethod = endpoint.method
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let (data, response) = try await session.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw URLError(.badServerResponse)
+        }
+
+        let ranks = try JSONDecoder().decode(ServerResponse<[UserRankItem]>.self, from: data)
+        return ranks.data ?? []
+    }
+    
+    func fetchUserRanksByCategoryOnWeekly(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
+        let endpoint = APIEndpoint.getUserRanksByCategoryOnWeekly(category: category, page: page, size: size, date: date)
+        var request = URLRequest(url: endpoint.url())
+        request.httpMethod = endpoint.method
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let (data, response) = try await session.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw URLError(.badServerResponse)
+        }
+
+        let ranks = try JSONDecoder().decode(ServerResponse<[UserRankItem]>.self, from: data)
+        return ranks.data ?? []
+    }
+    
+    func fetchUserRanksByCategoryOnMonthly(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
+        let endpoint = APIEndpoint.getUserRanksByCategoryOnMonthly(category: category, page: page, size: size, date: date)
         var request = URLRequest(url: endpoint.url())
         request.httpMethod = endpoint.method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

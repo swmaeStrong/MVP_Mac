@@ -20,8 +20,16 @@ final class FetchLeaderBoardUseCase {
         return try await analysisRepository.getCategories()
     }
     
-    func fetchLeaderBoard(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
-        return try await leaderBoardRepository.getLeaderBoardByCategory(category: category, page: page, size: size, date: date)
+    func fetchLeaderBoardOnDate(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
+        return try await leaderBoardRepository.getLeaderBoardByCategoryOnDate(category: category, page: page, size: size, date: date)
+    }
+    
+    func fetchLeaderBoardOnWeekly(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
+        return try await leaderBoardRepository.getLeaderBoardByCategoryOnWeekly(category: category, page: page, size: size, date: date)
+    }
+    
+    func fetchLeaderBoardOnMonthly(category: String, page: Int?, size: Int?, date: String) async throws -> [UserRankItem] {
+        return try await leaderBoardRepository.getLeaderBoardByCategoryOnMonthly(category: category, page: page, size: size, date: date)
     }
     
     func fetchGlobalTop10UserRanks() async throws -> [String: [UserRankItem]] {

@@ -15,7 +15,9 @@ enum APIEndpoint {
     case loginSocialUser
     case uploadLog
     case getCategories
-    case getUserRanksByCategory(category: String, page: Int?, size: Int?, date: String)
+    case getUserRanksByCategoryOnDate(category: String, page: Int?, size: Int?, date: String)
+    case getUserRanksByCategoryOnWeekly(category: String, page: Int?, size: Int?, date: String)
+    case getUserRanksByCategoryOnMonthly(category: String, page: Int?, size: Int?, date: String)
     case getUserTop10Ranks
     case getUserLogs(userId: String, date: String)
     case tokenRefresh
@@ -34,8 +36,12 @@ enum APIEndpoint {
             return "/usage-log"
         case .getCategories:
             return "/category"
-        case .getUserRanksByCategory(let category, _, _, _):
+        case .getUserRanksByCategoryOnDate(let category, _, _, _):
             return "/leaderboard/\(category)/daily"
+        case .getUserRanksByCategoryOnWeekly(let category, _, _, _):
+            return "/leaderboard/\(category)/weekly"
+        case .getUserRanksByCategoryOnMonthly(let category, _, _, _):
+            return "/leaderboard/\(category)/monthly"
         case .getUserTop10Ranks:
             return "leaderboard/top-users"
         case .getUserLogs:
@@ -56,7 +62,9 @@ enum APIEndpoint {
         case .loginSocialUser: return "POST"
         case .uploadLog: return "POST"
         case .getCategories: return "GET"
-        case .getUserRanksByCategory: return "GET"
+        case .getUserRanksByCategoryOnDate: return "GET"
+        case .getUserRanksByCategoryOnWeekly: return "GET"
+        case .getUserRanksByCategoryOnMonthly: return "GET"
         case .getUserTop10Ranks: return "GET"
         case .getUserLogs: return "GET"
         case .tokenRefresh: return "POST"
@@ -72,8 +80,34 @@ enum APIEndpoint {
             components.queryItems = [URLQueryItem(name: "nickname", value: nickname)]
             return components.url!
             
-        case .getUserRanksByCategory(let category, let page, let size, let date):
+        case .getUserRanksByCategoryOnDate(let category, let page, let size, let date):
             var components = URLComponents(url: APIEndpoint.baseURL.appendingPathComponent("/leaderboard/\(category)/daily"), resolvingAgainstBaseURL: false)!
+            var items: [URLQueryItem] = []
+            if let page = page {
+                items.append(URLQueryItem(name: "page", value: "\(page)"))
+            }
+            if let size = size {
+                items.append(URLQueryItem(name: "size", value: "\(size)"))
+            }
+            items.append(URLQueryItem(name: "date", value: date))
+            components.queryItems = items
+            return components.url!
+            
+        case .getUserRanksByCategoryOnWeekly(let category, let page, let size, let date):
+            var components = URLComponents(url: APIEndpoint.baseURL.appendingPathComponent("/leaderboard/\(category)/weekly"), resolvingAgainstBaseURL: false)!
+            var items: [URLQueryItem] = []
+            if let page = page {
+                items.append(URLQueryItem(name: "page", value: "\(page)"))
+            }
+            if let size = size {
+                items.append(URLQueryItem(name: "size", value: "\(size)"))
+            }
+            items.append(URLQueryItem(name: "date", value: date))
+            components.queryItems = items
+            return components.url!
+            
+        case .getUserRanksByCategoryOnMonthly(let category, let page, let size, let date):
+            var components = URLComponents(url: APIEndpoint.baseURL.appendingPathComponent("/leaderboard/\(category)/monthly"), resolvingAgainstBaseURL: false)!
             var items: [URLQueryItem] = []
             if let page = page {
                 items.append(URLQueryItem(name: "page", value: "\(page)"))
