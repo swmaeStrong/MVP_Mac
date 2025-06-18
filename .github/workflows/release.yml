@@ -183,12 +183,26 @@ jobs:
         curl -L -o Sparkle-2.7.0.tar.xz https://github.com/sparkle-project/Sparkle/releases/download/2.7.0/Sparkle-2.7.0.tar.xz
         tar -xf Sparkle-2.7.0.tar.xz
         
-    - name: Sign update with EdDSA
+    - name: Setup EdDSA key and sign update
       id: sign_update
+      env:
+        SPARKLE_EDDSA_PRIVATE_KEY: ${{ secrets.SPARKLE_EDDSA_PRIVATE_KEY }}
       run: |
-        # Sign the update
-        SIGNATURE=$(./bin/sign_update Pawcus.zip | tail -1)
-        echo "signature=$SIGNATURE" >> $GITHUB_OUTPUT
+        if [ -n "$SPARKLE_EDDSA_PRIVATE_KEY" ]; then
+          echo "Setting up EdDSA private key..."
+          echo "$SPARKLE_EDDSA_PRIVATE_KEY" > ~/private_key.pem
+          chmod 600 ~/private_key.pem
+          
+          # Sign the update
+          SIGNATURE=$(./bin/sign_update Pawcus.zip ~/private_key.pem | tail -1)
+          echo "signature=$SIGNATURE" >> $GITHUB_OUTPUT
+          
+          # Clean up
+          rm ~/private_key.pem
+        else
+          echo "No EdDSA private key provided, skipping signing"
+          echo "signature=" >> $GITHUB_OUTPUT
+        fi
         
     - name: Calculate checksums and file size
       id: sparkle_info
@@ -202,7 +216,11 @@ jobs:
         
     - name: Generate Sparkle appcast.xml
       run: |
-        cat > appcast.xml << EOF
+        SIGNATURE="${{ steps.sign_update.outputs.signature }}"
+        
+        if [ -n "$SIGNATURE" ] && [ "$SIGNATURE" != "" ]; then
+          # With EdDSA signature
+          cat > appcast.xml << EOF
         <?xml version="1.0" standalone="yes"?>
         <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
             <channel>
@@ -215,22 +233,35 @@ jobs:
                     <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.zip"
                               sparkle:version="${{ steps.version.outputs.version }}"
                               sparkle:shortVersionString="${{ steps.version.outputs.version }}"
-                              sparkle:edSignature="${{ steps.sign_update.outputs.signature }}"
+                              sparkle:edSignature="$SIGNATURE"
                               length="${{ steps.sparkle_info.outputs.size }}"
                               type="application/octet-stream" />
-                    <sparkle:deltas>
-                        <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.zip"
-                                   sparkle:version="${{ steps.version.outputs.version }}"
-                                   sparkle:shortVersionString="${{ steps.version.outputs.version }}"
-                                   sparkle:deltaFrom="*"
-                                   length="${{ steps.sparkle_info.outputs.size }}"
-                                   type="application/octet-stream"
-                                   sparkle:edSignature="${{ steps.sign_update.outputs.signature }}" />
-                    </sparkle:deltas>
                 </item>
             </channel>
         </rss>
         EOF
+        else
+          # Without EdDSA signature (not recommended for production)
+          cat > appcast.xml << EOF
+        <?xml version="1.0" standalone="yes"?>
+        <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+            <channel>
+                <title>Pawcus</title>
+                <language>en</language>
+                <item>
+                    <title>Version ${{ steps.version.outputs.version }}</title>
+                    <pubDate>$(date -u +"%a, %d %b %Y %H:%M:%S GMT")</pubDate>
+                    <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+                    <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.zip"
+                              sparkle:version="${{ steps.version.outputs.version }}"
+                              sparkle:shortVersionString="${{ steps.version.outputs.version }}"
+                              length="${{ steps.sparkle_info.outputs.size }}"
+                              type="application/octet-stream" />
+                </item>
+            </channel>
+        </rss>
+        EOF
+        fi
         
     - name: Upload to Supabase Storage
       env:

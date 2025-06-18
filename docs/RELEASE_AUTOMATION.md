@@ -20,6 +20,7 @@ Pawcus는 GitHub Actions를 통해 완전히 자동화된 릴리즈 프로세스
 - **`SUPABASE_URL`**: Supabase 프로젝트 URL
 - **`SUPABASE_SERVICE_ROLE_KEY`**: Supabase 서비스 역할 키 (스토리지 업로드용)
 - **`HOMEBREW_UPDATE_TOKEN`**: Homebrew cask 업데이트 트리거용 GitHub 토큰
+- **`SPARKLE_EDDSA_PRIVATE_KEY`**: (권장) Sparkle EdDSA 개인 키 (업데이트 서명용)
 - **`APPLE_ID`**: (선택사항) Notarization을 위한 Apple ID
 - **`APPLE_ID_PASSWORD`**: (선택사항) App-specific password for notarization
 
@@ -38,6 +39,21 @@ Pawcus는 GitHub Actions를 통해 완전히 자동화된 릴리즈 프로세스
    - `DEVELOPER_ID_APPLICATION_CERT`: Base64 인코딩된 인증서 내용
    - `DEVELOPER_ID_APPLICATION_PASSWORD`: 인증서 비밀번호
    - `KEYCHAIN_PASSWORD`: 임의의 강력한 비밀번호
+
+### Sparkle EdDSA 키 설정 (권장)
+1. **EdDSA 키 쌍 생성**:
+   ```bash
+   # Sparkle의 generate_keys 도구 사용
+   ./bin/generate_keys
+   ```
+
+2. **개인 키를 GitHub Secrets에 추가**:
+   - `SPARKLE_EDDSA_PRIVATE_KEY`: 생성된 개인 키 파일의 내용
+   - 공개 키는 앱의 Info.plist `SUPublicEDKey`에 설정
+
+3. **보안 주의사항**:
+   - 개인 키는 절대 저장소에 커밋하지 마세요
+   - GitHub Secrets에만 저장하세요
 
 ### Supabase 스토리지 설정
 1. Supabase 대시보드에서 `sparkle-updates`라는 public 버킷 생성
