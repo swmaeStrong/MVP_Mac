@@ -105,3 +105,15 @@ claude.md
 **/.claude/
 
 buildServer.json
+
+# 문서 및 임시 파일
+docs/
+dist/
+default.profraw
+release.sh
+
+# 빌드 관련 임시 파일
+*.dmg
+*.zip
+appcast.xml
+export_options.plist
