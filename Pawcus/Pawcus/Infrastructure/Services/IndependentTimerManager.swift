@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import SwiftUI
 import Factory
+import UserNotifications
 
 enum TimerMode: String, CaseIterable {
     case stopwatch = "stopwatch"
@@ -208,11 +209,22 @@ final class IndependentTimerManager: ObservableObject {
         }
         
         // 시스템 알림 보내기
-        let notification = NSUserNotification()
-        notification.title = "Timer Completed"
-        notification.informativeText = "Your \(timerDurationMinutes) minute timer has finished!"
-        notification.soundName = NSUserNotificationDefaultSoundName
-        NSUserNotificationCenter.default.deliver(notification)
+        sendNotification()
+    }
+    
+    private func sendNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "Timer Completed"
+        content.body = "Your \(timerDurationMinutes) minute timer has finished!"
+        content.sound = UNNotificationSound.default
+        
+        let request = UNNotificationRequest(identifier: "timer_completed", content: content, trigger: nil)
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Failed to send notification: \(error)")
+            }
+        }
     }
     
     // MARK: - Log Management
