@@ -15,6 +15,7 @@ struct ContentView: View {
     @StateObject private var leaderViewModel = LeaderBoardViewModel()
     @StateObject private var analysisViewModel = AnalysisViewModel()
     @EnvironmentObject private var timeStore: DailyWorkTimeStore
+    @EnvironmentObject private var menuBarManager: MenuBarManager
     
     var body: some View {
         ZStack {
@@ -32,10 +33,13 @@ struct ContentView: View {
             .disabled(timeStore.isAppDisabled)
             .blur(radius: timeStore.isAppDisabled ? 3 : 0)
             
-            // Timer Running Overlay
+            // Server Timer Running Overlay (usage tracking)
             if timeStore.isAppDisabled {
                 timerRunningOverlay
             }
+            
+            // Timer Selection is now handled by independent window
+            // Focus Mode is now handled by independent window
         }
         .onAppear {
             showUsernamePrompt = username.isEmpty
@@ -135,9 +139,11 @@ struct ContentView: View {
         }
         .transition(.opacity.combined(with: .scale(scale: 0.9)))
     }
+    
 }
 
 #Preview {
     ContentView()
         .environmentObject(DailyWorkTimeStore())
+        .environmentObject(MenuBarManager())
 }

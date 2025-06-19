@@ -13,6 +13,8 @@ struct PawcusApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     @StateObject private var dailyWorkTimeStore = DailyWorkTimeStore()
+    @StateObject private var menuBarManager = MenuBarManager()
+    
     init() {
         ensureAccessibilityPermission()
     }
@@ -21,6 +23,7 @@ struct PawcusApp: App {
         WindowGroup {
             RootView()
                 .environmentObject(dailyWorkTimeStore)
+                .environmentObject(menuBarManager)
         }
         .windowStyle(HiddenTitleBarWindowStyle())
         .modelContainer(for: [AppLogEntity.self])
