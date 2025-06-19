@@ -36,5 +36,7 @@
 	<string>XYqUVZF83dzRohHy5RGDM0wYkGdJlKVqvsikWBAKAmk=</string>
 	<key>SUScheduledCheckInterval</key>
 	<integer>86400</integer>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.productivity</string>
 </dict>
 </plist>
