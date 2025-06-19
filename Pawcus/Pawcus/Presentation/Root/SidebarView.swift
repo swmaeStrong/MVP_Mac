@@ -62,7 +62,7 @@ struct SidebarView: View {
                     .font(.system(size: 12, weight: .medium))
                     .foregroundColor(.secondary)
                 
-                Text("v1.0.0")
+                Text("\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0",)")
                     .font(.system(size: 10))
                     .foregroundColor(.secondary)
                     .padding(.bottom, 16)
@@ -74,7 +74,7 @@ struct SidebarView: View {
 }
 
 struct SidebarTimerButton: View {
-    @EnvironmentObject private var timeStore: DailyWorkTimeStore
+    @EnvironmentObject private var menuBarManager: MenuBarManager
     @State private var isHovered = false
     
     private let indigoColor = Color(red: 88/255, green: 86/255, blue: 214/255)
@@ -82,18 +82,22 @@ struct SidebarTimerButton: View {
     var body: some View {
         Button(action: {
             withAnimation(.easeInOut(duration: 0.3)) {
-                timeStore.isRunning ? timeStore.stop() : timeStore.start()
+                if menuBarManager.timer.isRunning {
+                    menuBarManager.timer.stop()
+                } else {
+                    menuBarManager.showTimerSelectionFromApp()
+                }
             }
         }) {
             VStack(spacing: 8) {
                 // Icon
-                Image(systemName: timeStore.isRunning ? "stop.fill" : "play.fill")
+                Image(systemName: menuBarManager.timer.isRunning ? "stop.fill" : "timer")
                     .font(.system(size: 28, weight: .semibold))
                     .foregroundColor(.white)
                     .scaleEffect(isHovered ? 1.1 : 1.0)
                 
                 // Text
-                Text(timeStore.isRunning ? "Stop" : "Start")
+                Text(menuBarManager.timer.isRunning ? "집중 종료" : "Timer")
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(.white)
             }
@@ -101,7 +105,7 @@ struct SidebarTimerButton: View {
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(
-                        timeStore.isRunning ? 
+                        menuBarManager.timer.isRunning ? 
                         LinearGradient(
                             colors: [Color.red, Color.red.opacity(0.8)],
                             startPoint: .topLeading,
@@ -117,16 +121,16 @@ struct SidebarTimerButton: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(
-                        timeStore.isRunning ? Color.red.opacity(0.3) : indigoColor.opacity(0.3),
-                        lineWidth: timeStore.isRunning ? 2 : 0
+                        menuBarManager.timer.isRunning ? Color.red.opacity(0.3) : Color.clear,
+                        lineWidth: menuBarManager.timer.isRunning ? 2 : 0
                     )
-                    .scaleEffect(timeStore.isRunning ? 1.1 : 1.0)
-                    .opacity(timeStore.isRunning ? 0.7 : 0)
+                    .scaleEffect(menuBarManager.timer.isRunning ? 1.1 : 1.0)
+                    .opacity(menuBarManager.timer.isRunning ? 0.7 : 0)
                     .animation(
-                        timeStore.isRunning ? 
+                        menuBarManager.timer.isRunning ? 
                         .easeInOut(duration: 1.0).repeatForever(autoreverses: true) : 
                         .default,
-                        value: timeStore.isRunning
+                        value: menuBarManager.timer.isRunning
                     )
             )
         }
