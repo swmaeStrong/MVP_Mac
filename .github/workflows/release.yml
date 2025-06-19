@@ -91,6 +91,7 @@ jobs:
                    DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
                    CODE_SIGNING_ALLOWED_FOR_APPS=YES \
                    CODE_SIGN_STYLE=Manual \
+                   SWIFT_OPTIMIZATION_LEVEL=-O \
                    archive
     
     - name: Create export options
@@ -229,7 +230,7 @@ jobs:
                 <item>
                     <title>Version ${{ steps.version.outputs.version }}</title>
                     <pubDate>$(date -u +"%a, %d %b %Y %H:%M:%S GMT")</pubDate>
-                    <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+                    <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
                     <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.zip"
                               sparkle:version="${{ steps.version.outputs.version }}"
                               sparkle:shortVersionString="${{ steps.version.outputs.version }}"
@@ -251,7 +252,7 @@ jobs:
                 <item>
                     <title>Version ${{ steps.version.outputs.version }}</title>
                     <pubDate>$(date -u +"%a, %d %b %Y %H:%M:%S GMT")</pubDate>
-                    <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+                    <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
                     <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.zip"
                               sparkle:version="${{ steps.version.outputs.version }}"
                               sparkle:shortVersionString="${{ steps.version.outputs.version }}"
@@ -314,7 +315,7 @@ jobs:
           - Bug fixes and improvements
           
           ### System Requirements
-          - macOS 13.0 or later
+          - macOS 15.0 or later
           - Accessibility permissions required
           
         draft: false
