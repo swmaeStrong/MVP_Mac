@@ -279,8 +279,12 @@ jobs:
           
           **Homebrew (Recommended):**
           ```bash
+          # 신규 설치
           brew tap swmaeStrong/pawcus
           brew install --cask pawcus
+          
+          # 업데이트
+          brew update && brew upgrade --cask pawcus
           ```
           
           **Direct Download:**
