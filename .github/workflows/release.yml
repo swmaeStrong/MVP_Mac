@@ -180,11 +180,19 @@ jobs:
           
           # Sign the update
           echo "Signing update..."
-          SIGNATURE_OUTPUT=$(./bin/sign_update Pawcus.zip ~/private_key.pem)
-          echo "Sign output: $SIGNATURE_OUTPUT"
-          SIGNATURE=$(echo "$SIGNATURE_OUTPUT" | grep 'sparkle:edSignature=' | cut -d'"' -f2)
-          echo "Extracted signature: $SIGNATURE"
-          echo "signature=$SIGNATURE" >> $GITHUB_OUTPUT
+          ./bin/sign_update Pawcus.zip ~/private_key.pem > signature_output.txt 2>&1 || true
+          echo "Sign command exit code: $?"
+          cat signature_output.txt
+          
+          # Extract signature more carefully
+          if grep -q 'sparkle:edSignature=' signature_output.txt; then
+            SIGNATURE=$(grep 'sparkle:edSignature=' signature_output.txt | sed 's/.*sparkle:edSignature="\([^"]*\)".*/\1/')
+            echo "Successfully extracted signature: $SIGNATURE"
+            echo "signature=$SIGNATURE" >> $GITHUB_OUTPUT
+          else
+            echo "No signature found in output"
+            echo "signature=" >> $GITHUB_OUTPUT
+          fi
           
           # Clean up
           rm ~/private_key.pem
@@ -207,7 +215,9 @@ jobs:
       run: |
         SIGNATURE="${{ steps.sign_update.outputs.signature }}"
         
-        if [ -n "$SIGNATURE" ] && [ "$SIGNATURE" != "" ]; then
+        echo "Received signature: '$SIGNATURE'"
+        if [ -n "$SIGNATURE" ] && [ "$SIGNATURE" != "" ] && [ "$SIGNATURE" != "null" ]; then
+          echo "Creating appcast.xml with EdDSA signature"
           # With EdDSA signature
           cat > appcast.xml << EOF
         <?xml version="1.0" standalone="yes"?>
