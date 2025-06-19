@@ -32,8 +32,9 @@
 	<string>$(SUPABASE_DOMAIN)</string>
 	<key>SUPABASE_KEY</key>
 	<string>$(SUPABASE_KEY)</string>
-	<key>SUPublicEDKey</key>
-	<string>XYqUVZF83dzRohHy5RGDM0wYkGdJlKVqvsikWBAKAmk=</string>
+	<!-- Temporarily disabled for testing -->
+	<!-- <key>SUPublicEDKey</key>
+	<string>XYqUVZF83dzRohHy5RGDM0wYkGdJlKVqvsikWBAKAmk=</string> -->
 	<key>SUScheduledCheckInterval</key>
 	<integer>86400</integer>
 	<key>LSApplicationCategoryType</key>
