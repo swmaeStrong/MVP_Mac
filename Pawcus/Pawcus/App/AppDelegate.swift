@@ -23,7 +23,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
             userDriverDelegate: nil
         )
         
-        // 앱 시작 시 업데이트 확인 (선택사항)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.updaterController?.updater.checkForUpdatesInBackground()
         }
