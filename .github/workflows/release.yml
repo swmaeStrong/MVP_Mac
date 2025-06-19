@@ -173,8 +173,17 @@ jobs:
           echo "$SPARKLE_EDDSA_PRIVATE_KEY" > ~/private_key.pem
           chmod 600 ~/private_key.pem
           
+          # Debug: Check if files exist
+          ls -la Pawcus.zip
+          ls -la ~/private_key.pem
+          ls -la ./bin/sign_update
+          
           # Sign the update
-          SIGNATURE=$(./bin/sign_update Pawcus.zip ~/private_key.pem | tail -1)
+          echo "Signing update..."
+          SIGNATURE_OUTPUT=$(./bin/sign_update Pawcus.zip ~/private_key.pem)
+          echo "Sign output: $SIGNATURE_OUTPUT"
+          SIGNATURE=$(echo "$SIGNATURE_OUTPUT" | grep 'sparkle:edSignature=' | cut -d'"' -f2)
+          echo "Extracted signature: $SIGNATURE"
           echo "signature=$SIGNATURE" >> $GITHUB_OUTPUT
           
           # Clean up
