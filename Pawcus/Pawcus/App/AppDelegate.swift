@@ -17,18 +17,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         AppDelegate.shared = self
         
-        do {
-            updaterController = SPUStandardUpdaterController(
-                startingUpdater: true,
-                updaterDelegate: self,
-                userDriverDelegate: nil
-            )
-            print("✅ Sparkle updater controller created successfully")
-            print("📋 Feed URL: \(updaterController?.updater.feedURL?.absoluteString ?? "nil")")
-            print("🔧 Updater delegate set: \(updaterController?.updater.delegate != nil)")
-        } catch {
-            print("❌ Failed to create Sparkle updater: \(error)")
-        }
+        updaterController = SPUStandardUpdaterController(
+            startingUpdater: true,
+            updaterDelegate: self,
+            userDriverDelegate: nil
+        )
+        print("✅ Sparkle updater controller created successfully")
+        print("📋 Feed URL: \(updaterController?.updater.feedURL?.absoluteString ?? "nil")")
+        print("🔧 Updater controller: \(updaterController != nil)")
         
         // 메뉴바 추가 (Sparkle UI 표시용)
         setupMenuBar()
