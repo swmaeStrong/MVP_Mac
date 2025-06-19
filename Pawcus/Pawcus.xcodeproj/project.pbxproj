@@ -691,6 +691,7 @@
 		BD9893652DD9C46A00F40A9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = arm64;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -703,6 +704,7 @@
 				DEVELOPMENT_TEAM = U6NUHA5DNR;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = x86_64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pawcus-Info.plist";
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Pawcus가 웹 브라우저(Safari, Chrome, Arc 등)에서 현재 보고 있는 URL을 추적하여 사용 통계를 제공하기 위해 Apple Events 권한이 필요합니다.";
@@ -717,14 +719,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				ARCHS = arm64;
-				EXCLUDED_ARCHS = "x86_64";
 			};
 			name = Debug;
 		};
 		BD9893662DD9C46A00F40A9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = arm64;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -736,7 +737,8 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = U6NUHA5DNR;
 				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
+				ENABLE_PREVIEWS = NO;
+				EXCLUDED_ARCHS = x86_64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pawcus-Info.plist";
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Pawcus가 웹 브라우저(Safari, Chrome, Arc 등)에서 현재 보고 있는 URL을 추적하여 사용 통계를 제공하기 위해 Apple Events 권한이 필요합니다.";
@@ -752,9 +754,6 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				ARCHS = arm64;
-				EXCLUDED_ARCHS = "x86_64";
-				ENABLE_PREVIEWS = NO;
 			};
 			name = Release;
 		};
