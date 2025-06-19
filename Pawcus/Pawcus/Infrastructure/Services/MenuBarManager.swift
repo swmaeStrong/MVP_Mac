@@ -16,7 +16,6 @@ final class MenuBarManager: ObservableObject {
     private var independentTimer = IndependentTimerManager()
     private var cancellables = Set<AnyCancellable>()
     private var autoCloseTimer: Timer?
-    private var timerWindow: TimerWindow?
     
     // 타이머 설정 상태
     @Published var showTimerSelection = false
@@ -106,11 +105,7 @@ final class MenuBarManager: ObservableObject {
     }
     
     @objc private func statusItemClicked() {
-        if independentTimer.isRunning {
-            togglePopover()
-        } else {
-            showTimerSelectionWindow()
-        }
+        togglePopover()
     }
     
     private func togglePopover() {
@@ -134,33 +129,16 @@ final class MenuBarManager: ObservableObject {
     
     private func setupPopover() {
         popover = NSPopover()
-        popover?.contentSize = NSSize(width: 300, height: 200)
+        popover?.contentSize = NSSize(width: 320, height: 400)
         popover?.behavior = .transient
         
-        let menuBarView = RunningTimerPopoverView(timerManager: independentTimer)
+        let menuBarView = IntegratedTimerPopoverView(timerManager: independentTimer)
         popover?.contentViewController = NSHostingController(rootView: menuBarView)
-    }
-    
-    // 독립 타이머 선택 창 표시
-    private func showTimerSelectionWindow() {
-        // Reuse existing window if it exists
-        if let existingWindow = timerWindow {
-            existingWindow.makeKeyAndOrderFront(nil)
-            NSApp.activate(ignoringOtherApps: true)
-            return
-        }
-        
-        // Create and show new timer window
-        timerWindow = TimerWindow(timerManager: independentTimer)
-        timerWindow?.makeKeyAndOrderFront(nil)
-        
-        // Activate the app to bring window to front
-        NSApp.activate(ignoringOtherApps: true)
     }
     
     // 앱에서 타이머 설정 화면 표시
     func showTimerSelectionFromApp() {
-        showTimerSelectionWindow()
+        togglePopover()
     }
     
     // 타이머 시작 (앱과 메뉴바 공통)
@@ -173,49 +151,227 @@ final class MenuBarManager: ObservableObject {
     }
 }
 
-// 실행 중인 타이머를 위한 간단한 팝오버 뷰
-private struct RunningTimerPopoverView: View {
+// 통합 타이머 팝오버 뷰 (선택 + 실행)
+private struct IntegratedTimerPopoverView: View {
     @ObservedObject var timerManager: IndependentTimerManager
     
     var body: some View {
+        VStack(spacing: 0) {
+            if timerManager.isRunning || timerManager.isPaused {
+                runningTimerView
+            } else {
+                timerSelectionView
+            }
+        }
+        .background(Color(.windowBackgroundColor))
+    }
+    
+    // MARK: - Timer Selection View
+    private var timerSelectionView: some View {
         VStack(spacing: 16) {
-            // 헤더
-            HStack(spacing: 8) {
-                Image(systemName: timerManager.timerMode.icon)
-                    .font(.system(size: 16))
+            // Header
+            VStack(spacing: 4) {
+                Image(systemName: "timer")
+                    .font(.system(size: 32))
                     .foregroundColor(.blue)
                 
-                Text("\(timerManager.timerMode.displayName) Running")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(.primary)
+                Text("Focus Timer")
+                    .font(.system(size: 16, weight: .bold))
+                
+                Text("Choose your focus method")
+                    .font(.system(size: 11))
+                    .foregroundColor(.secondary)
             }
             
-            // 시간 표시
-            Text(timerManager.displayTimeString)
-                .font(.system(size: 24, weight: .bold, design: .monospaced))
-                .foregroundColor(.blue)
-            
-            // 컨트롤 버튼들
-            HStack(spacing: 8) {
-                Button(action: {
-                    timerManager.pause()
-                }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "pause.fill")
+            // Timer mode selection
+            VStack(spacing: 12) {
+                // Stopwatch option
+                HStack {
+                    Image(systemName: "stopwatch")
+                        .font(.system(size: 18))
+                        .foregroundColor(.green)
+                        .frame(width: 25)
+                    
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Stopwatch")
+                            .font(.system(size: 13, weight: .semibold))
+                        
+                        Text("Count up from 0")
                             .font(.system(size: 10))
-                        Text("Pause")
-                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(.secondary)
                     }
-                    .foregroundColor(.orange)
+                    
+                    Spacer()
+                    
+                    Button("Start") {
+                        timerManager.updateTimerMode(.stopwatch)
+                        timerManager.start()
+                    }
+                    .buttonStyle(CompactPopoverButtonStyle(color: .green))
+                }
+                .padding(10)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.green.opacity(0.1))
+                )
+                
+                // Timer option
+                VStack(spacing: 8) {
+                    HStack {
+                        Image(systemName: "timer")
+                            .font(.system(size: 18))
+                            .foregroundColor(.orange)
+                            .frame(width: 25)
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Timer")
+                                .font(.system(size: 13, weight: .semibold))
+                            
+                            Text("Count down")
+                                .font(.system(size: 10))
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        Spacer()
+                        
+                        Button("Start") {
+                            timerManager.updateTimerMode(.timer)
+                            timerManager.start()
+                        }
+                        .buttonStyle(CompactPopoverButtonStyle(color: .orange))
+                    }
+                    .padding(10)
+                    
+                    // Timer duration setting
+                    HStack(spacing: 8) {
+                        Button("-") {
+                            let newDuration = max(5, timerManager.timerDurationMinutes - 5)
+                            timerManager.updateTimerDuration(newDuration)
+                        }
+                        .buttonStyle(CompactCirclePopoverButtonStyle())
+                        .disabled(timerManager.timerDurationMinutes <= 5)
+                        
+                        Text("\(timerManager.timerDurationMinutes) min")
+                            .font(.system(size: 12, weight: .medium, design: .monospaced))
+                            .frame(minWidth: 50)
+                        
+                        Button("+") {
+                            let newDuration = min(120, timerManager.timerDurationMinutes + 5)
+                            timerManager.updateTimerDuration(newDuration)
+                        }
+                        .buttonStyle(CompactCirclePopoverButtonStyle())
+                        .disabled(timerManager.timerDurationMinutes >= 120)
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.bottom, 8)
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.orange.opacity(0.1))
+                )
+            }
+        }
+        .padding(16)
+    }
+    
+    // MARK: - Running Timer View
+    private var runningTimerView: some View {
+        VStack(spacing: 24) {
+            // Header Section
+            VStack(spacing: 8) {
+                HStack(spacing: 10) {
+                    Image(systemName: timerManager.timerMode.icon)
+                        .font(.system(size: 24))
+                        .foregroundColor(.blue)
+                    
+                    Text(timerManager.timerMode.displayName)
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.primary)
+                }
+                
+                Text(timerManager.isPaused ? "Paused" : "Running")
+                    .font(.system(size: 13))
+                    .foregroundColor(timerManager.isPaused ? .orange : .green)
                     .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
+                    .padding(.vertical, 4)
                     .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.orange.opacity(0.1))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.orange, lineWidth: 1)
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill((timerManager.isPaused ? Color.orange : Color.green).opacity(0.1))
+                    )
+            }
+            
+            // Timer Display Section
+            VStack(spacing: 16) {
+                if timerManager.isTimerMode {
+                    ZStack {
+                        Circle()
+                            .stroke(Color.gray.opacity(0.2), lineWidth: 6)
+                            .frame(width: 120, height: 120)
+                        
+                        Circle()
+                            .trim(from: 0, to: timerManager.progressPercentage)
+                            .stroke(
+                                LinearGradient(
+                                    colors: [.blue, .purple],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                style: StrokeStyle(lineWidth: 6, lineCap: .round)
                             )
+                            .frame(width: 120, height: 120)
+                            .rotationEffect(.degrees(-90))
+                            .animation(.linear(duration: 0.5), value: timerManager.progressPercentage)
+                        
+                        VStack(spacing: 4) {
+                            Image(systemName: timerManager.timerMode.icon)
+                                .font(.system(size: 24))
+                                .foregroundColor(.blue)
+                            
+                            Text(timerManager.displayTimeString)
+                                .font(.system(size: 16, weight: .bold, design: .monospaced))
+                                .foregroundColor(.primary)
+                        }
+                    }
+                } else {
+                    VStack(spacing: 12) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.green.opacity(0.1))
+                                .frame(width: 100, height: 100)
+                            
+                            Image(systemName: timerManager.timerMode.icon)
+                                .font(.system(size: 40))
+                                .foregroundColor(.green)
+                        }
+                        
+                        Text(timerManager.displayTimeString)
+                            .font(.system(size: 24, weight: .bold, design: .monospaced))
+                            .foregroundColor(.primary)
+                    }
+                }
+            }
+            
+            // Control Buttons Section
+            HStack(spacing: 12) {
+                Button(action: {
+                    if timerManager.isPaused {
+                        timerManager.start()
+                    } else {
+                        timerManager.pause()
+                    }
+                }) {
+                    HStack(spacing: 6) {
+                        Image(systemName: timerManager.isPaused ? "play.fill" : "pause.fill")
+                            .font(.system(size: 12))
+                        Text(timerManager.isPaused ? "Resume" : "Pause")
+                            .font(.system(size: 13, weight: .medium))
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.orange)
                     )
                 }
                 .buttonStyle(PlainButtonStyle())
@@ -223,24 +379,55 @@ private struct RunningTimerPopoverView: View {
                 Button(action: {
                     timerManager.stop()
                 }) {
-                    HStack(spacing: 4) {
+                    HStack(spacing: 6) {
                         Image(systemName: "stop.fill")
-                            .font(.system(size: 10))
+                            .font(.system(size: 12))
                         Text("Stop")
-                            .font(.system(size: 12, weight: .medium))
+                            .font(.system(size: 13, weight: .medium))
                     }
                     .foregroundColor(.white)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
                     .background(
-                        RoundedRectangle(cornerRadius: 8)
+                        RoundedRectangle(cornerRadius: 10)
                             .fill(Color.red)
                     )
                 }
                 .buttonStyle(PlainButtonStyle())
             }
+            
+            Spacer()
         }
-        .padding(16)
-        .background(Color(.windowBackgroundColor))
+        .padding(20)
+    }
+}
+
+// MARK: - Button Styles for Popover
+struct CompactPopoverButtonStyle: ButtonStyle {
+    let color: Color
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(size: 11, weight: .medium))
+            .foregroundColor(.white)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+            .background(
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(color)
+                    .opacity(configuration.isPressed ? 0.8 : 1.0)
+            )
+    }
+}
+
+struct CompactCirclePopoverButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(size: 12, weight: .bold))
+            .frame(width: 24, height: 24)
+            .background(
+                Circle()
+                    .fill(Color.orange.opacity(configuration.isPressed ? 0.5 : 0.3))
+            )
     }
 }

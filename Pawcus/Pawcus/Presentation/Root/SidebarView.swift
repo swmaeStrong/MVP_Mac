@@ -77,66 +77,55 @@ struct SidebarTimerButton: View {
     @EnvironmentObject private var menuBarManager: MenuBarManager
     @State private var isHovered = false
     
+    // 밝고 예쁜 색상들
     private let indigoColor = Color(red: 88/255, green: 86/255, blue: 214/255)
-    
+
     var body: some View {
         Button(action: {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                if menuBarManager.timer.isRunning {
-                    menuBarManager.timer.stop()
-                } else {
-                    menuBarManager.showTimerSelectionFromApp()
-                }
-            }
+            // 단순히 메뉴바 팝오버만 열기
+            menuBarManager.showTimerSelectionFromApp()
         }) {
             VStack(spacing: 8) {
-                // Icon
-                Image(systemName: menuBarManager.timer.isRunning ? "stop.fill" : "timer")
-                    .font(.system(size: 28, weight: .semibold))
+                // Icon - 고정된 타이머 아이콘
+                Image(systemName: "timer")
+                    .font(.system(size: 30, weight: .medium))
                     .foregroundColor(.white)
-                    .scaleEffect(isHovered ? 1.1 : 1.0)
+                    .scaleEffect(isHovered ? 1.15 : 1.0)
+                    .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 1)
                 
                 // Text
-                Text(menuBarManager.timer.isRunning ? "집중 종료" : "Timer")
-                    .font(.system(size: 12, weight: .semibold))
+                Text("Focus Timer")
+                    .font(.system(size: 11, weight: .bold))
                     .foregroundColor(.white)
+                    .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: 0.5)
             }
-            .frame(width: 120, height: 80)
+            .frame(width: 130, height: 85)
             .background(
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 18)
                     .fill(
-                        menuBarManager.timer.isRunning ? 
                         LinearGradient(
-                            colors: [Color.red, Color.red.opacity(0.8)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ) :
-                        LinearGradient(
-                            colors: [indigoColor, indigoColor.opacity(0.8)],
+                            colors: [indigoColor, Color.blue.opacity(0.5)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     )
+                    .shadow(color: indigoColor.opacity(0.4), radius: 8, x: 0, y: 4)
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 18)
                     .stroke(
-                        menuBarManager.timer.isRunning ? Color.red.opacity(0.3) : Color.clear,
-                        lineWidth: menuBarManager.timer.isRunning ? 2 : 0
-                    )
-                    .scaleEffect(menuBarManager.timer.isRunning ? 1.1 : 1.0)
-                    .opacity(menuBarManager.timer.isRunning ? 0.7 : 0)
-                    .animation(
-                        menuBarManager.timer.isRunning ? 
-                        .easeInOut(duration: 1.0).repeatForever(autoreverses: true) : 
-                        .default,
-                        value: menuBarManager.timer.isRunning
+                        LinearGradient(
+                            colors: [Color.white.opacity(0.3), Color.clear],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1
                     )
             )
         }
         .buttonStyle(.plain)
-        .scaleEffect(isHovered ? 1.05 : 1.0)
-        .animation(.easeInOut(duration: 0.2), value: isHovered)
+        .scaleEffect(isHovered ? 1.08 : 1.0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isHovered)
         .onHover { hovering in
             isHovered = hovering
         }
