@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import SwiftUI
+import Factory
 
 enum TimerMode: String, CaseIterable {
     case stopwatch = "stopwatch"
@@ -48,6 +49,11 @@ final class IndependentTimerManager: ObservableObject {
     // 타이머 관련
     private var timer: Timer?
     
+    // 로그 기록을 위한 의존성
+    @Injected(\.activityLogger) private var activityLogger
+    @Injected(\.transferUsageLogsUseCase) private var uploadUseCase
+    private var autoSendTimer: Timer?
+    
     // UserDefaults 키
     private let timerModeKey = "independentTimerMode"
     private let timerDurationKey = "independentTimerDuration"
@@ -60,6 +66,7 @@ final class IndependentTimerManager: ObservableObject {
     
     deinit {
         timer?.invalidate()
+        autoSendTimer?.invalidate()
     }
     
     // MARK: - Settings Management
@@ -92,6 +99,17 @@ final class IndependentTimerManager: ObservableObject {
             self.isRunning = true
             self.isPaused = false
             
+            // 로그 기록 시작
+            self.activityLogger.startLogging()
+            print("🟢 Independent timer started - Activity logging started")
+            
+            // 자동 로그 전송 타이머 시작 (1분마다)
+            self.autoSendTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
+                Task {
+                    await self?.sendLogs()
+                }
+            }
+            
             self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
                 DispatchQueue.main.async {
                     self?.tick()
@@ -104,8 +122,19 @@ final class IndependentTimerManager: ObservableObject {
         DispatchQueue.main.async {
             self.timer?.invalidate()
             self.timer = nil
+            self.autoSendTimer?.invalidate()
+            self.autoSendTimer = nil
             self.isRunning = false
             self.isPaused = false
+            
+            // 로그 기록 중지 및 최종 전송
+            self.activityLogger.stopLogging()
+            print("🔴 Independent timer stopped - Activity logging stopped")
+            
+            Task {
+                await self.sendLogs()
+            }
+            
             self.resetTimer()
         }
     }
@@ -114,8 +143,18 @@ final class IndependentTimerManager: ObservableObject {
         DispatchQueue.main.async {
             self.timer?.invalidate()
             self.timer = nil
+            self.autoSendTimer?.invalidate()
+            self.autoSendTimer = nil
             self.isRunning = false
             self.isPaused = true
+            
+            // 일시정지 시에도 로그 기록 중지
+            self.activityLogger.stopLogging()
+            print("⏸️ Independent timer paused - Activity logging paused")
+            
+            Task {
+                await self.sendLogs()
+            }
         }
     }
     
@@ -162,12 +201,29 @@ final class IndependentTimerManager: ObservableObject {
         // 타이머 완료시 처리 (알림, 사운드 등)
         print("🔔 Timer completed!")
         
+        // 로그 기록 중지 및 최종 전송
+        activityLogger.stopLogging()
+        Task {
+            await sendLogs()
+        }
+        
         // 시스템 알림 보내기
         let notification = NSUserNotification()
         notification.title = "Timer Completed"
         notification.informativeText = "Your \(timerDurationMinutes) minute timer has finished!"
         notification.soundName = NSUserNotificationDefaultSoundName
         NSUserNotificationCenter.default.deliver(notification)
+    }
+    
+    // MARK: - Log Management
+    
+    private func sendLogs() async {
+        do {
+            try await uploadUseCase.syncLogs()
+            print("📤 Independent timer logs synced successfully")
+        } catch {
+            print("❌ Failed to sync independent timer logs:", error)
+        }
     }
     
     // MARK: - Settings Update
