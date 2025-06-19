@@ -62,7 +62,7 @@ struct SidebarView: View {
                     .font(.system(size: 12, weight: .medium))
                     .foregroundColor(.secondary)
                 
-                Text("\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0",)")
+                Text("\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")")
                     .font(.system(size: 10))
                     .foregroundColor(.secondary)
                     .padding(.bottom, 16)
