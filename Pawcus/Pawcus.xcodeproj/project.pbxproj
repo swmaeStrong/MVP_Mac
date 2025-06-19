@@ -715,6 +715,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				ARCHS = arm64;
+				EXCLUDED_ARCHS = "x86_64";
 			};
 			name = Debug;
 		};
@@ -748,6 +750,8 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
+				ARCHS = arm64;
+				EXCLUDED_ARCHS = "x86_64";
 			};
 			name = Release;
 		};
