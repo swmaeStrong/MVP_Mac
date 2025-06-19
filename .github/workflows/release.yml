@@ -85,6 +85,7 @@ jobs:
         xcodebuild -project Pawcus/Pawcus.xcodeproj \
                    -scheme Pawcus \
                    -configuration Release \
+                   -destination "generic/platform=macOS" \
                    -derivedDataPath ./DerivedData \
                    -archivePath ./Pawcus.xcarchive \
                    CODE_SIGN_IDENTITY="Developer ID Application" \
