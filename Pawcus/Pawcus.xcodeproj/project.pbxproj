@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F6B0F30AEB84B9ABCA69311 /* MenuBarPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E825021E95F41AF8F1BBD9E /* MenuBarPopoverView.swift */; };
 		460148701DEB4A2D8738B67A /* TimerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460148701DEB4A2D8738B67B /* TimerButton.swift */; };
 		8275703ACFEE46D7A8345181 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275703ACFEE46D7A8345182 /* TabItem.swift */; };
+		A59232BD8E8140EABBDAA181 /* RunningTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765E3C978C55465C998EC24F /* RunningTimerView.swift */; };
 		BD0474A92DE98F3500960470 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = BD0474A82DE98F3500960470 /* Sparkle */; };
 		BD0474AB2DE98F7800960470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0474AA2DE98F7800960470 /* AppDelegate.swift */; };
 		BD0474E62DEAB03900960470 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0474E52DEAB03900960470 /* ProfileView.swift */; };
@@ -34,8 +36,6 @@
 		BD9893AE2DD9DD6100F40A9B /* AppLogLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9893AD2DD9DD6100F40A9B /* AppLogLocalDataSource.swift */; };
 		BD9893BA2DDC503000F40A9B /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = BD9893B92DDC503000F40A9B /* Factory */; };
 		FBD5CCC8C3B4449EAD68AB13 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD5CCC8C3B4449EAD68AB14 /* SidebarView.swift */; };
-		0F6B0F30AEB84B9ABCA69311 /* MenuBarPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E825021E95F41AF8F1BBD9E /* MenuBarPopoverView.swift */; };
-		A59232BD8E8140EABBDAA181 /* RunningTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765E3C978C55465C998EC24F /* RunningTimerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +57,8 @@
 
 /* Begin PBXFileReference section */
 		460148701DEB4A2D8738B67B /* TimerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButton.swift; sourceTree = "<group>"; };
+		765E3C978C55465C998EC24F /* RunningTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTimerView.swift; sourceTree = "<group>"; };
+		7E825021E95F41AF8F1BBD9E /* MenuBarPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPopoverView.swift; sourceTree = "<group>"; };
 		8275703ACFEE46D7A8345182 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		BD0473F92DE835C400960470 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		BD0474AA2DE98F7800960470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,8 +87,6 @@
 		BD9893AD2DD9DD6100F40A9B /* AppLogLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogLocalDataSource.swift; sourceTree = "<group>"; };
 		BD9893C32DDDB7B600F40A9B /* Pawcus-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pawcus-Info.plist"; sourceTree = SOURCE_ROOT; };
 		FBD5CCC8C3B4449EAD68AB14 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
-		7E825021E95F41AF8F1BBD9E /* MenuBarPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPopoverView.swift; sourceTree = "<group>"; };
-		765E3C978C55465C998EC24F /* RunningTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTimerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -100,9 +100,9 @@
 			path = UseCases;
 			sourceTree = "<group>";
 		};
-		BD0472822DE7519D00960470 /* Repositories  */ = {
+		BD0472822DE7519D00960470 /* Repositories */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Repositories ";
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		BD0472872DE7522500960470 /* RepositoriesImpl */ = {
@@ -264,7 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				BD0472732DE7517300960470 /* Entities */,
-				BD0472822DE7519D00960470 /* Repositories  */,
+				BD0472822DE7519D00960470 /* Repositories */,
 				BD04727C2DE7518400960470 /* UseCases */,
 			);
 			path = Domain;
@@ -307,15 +307,6 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		D72C106E1B824072B82D50B8 /* Timer */ = {
-			isa = PBXGroup;
-			children = (
-				7E825021E95F41AF8F1BBD9E /* MenuBarPopoverView.swift */,
-				765E3C978C55465C998EC24F /* RunningTimerView.swift */,
-			);
-			path = Timer;
-			sourceTree = "<group>";
-		};
 		BD9893992DD9DC7600F40A9B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,6 +341,15 @@
 			path = Local;
 			sourceTree = "<group>";
 		};
+		D72C106E1B824072B82D50B8 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				7E825021E95F41AF8F1BBD9E /* MenuBarPopoverView.swift */,
+				765E3C978C55465C998EC24F /* RunningTimerView.swift */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -368,7 +368,7 @@
 			fileSystemSynchronizedGroups = (
 				BD0472732DE7517300960470 /* Entities */,
 				BD04727C2DE7518400960470 /* UseCases */,
-				BD0472822DE7519D00960470 /* Repositories  */,
+				BD0472822DE7519D00960470 /* Repositories */,
 				BD0472872DE7522500960470 /* RepositoriesImpl */,
 				BD0472912DE7523000960470 /* Services */,
 				BD0472992DE7524300960470 /* Models */,
