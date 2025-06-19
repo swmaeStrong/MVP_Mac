@@ -128,7 +128,12 @@ struct ProfileView: View {
             
             VStack(spacing: 0) {
                 Button(action: {
-                    AppDelegate.shared.updaterController?.checkForUpdates(nil)
+                    // Force immediate update check with user interaction
+                    if let updater = AppDelegate.shared.updaterController?.updater {
+                        updater.checkForUpdates()
+                    } else {
+                        print("Error: Updater controller is nil")
+                    }
                 }) {
                     HStack {
                         Image(systemName: "arrow.down.circle.fill")

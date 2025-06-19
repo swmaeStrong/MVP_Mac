@@ -17,11 +17,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         AppDelegate.shared = self
         
-        updaterController = SPUStandardUpdaterController(
-            startingUpdater: true,
-            updaterDelegate: self,
-            userDriverDelegate: nil
-        )
+        do {
+            updaterController = SPUStandardUpdaterController(
+                startingUpdater: true,
+                updaterDelegate: self,
+                userDriverDelegate: nil
+            )
+            print("✅ Sparkle updater controller created successfully")
+            print("📋 Feed URL: \(updaterController?.updater.feedURL?.absoluteString ?? "nil")")
+            print("🔧 Updater delegate set: \(updaterController?.updater.delegate != nil)")
+        } catch {
+            print("❌ Failed to create Sparkle updater: \(error)")
+        }
         
         // 메뉴바 추가 (Sparkle UI 표시용)
         setupMenuBar()
@@ -64,6 +71,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
     }
     
     @objc private func checkForUpdates() {
-        updaterController?.checkForUpdates(nil)
+        print("Manual update check triggered")
+        if let updater = updaterController?.updater {
+            print("Updater found, checking for updates...")
+            updater.checkForUpdates()
+        } else {
+            print("Error: No updater available")
+            
+            // Show a simple alert as fallback
+            DispatchQueue.main.async {
+                let alert = NSAlert()
+                alert.messageText = "업데이트 확인"
+                alert.informativeText = "업데이트를 확인할 수 없습니다. Sparkle 설정을 확인해주세요."
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: "확인")
+                alert.runModal()
+            }
+        }
     }
 }
