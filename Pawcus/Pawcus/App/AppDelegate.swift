@@ -16,10 +16,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         AppDelegate.shared = self
+        
+        // Create a standard user driver for update UI
+        let userDriver = SPUStandardUserDriver(hostBundle: Bundle.main, delegate: nil)
+        
         updaterController = SPUStandardUpdaterController(
             startingUpdater: true,
             updaterDelegate: self,
-            userDriverDelegate: nil
+            userDriverDelegate: userDriver
         )
         
         // 앱 시작 시 업데이트 확인 (선택사항)
