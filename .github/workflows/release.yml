@@ -44,30 +44,7 @@ jobs:
         # Clean up
         rm certificate.p12
     
-    - name: Create Config.xcconfig
-      env:
-        BASE_DOMAIN: ${{ secrets.BASE_DOMAIN }}
-        SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        SUPABASE_DOMAIN: ${{ secrets.SUPABASE_DOMAIN }}
-        SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-      run: |
-        mkdir -p Pawcus/Pawcus/Data/Config
-        cat > Pawcus/Pawcus/Data/Config/Config.xcconfig << EOF
-        //
-        //  Config.xcconfig
-        //  MVP_MacOS
-        //
-        //  Created by GitHub Actions
-        //
-        
-        // Configuration settings file format documentation can be found at:
-        // https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
-        BASE_DOMAIN = $BASE_DOMAIN
-        SUPABASE_KEY = $SUPABASE_KEY
-        
-        SUPABASE_DOMAIN = $SUPABASE_DOMAIN
-        SUPABASE_ANON_KEY = $SUPABASE_ANON_KEY
-        EOF
+    # Config.xcconfig is now included in the repository
       
     - name: Setup version
       id: version
