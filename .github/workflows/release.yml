@@ -84,14 +84,23 @@ jobs:
         echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
         echo "Version: $VERSION, Build Number: $BUILD_NUMBER"
     
-    - name: Update Info.plist with build number
+    - name: Update build numbers
       run: |
-        # Update CFBundleVersion in Info.plist using a more flexible pattern
-        sed -i.bak '/CFBundleVersion/{n;s|<string>[^<]*</string>|<string>${{ steps.version.outputs.build_number }}</string>|;}' Pawcus/Pawcus-Info.plist
-        echo "Updated CFBundleVersion to ${{ steps.version.outputs.build_number }}"
+        BUILD_NUM="${{ steps.version.outputs.build_number }}"
         
-        # Verify the change
+        # Update CFBundleVersion in Info.plist
+        sed -i.bak '/CFBundleVersion/{n;s|<string>[^<]*</string>|<string>'$BUILD_NUM'</string>|;}' Pawcus/Pawcus-Info.plist
+        echo "Updated Info.plist CFBundleVersion to $BUILD_NUM"
+        
+        # Update CURRENT_PROJECT_VERSION in project.pbxproj
+        sed -i.bak 's|CURRENT_PROJECT_VERSION = [^;]*;|CURRENT_PROJECT_VERSION = '$BUILD_NUM';|g' Pawcus/Pawcus.xcodeproj/project.pbxproj
+        echo "Updated project.pbxproj CURRENT_PROJECT_VERSION to $BUILD_NUM"
+        
+        # Verify changes
+        echo "=== Info.plist CFBundleVersion ==="
         grep -A 1 "CFBundleVersion" Pawcus/Pawcus-Info.plist
+        echo "=== project.pbxproj CURRENT_PROJECT_VERSION ==="
+        grep "CURRENT_PROJECT_VERSION" Pawcus/Pawcus.xcodeproj/project.pbxproj | head -2
     
     - name: Build app
       run: |
