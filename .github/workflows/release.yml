@@ -86,8 +86,8 @@ jobs:
     
     - name: Update Info.plist with build number
       run: |
-        # Update CFBundleVersion in Info.plist
-        sed -i.bak 's|<string>62</string>|<string>${{ steps.version.outputs.build_number }}</string>|' Pawcus/Pawcus-Info.plist
+        # Update CFBundleVersion in Info.plist using a more flexible pattern
+        sed -i.bak '/CFBundleVersion/{n;s|<string>[^<]*</string>|<string>${{ steps.version.outputs.build_number }}</string>|;}' Pawcus/Pawcus-Info.plist
         echo "Updated CFBundleVersion to ${{ steps.version.outputs.build_number }}"
         
         # Verify the change
