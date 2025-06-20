@@ -104,15 +104,11 @@ final class ActivityLogger {
         var finalTitle: String
         var finalUrl: String
         
-        // 웹 브라우저인 경우: title은 "", domain은 URL 전체
+        // 웹 브라우저인 경우: title과 URL 모두 가져오기
         if isWebBrowser(appName) {
-            if let browserURL = getBrowserURL(appName: appName, pid: pid) {
-                finalTitle = ""
-                finalUrl = browserURL
-            } else {
-                finalTitle = ""
-                finalUrl = ""
-            }
+            let browserInfo = getBrowserInfo(appName: appName, pid: pid)
+            finalTitle = browserInfo.title
+            finalUrl = browserInfo.url
         } else {
             // 일반 앱인 경우: title은 윈도우 제목, domain은 ""
             finalTitle = titleString
@@ -136,26 +132,35 @@ final class ActivityLogger {
         }
     }
     
-    /// 브라우저에서 현재 URL을 가져오는 메서드
-    private func getBrowserURL(appName: String, pid: pid_t) -> String? {
-        let script: String
+    /// 브라우저에서 현재 제목과 URL을 가져오는 메서드
+    private func getBrowserInfo(appName: String, pid: pid_t) -> (title: String, url: String) {
+        let urlScript: String
+        let titleScript: String
         
         switch appName.lowercased() {
         case let name where name.contains("safari"):
-            script = "tell application \"Safari\" to return URL of current tab of front window"
+            urlScript = "tell application \"Safari\" to return URL of current tab of front window"
+            titleScript = "tell application \"Safari\" to return name of current tab of front window"
         case let name where name.contains("chrome"):
-            script = "tell application \"Google Chrome\" to return URL of active tab of front window"
+            urlScript = "tell application \"Google Chrome\" to return URL of active tab of front window"
+            titleScript = "tell application \"Google Chrome\" to return title of active tab of front window"
         case let name where name.contains("arc"):
-            script = "tell application \"Arc\" to return URL of active tab of front window"
+            urlScript = "tell application \"Arc\" to return URL of active tab of front window"
+            titleScript = "tell application \"Arc\" to return title of active tab of front window"
         case let name where name.contains("firefox"):
-            script = "tell application \"Firefox\" to return URL of active tab of front window"
+            urlScript = "tell application \"Firefox\" to return URL of active tab of front window"
+            titleScript = "tell application \"Firefox\" to return title of active tab of front window"
         case let name where name.contains("edge"):
-            script = "tell application \"Microsoft Edge\" to return URL of active tab of front window"
+            urlScript = "tell application \"Microsoft Edge\" to return URL of active tab of front window"
+            titleScript = "tell application \"Microsoft Edge\" to return title of active tab of front window"
         default:
-            return nil
+            return (title: "", url: "")
         }
         
-        return executeAppleScript(script)
+        let url = executeAppleScript(urlScript) ?? ""
+        let title = executeAppleScript(titleScript) ?? ""
+        
+        return (title: title, url: url)
     }
     
     /// AppleScript 실행 메서드
