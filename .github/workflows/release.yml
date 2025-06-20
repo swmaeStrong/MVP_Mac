@@ -96,11 +96,18 @@ jobs:
         sed -i.bak 's|CURRENT_PROJECT_VERSION = [^;]*;|CURRENT_PROJECT_VERSION = '$BUILD_NUM';|g' Pawcus/Pawcus.xcodeproj/project.pbxproj
         echo "Updated project.pbxproj CURRENT_PROJECT_VERSION to $BUILD_NUM"
         
+        # Update MARKETING_VERSION in project.pbxproj
+        VERSION="${{ steps.version.outputs.version }}"
+        sed -i.bak 's|MARKETING_VERSION = [^;]*;|MARKETING_VERSION = '$VERSION';|g' Pawcus/Pawcus.xcodeproj/project.pbxproj
+        echo "Updated project.pbxproj MARKETING_VERSION to $VERSION"
+        
         # Verify changes
         echo "=== Info.plist CFBundleVersion ==="
         grep -A 1 "CFBundleVersion" Pawcus/Pawcus-Info.plist
         echo "=== project.pbxproj CURRENT_PROJECT_VERSION ==="
         grep "CURRENT_PROJECT_VERSION" Pawcus/Pawcus.xcodeproj/project.pbxproj | head -2
+        echo "=== project.pbxproj MARKETING_VERSION ==="
+        grep "MARKETING_VERSION" Pawcus/Pawcus.xcodeproj/project.pbxproj | head -2
     
     - name: Build app
       run: |
