@@ -226,13 +226,13 @@ jobs:
           chmod 600 ~/private_key.pem
           
           # Debug: Check if files exist
-          ls -la Pawcus.zip
+          ls -la Pawcus.dmg
           ls -la ~/private_key.pem
           ls -la ./bin/sign_update
           
-          # Sign the update
+          # Sign the update (use DMG for Sparkle updates)
           echo "Signing update..."
-          ./bin/sign_update Pawcus.zip ~/private_key.pem > signature_output.txt 2>&1 || true
+          ./bin/sign_update Pawcus.dmg ~/private_key.pem > signature_output.txt 2>&1 || true
           echo "Sign command exit code: $?"
           cat signature_output.txt
           
@@ -256,8 +256,9 @@ jobs:
     - name: Calculate checksums and file size
       id: sparkle_info
       run: |
-        SHA=$(shasum -a 256 Pawcus.zip | awk '{print $1}')
-        SIZE=$(stat -f%z Pawcus.zip)
+        # Use DMG for Sparkle updates
+        SHA=$(shasum -a 256 Pawcus.dmg | awk '{print $1}')
+        SIZE=$(stat -f%z Pawcus.dmg)
         echo "sha256=$SHA" >> $GITHUB_OUTPUT
         echo "size=$SIZE" >> $GITHUB_OUTPUT
         shasum -a 256 Pawcus.dmg > Pawcus.dmg.sha256
@@ -281,7 +282,7 @@ jobs:
                     <title>Version ${{ steps.version.outputs.version }}</title>
                     <pubDate>$(date -u +"%a, %d %b %Y %H:%M:%S GMT")</pubDate>
                     <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
-                    <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.zip"
+                    <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.dmg"
                               sparkle:version="${{ steps.version.outputs.build_number }}"
                               sparkle:shortVersionString="${{ steps.version.outputs.version }}"
                               sparkle:edSignature="$SIGNATURE"
@@ -303,7 +304,7 @@ jobs:
                     <title>Version ${{ steps.version.outputs.version }}</title>
                     <pubDate>$(date -u +"%a, %d %b %Y %H:%M:%S GMT")</pubDate>
                     <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
-                    <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.zip"
+                    <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.dmg"
                               sparkle:version="${{ steps.version.outputs.build_number }}"
                               sparkle:shortVersionString="${{ steps.version.outputs.version }}"
                               length="${{ steps.sparkle_info.outputs.size }}"
@@ -319,13 +320,13 @@ jobs:
         SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       run: |
-        # Upload Pawcus.zip
+        # Upload Pawcus.dmg for Sparkle updates
         curl -X POST \
-          "$SUPABASE_URL/storage/v1/object/sparkle-updates/Pawcus.zip" \
+          "$SUPABASE_URL/storage/v1/object/sparkle-updates/Pawcus.dmg" \
           -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" \
-          -H "Content-Type: application/zip" \
+          -H "Content-Type: application/octet-stream" \
           -H "x-upsert: true" \
-          --data-binary "@Pawcus.zip"
+          --data-binary "@Pawcus.dmg"
         
         # Upload appcast.xml
         curl -X POST \
