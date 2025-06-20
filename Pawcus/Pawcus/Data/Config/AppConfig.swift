@@ -10,7 +10,7 @@ import Foundation
 enum AppConfig {
     static var baseURL: String {
         let domain = Bundle.main.infoDictionary?["BASE_DOMAIN"] as? String ?? ""
-        return "http://\(domain)"
+        return "https://\(domain)"
     }
 
     static var supabaseKey: String {

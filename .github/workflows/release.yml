@@ -44,7 +44,23 @@ jobs:
         # Clean up
         rm certificate.p12
     
-    # Config.xcconfig is now included in the repository
+    - name: Create Config.xcconfig
+      run: |
+        mkdir -p Pawcus/Pawcus/Data/Config
+        cat > Pawcus/Pawcus/Data/Config/Config.xcconfig << EOF
+        //
+        //  Config.xcconfig
+        //  Pawcus
+        //
+        //  Auto-generated during CI/CD
+        //
+
+        // Configuration settings file format documentation can be found at:
+        // https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+        BASE_DOMAIN = ${{ secrets.BASE_DOMAIN }}
+        SUPABASE_KEY = ${{ secrets.SUPABASE_KEY }}
+        SUPABASE_DOMAIN = ${{ secrets.SUPABASE_DOMAIN }}
+        EOF
       
     - name: Setup version
       id: version
