@@ -177,11 +177,46 @@ jobs:
           echo "Skipping notarization (APPLE_ID or APPLE_ID_PASSWORD not set)"
         fi
                    
-    - name: Create DMG
+    - name: Create DMG with drag-and-drop interface
       run: |
-        mkdir -p ./Release
-        cp -R ./Export/Pawcus.app ./Release/
-        hdiutil create -volname "Pawcus" -srcfolder ./Release -ov -format UDZO ./Pawcus.dmg
+        # Create temporary DMG directory
+        mkdir -p ./dmg-temp
+        cp -R ./Export/Pawcus.app ./dmg-temp/
+        
+        # Create symbolic link to Applications folder
+        ln -sf /Applications ./dmg-temp/Applications
+        
+        # Create initial DMG
+        hdiutil create -volname "Pawcus" -srcfolder ./dmg-temp -ov -format UDRW ./temp.dmg
+        
+        # Mount the DMG for customization
+        hdiutil attach ./temp.dmg -mountpoint ./dmg-mount
+        
+        # Set window properties (optional - requires AppleScript)
+        osascript << 'EOF'
+        tell application "Finder"
+          tell disk "Pawcus"
+            open
+            set current view of container window to icon view
+            set toolbar visible of container window to false
+            set statusbar visible of container window to false
+            set the bounds of container window to {400, 100, 920, 440}
+            set viewOptions to the icon view options of container window
+            set arrangement of viewOptions to not arranged
+            set icon size of viewOptions to 72
+            set position of item "Pawcus.app" of container window to {130, 200}
+            set position of item "Applications" of container window to {390, 200}
+            close
+          end tell
+        end tell
+        EOF
+        
+        # Unmount and convert to compressed DMG
+        hdiutil detach ./dmg-mount
+        hdiutil convert ./temp.dmg -format UDZO -o ./Pawcus.dmg
+        
+        # Clean up
+        rm -rf ./dmg-temp ./temp.dmg
     
     - name: Notarize DMG
       env:
