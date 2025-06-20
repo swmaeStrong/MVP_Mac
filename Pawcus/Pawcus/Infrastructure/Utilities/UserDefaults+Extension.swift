@@ -8,13 +8,15 @@
 import Foundation
 
 /// UserDefaults에 저장할 키를 모아두는 enum
-enum UserDefaultKey: String {
+enum UserDefaultKey: String, CaseIterable {
     case userNickname
     case userId
     case isLoggedIn
     case dailyWorkSeconds
     case lastRecordedDate
     case createdAt
+    case timerMode
+    case timerDuration
 }
 
 extension UserDefaults {
@@ -47,5 +49,12 @@ extension UserDefaults {
     /// 값 삭제하기
     func remove(_ key: UserDefaultKey) {
         removeObject(forKey: key.rawValue)
+    }
+    
+    /// 모든 사용자 관련 정보 삭제 (로그아웃 시 호출)
+    func clearAllUserDefaults() {
+        for key in UserDefaultKey.allCases {
+            removeObject(forKey: key.rawValue)
+        }
     }
 }

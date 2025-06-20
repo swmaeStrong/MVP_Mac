@@ -12,7 +12,7 @@ import Supabase
 struct PawcusApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    @StateObject private var dailyWorkTimeStore = DailyWorkTimeStore()
+    @StateObject private var workTimeManager = WorkTimeManager()
     @StateObject private var menuBarManager = MenuBarManager()
     
     init() {
@@ -22,8 +22,11 @@ struct PawcusApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environmentObject(dailyWorkTimeStore)
+                .environmentObject(workTimeManager)
                 .environmentObject(menuBarManager)
+                .onAppear {
+                    menuBarManager.workTimeManager = workTimeManager
+                }
         }
         .windowStyle(HiddenTitleBarWindowStyle())
         .modelContainer(for: [AppLogEntity.self])

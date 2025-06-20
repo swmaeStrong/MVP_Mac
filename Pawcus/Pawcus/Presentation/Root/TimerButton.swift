@@ -8,30 +8,30 @@
 import SwiftUI
 
 struct TimerButton: View {
-    @EnvironmentObject private var timeStore: DailyWorkTimeStore
+    @EnvironmentObject private var workTimeManager: WorkTimeManager
     
     var body: some View {
-        Image(systemName: timeStore.isRunning ? "stop.fill" : "play.fill")
+        Image(systemName: workTimeManager.isRunning ? "stop.fill" : "play.fill")
             .font(.largeTitle)
             .frame(width: 70, height: 50)
             .foregroundStyle(.white)
             .background(
                 LinearGradient(
-                    colors: [timeStore.isRunning ? .red : .indigo, timeStore.isRunning ? .pink.opacity(0.5) : .blue.opacity(0.6)],
+                    colors: [workTimeManager.isRunning ? .red : .indigo, workTimeManager.isRunning ? .pink.opacity(0.5) : .blue.opacity(0.6)],
                     startPoint: .leading,
                     endPoint: .trailing
                 )
             )
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .onTapGesture {
-                timeStore.isRunning ? timeStore.stop() : timeStore.start()
+                workTimeManager.isRunning ? workTimeManager.stop() : workTimeManager.start()
             }
             .padding()
     }
 }
 
 struct FloatingTimerButton: View {
-    @EnvironmentObject private var timeStore: DailyWorkTimeStore
+    @EnvironmentObject private var workTimeManager: WorkTimeManager
     @State private var isHovered = false
     @State private var isPulsing = false
     
@@ -49,18 +49,18 @@ struct FloatingTimerButton: View {
             // Main button
             Button(action: {
                 withAnimation(.easeInOut(duration: 0.3)) {
-                    timeStore.isRunning ? timeStore.stop() : timeStore.start()
+                    workTimeManager.isRunning ? workTimeManager.stop() : workTimeManager.start()
                 }
             }) {
                 HStack(spacing: 8) {
                     // Icon
-                    Image(systemName: timeStore.isRunning ? "stop.fill" : "play.fill")
+                    Image(systemName: workTimeManager.isRunning ? "stop.fill" : "play.fill")
                         .font(.system(size: 20, weight: .semibold))
                         .foregroundColor(.white)
                         .scaleEffect(isHovered ? 1.1 : 1.0)
                     
                     // Text
-                    Text(timeStore.isRunning ? "Stop" : "Start")
+                    Text(workTimeManager.isRunning ? "Stop" : "Start")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.white)
                 }
@@ -69,7 +69,7 @@ struct FloatingTimerButton: View {
                 .background(
                     RoundedRectangle(cornerRadius: 32)
                         .fill(
-                            timeStore.isRunning ? 
+                            workTimeManager.isRunning ? 
                             LinearGradient(
                                 colors: [Color.red, Color.red.opacity(0.8)],
                                 startPoint: .topLeading,
@@ -91,7 +91,7 @@ struct FloatingTimerButton: View {
             }
             
             // Pulse animation for running state
-            if timeStore.isRunning {
+            if workTimeManager.isRunning {
                 RoundedRectangle(cornerRadius: 32)
                     .stroke(Color.red.opacity(0.3), lineWidth: 2)
                     .frame(width: isPulsing ? buttonWidth + 16 : buttonWidth, height: isPulsing ? 80 : 64)
@@ -109,7 +109,7 @@ struct FloatingTimerButton: View {
                     }
             }
         }
-        .onChange(of: timeStore.isRunning) { _, newValue in
+        .onChange(of: workTimeManager.isRunning) { _, newValue in
             if newValue {
                 isPulsing = true
             } else {
@@ -119,6 +119,6 @@ struct FloatingTimerButton: View {
     }
     
     private var buttonWidth: CGFloat {
-        timeStore.isRunning ? 88 : 96 // "Stop" vs "Start"
+        workTimeManager.isRunning ? 88 : 96 // "Stop" vs "Start"
     }
 }

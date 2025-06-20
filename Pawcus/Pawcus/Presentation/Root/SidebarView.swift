@@ -191,8 +191,8 @@ extension Tab {
             return "Leaderboard"
         case .profile:
             return "Profile"
-        case .web:
-            return "Web"
+//        case .web:
+//            return "Web"
         }
     }
 }
