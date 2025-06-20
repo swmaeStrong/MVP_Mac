@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 import UserNotifications
+import Factory
 
 enum WorkTimeMode: String, CaseIterable {
     case stopwatch = "stopwatch"       // 스톱워치 모드
@@ -59,6 +60,10 @@ final class WorkTimeManager: ObservableObject {
     private var timer: AnyCancellable?
     private var autoSendCancellable: AnyCancellable?
     
+    // 로그 기록을 위한 의존성
+    @Injected(\.activityLogger) private var activityLogger
+    @Injected(\.transferUsageLogsUseCase) private var uploadUseCase
+    
     // MARK: - Initialization
     init() {
         loadSettings()
@@ -69,6 +74,7 @@ final class WorkTimeManager: ObservableObject {
     deinit {
         timer?.cancel()
         autoSendCancellable?.cancel()
+        // Note: activityLogger cleanup handled by the logger itself
     }
     
     // MARK: - Settings Management
@@ -100,7 +106,18 @@ final class WorkTimeManager: ObservableObject {
         isRunning = true
         isPaused = false
         
-        print("🟢 WorkTimeManager started (\(mode.displayName))")
+        // 로그 기록 시작
+        activityLogger.startLogging()
+        print("🟢 WorkTimeManager started (\(mode.displayName)) - Activity logging started")
+        
+        // 자동 로그 전송 타이머 시작 (1분마다)
+        autoSendCancellable = Timer.publish(every: 60, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                Task {
+                    await self?.sendLogs()
+                }
+            }
         
         // 타이머 시작
         timer = Timer.publish(every: 1, on: .main, in: .common)
@@ -113,11 +130,19 @@ final class WorkTimeManager: ObservableObject {
     func stop() {
         timer?.cancel()
         timer = nil
+        autoSendCancellable?.cancel()
+        autoSendCancellable = nil
         
         isRunning = false
         isPaused = false
         
-        print("🔴 WorkTimeManager stopped (\(mode.displayName))")
+        // 로그 기록 중지 및 최종 전송
+        activityLogger.stopLogging()
+        print("🔴 WorkTimeManager stopped (\(mode.displayName)) - Activity logging stopped")
+        
+        Task {
+            await sendLogs()
+        }
         
         resetTimer()
     }
@@ -125,11 +150,19 @@ final class WorkTimeManager: ObservableObject {
     func pause() {
         timer?.cancel()
         timer = nil
+        autoSendCancellable?.cancel()
+        autoSendCancellable = nil
         
         isRunning = false
         isPaused = true
         
-        print("⏸️ WorkTimeManager paused (\(mode.displayName))")
+        // 일시정지 시에도 로그 기록 중지
+        activityLogger.stopLogging()
+        print("⏸️ WorkTimeManager paused (\(mode.displayName)) - Activity logging paused")
+        
+        Task {
+            await sendLogs()
+        }
     }
     
     func resume() {
@@ -181,7 +214,7 @@ final class WorkTimeManager: ObservableObject {
     private func timerCompleted() {
         print("🔔 Timer completed!")
         
-        // 타이머 완료 시 정지
+        // 타이머 완료 시 정지 (로그 기록도 함께 중지됨)
         stop()
         
         // 시스템 알림 보내기
@@ -203,6 +236,16 @@ final class WorkTimeManager: ObservableObject {
         }
     }
     
+    // MARK: - Log Management
+    
+    private func sendLogs() async {
+        do {
+            try await uploadUseCase.syncLogs()
+            print("📤 WorkTimeManager logs synced successfully")
+        } catch {
+            print("❌ Failed to sync WorkTimeManager logs:", error)
+        }
+    }
     
     // MARK: - Settings Update
     

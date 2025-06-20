@@ -62,16 +62,36 @@ jobs:
         SUPABASE_DOMAIN = ${{ secrets.SUPABASE_DOMAIN }}
         EOF
       
-    - name: Setup version
+    - name: Setup version and build number
       id: version
       run: |
         if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-          echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
-          echo "tag=v${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          VERSION="${{ github.event.inputs.version }}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
         else
-          echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
         fi
+        
+        # Calculate build number: remove dots and convert to integer
+        # e.g., 0.6.2 -> 62, 1.0.0 -> 100
+        BUILD_NUMBER=$(echo "$VERSION" | sed 's/\.//g' | sed 's/^0*//')
+        if [ -z "$BUILD_NUMBER" ]; then
+          BUILD_NUMBER=1
+        fi
+        echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+        echo "Version: $VERSION, Build Number: $BUILD_NUMBER"
+    
+    - name: Update Info.plist with build number
+      run: |
+        # Update CFBundleVersion in Info.plist
+        sed -i.bak 's|<string>62</string>|<string>${{ steps.version.outputs.build_number }}</string>|' Pawcus/Pawcus-Info.plist
+        echo "Updated CFBundleVersion to ${{ steps.version.outputs.build_number }}"
+        
+        # Verify the change
+        grep -A 1 "CFBundleVersion" Pawcus/Pawcus-Info.plist
     
     - name: Build app
       run: |
@@ -246,7 +266,7 @@ jobs:
                     <pubDate>$(date -u +"%a, %d %b %Y %H:%M:%S GMT")</pubDate>
                     <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
                     <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.zip"
-                              sparkle:version="${{ steps.version.outputs.version }}"
+                              sparkle:version="${{ steps.version.outputs.build_number }}"
                               sparkle:shortVersionString="${{ steps.version.outputs.version }}"
                               sparkle:edSignature="$SIGNATURE"
                               length="${{ steps.sparkle_info.outputs.size }}"
@@ -268,7 +288,7 @@ jobs:
                     <pubDate>$(date -u +"%a, %d %b %Y %H:%M:%S GMT")</pubDate>
                     <sparkle:minimumSystemVersion>15.0</sparkle:minimumSystemVersion>
                     <enclosure url="https://agsrumeaczdydskvqxlr.supabase.co/storage/v1/object/public/sparkle-updates/Pawcus.zip"
-                              sparkle:version="${{ steps.version.outputs.version }}"
+                              sparkle:version="${{ steps.version.outputs.build_number }}"
                               sparkle:shortVersionString="${{ steps.version.outputs.version }}"
                               length="${{ steps.sparkle_info.outputs.size }}"
                               type="application/octet-stream" />
