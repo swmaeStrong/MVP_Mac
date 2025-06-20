@@ -428,8 +428,9 @@ jobs:
         
     - name: Trigger Homebrew update
       run: |
+        DMG_SHA256="${{ steps.sparkle_info.outputs.sha256 }}"
         curl -X POST \
           -H "Authorization: token ${{ secrets.HOMEBREW_UPDATE_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/swmaeStrong/homebrew-pawcus/dispatches \
-          -d '{"event_type":"update-cask","client_payload":{"version":"${{ steps.version.outputs.version }}"}}'
+          -d "{\"event_type\":\"update-cask\",\"client_payload\":{\"version\":\"${{ steps.version.outputs.version }}\",\"sha256\":\"$DMG_SHA256\",\"url_type\":\"dmg\"}}"
