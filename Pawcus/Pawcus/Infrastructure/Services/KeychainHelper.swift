@@ -47,4 +47,20 @@ final class KeychainHelper {
 
         return String(data: data, encoding: .utf8)
     }
+    /// 저장된 키체인 항목 초기화 (로그아웃 시 사용)
+    func clearAll() {
+        let keys = [
+            ("com.pawcus.token", "accessToken"),
+            ("com.pawcus.token", "refreshToken")
+        ]
+        
+        for (service, account) in keys {
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrService as String: service,
+                kSecAttrAccount as String: account
+            ]
+            SecItemDelete(query as CFDictionary)
+        }
+    }
 }

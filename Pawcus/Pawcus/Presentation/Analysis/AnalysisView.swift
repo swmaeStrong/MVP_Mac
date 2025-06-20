@@ -12,7 +12,7 @@ import SwiftData
 import Factory
 
 struct AnalysisView: View {
-    @EnvironmentObject private var timeStore: DailyWorkTimeStore
+    @EnvironmentObject private var workTimeManager: WorkTimeManager
     @ObservedObject var viewModel: AnalysisViewModel
     
     // Indigo theme color
@@ -287,6 +287,6 @@ struct AnalysisView: View {
 
 #Preview {
     AnalysisView(viewModel: AnalysisViewModel())
-        .environmentObject(DailyWorkTimeStore())
+        .environmentObject(WorkTimeManager())
         .frame(width: 800, height: 600)
 }

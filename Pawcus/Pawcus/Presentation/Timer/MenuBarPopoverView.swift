@@ -8,23 +8,24 @@
 import SwiftUI
 
 struct MenuBarPopoverView: View {
-    @ObservedObject var timerManager: IndependentTimerManager
+    @EnvironmentObject var workTimeManager: WorkTimeManager
     
     var body: some View {
         VStack(spacing: 0) {
-            if timerManager.isRunning || timerManager.isPaused {
-                RunningTimerView(timerManager: timerManager)
+            if workTimeManager.isRunning || workTimeManager.isPaused {
+                RunningTimerView()
             } else {
-                TimerSelectionView(timerManager: timerManager)
+                TimerSelectionView()
             }
         }
+        .frame(width: 240, height: 280)
         .background(Color(.windowBackgroundColor))
     }
 }
 
 // MARK: - Timer Selection View
 struct TimerSelectionView: View {
-    @ObservedObject var timerManager: IndependentTimerManager
+    @EnvironmentObject var workTimeManager: WorkTimeManager
     
     var body: some View {
         VStack(spacing: 16) {
@@ -32,9 +33,9 @@ struct TimerSelectionView: View {
             VStack(spacing: 4) {
                 Image(systemName: "timer")
                     .font(.system(size: 32))
-                    .foregroundColor(.blue)
+                    .foregroundColor(.accent)
                 
-                Text("Focus Timer")
+                Text("Pawcus")
                     .font(.system(size: 16, weight: .bold))
                 
                 Text("Choose your focus method")
@@ -49,10 +50,10 @@ struct TimerSelectionView: View {
                     icon: "stopwatch",
                     title: "Stopwatch",
                     description: "Count up from 0",
-                    color: .green,
+                    color: .red,
                     action: {
-                        timerManager.updateTimerMode(.stopwatch)
-                        timerManager.start()
+                        workTimeManager.updateMode(.stopwatch)
+                        workTimeManager.start()
                     }
                 )
                 
@@ -61,13 +62,13 @@ struct TimerSelectionView: View {
                     icon: "timer",
                     title: "Timer",
                     description: "Count down",
-                    color: .orange,
+                    color: .indigo,
                     action: {
-                        timerManager.updateTimerMode(.timer)
-                        timerManager.start()
+                        workTimeManager.updateMode(.timer)
+                        workTimeManager.start()
                     },
                     additionalContent: {
-                        TimerDurationControls(timerManager: timerManager)
+                        TimerDurationControls()
                     }
                 )
             }
@@ -138,27 +139,24 @@ struct TimerModeCard<Content: View>: View {
 
 // MARK: - Timer Duration Controls
 struct TimerDurationControls: View {
-    @ObservedObject var timerManager: IndependentTimerManager
+    @EnvironmentObject var workTimeManager: WorkTimeManager
     
     var body: some View {
         HStack(spacing: 8) {
             Button("-") {
-                let newDuration = max(5, timerManager.timerDurationMinutes - 5)
-                timerManager.updateTimerDuration(newDuration)
+                workTimeManager.decreaseTimerDuration()
             }
             .buttonStyle(TimerDurationButtonStyle())
-            .disabled(timerManager.timerDurationMinutes <= 5)
-            
-            Text("\(timerManager.timerDurationMinutes) min")
+            .disabled(workTimeManager.timerDurationMinutes <= 5)
+
+            Text("\(workTimeManager.timerDurationMinutes) min")
                 .font(.system(size: 12, weight: .medium, design: .monospaced))
                 .frame(minWidth: 50)
-            
+
             Button("+") {
-                let newDuration = min(120, timerManager.timerDurationMinutes + 5)
-                timerManager.updateTimerDuration(newDuration)
+                workTimeManager.increaseTimerDuration()
             }
             .buttonStyle(TimerDurationButtonStyle())
-            .disabled(timerManager.timerDurationMinutes >= 120)
         }
         .padding(.horizontal, 10)
         .padding(.bottom, 8)
@@ -190,12 +188,13 @@ struct TimerDurationButtonStyle: ButtonStyle {
             .frame(width: 24, height: 24)
             .background(
                 Circle()
-                    .fill(Color.orange.opacity(configuration.isPressed ? 0.5 : 0.3))
+                    .fill(Color.indigo.opacity(configuration.isPressed ? 0.5 : 0.3))
             )
     }
 }
 
 #Preview {
-    MenuBarPopoverView(timerManager: IndependentTimerManager())
+    MenuBarPopoverView()
+        .environmentObject(WorkTimeManager())
         .frame(width: 320, height: 400)
 }

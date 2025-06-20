@@ -24,16 +24,16 @@ struct ProfileView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
-                // 프로필 헤더
+                // Profile Header
                 profileHeader
                 
-                // 계정 정보 섹션
+                // Account Section
                 accountSection
                 
-                // 앱 정보 섹션
+                // App Info Section
                 appSection
                 
-                // 위험 구역
+                // Danger Zone
                 dangerZone
             }
             .padding(20)
@@ -43,20 +43,20 @@ struct ProfileView: View {
         .sheet(isPresented: $isEditingNickname) {
             UserNamePromptView()
         }
-        .alert("로그아웃", isPresented: $showingLogoutAlert) {
-            Button("취소", role: .cancel) { }
-            Button("로그아웃", role: .destructive) {
+        .alert("Log Out", isPresented: $showingLogoutAlert) {
+            Button("Cancel", role: .cancel) { }
+            Button("Log Out", role: .destructive) {
                 performLogout()
             }
         } message: {
-            Text("정말 로그아웃 하시겠습니까?")
+            Text("Are you sure you want to log out?")
         }
     }
     
     // MARK: - Profile Header
     private var profileHeader: some View {
         VStack(spacing: 16) {
-            // 프로필 아이콘
+            // Profile Icon
             ZStack {
                 Circle()
                     .fill(indigoColor.opacity(0.1))
@@ -67,7 +67,7 @@ struct ProfileView: View {
                     .foregroundColor(indigoColor)
             }
             
-            // 닉네임
+            // Nickname
             HStack(spacing: 8) {
                 Text(userNickname)
                     .font(.system(size: 24, weight: .semibold))
@@ -86,12 +86,12 @@ struct ProfileView: View {
     // MARK: - Account Section
     private var accountSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            sectionHeader("계정 정보")
+            sectionHeader("Account Info")
             
             VStack(spacing: 0) {
                 settingRow(
                     icon: "person.circle.fill",
-                    title: "닉네임",
+                    title: "Nickname",
                     value: userNickname,
                     action: { isEditingNickname = true }
                 )
@@ -101,7 +101,7 @@ struct ProfileView: View {
                 
                 settingRow(
                     icon: "crown.fill",
-                    title: "구독 상태",
+                    title: "Subscription",
                     value: "Free Plan",
                     valueColor: .secondary
                 )
@@ -111,7 +111,7 @@ struct ProfileView: View {
                 
                 settingRow(
                     icon: "clock.fill",
-                    title: "오늘 사용 시간",
+                    title: "Today's Usage Time",
                     value: formatTime(storedSeconds),
                     valueColor: indigoColor
                 )
@@ -121,10 +121,10 @@ struct ProfileView: View {
         }
     }
     
-    // MARK: - App Section
+    // MARK: - App Info Section
     private var appSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            sectionHeader("앱 정보")
+            sectionHeader("App Info")
             
             VStack(spacing: 0) {
                 Button(action: {
@@ -141,7 +141,7 @@ struct ProfileView: View {
                             .foregroundColor(indigoColor)
                             .frame(width: 24)
                         
-                        Text("업데이트 확인")
+                        Text("Check for Updates")
                             .font(.system(size: 14))
                             .foregroundColor(.primary)
                         
@@ -161,7 +161,7 @@ struct ProfileView: View {
                 
                 settingRow(
                     icon: "info.circle.fill",
-                    title: "버전",
+                    title: "Version",
                     value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0",
                     valueColor: .secondary
                 )
@@ -174,7 +174,7 @@ struct ProfileView: View {
     // MARK: - Danger Zone
     private var dangerZone: some View {
         VStack(alignment: .leading, spacing: 16) {
-            sectionHeader("기타")
+            sectionHeader("Others")
             
             Button(action: { showingLogoutAlert = true }) {
                 HStack {
@@ -183,7 +183,7 @@ struct ProfileView: View {
                         .foregroundColor(.red)
                         .frame(width: 24)
                     
-                    Text("로그아웃")
+                    Text("Log Out")
                         .font(.system(size: 14))
                         .foregroundColor(.red)
                     
@@ -266,16 +266,8 @@ struct ProfileView: View {
             await SupabaseAuthService().logout()
             try appLogLocalDataSource.removeAllAppLogs()
         }
-        
-        let defaults = UserDefaults.standard
-        defaults.remove(.userNickname)
-        defaults.remove(.userId)
-        defaults.remove(.isLoggedIn)
-        defaults.remove(.dailyWorkSeconds)
-        defaults.remove(.lastRecordedDate)
-        
-        KeychainHelper.standard.save("", service: "com.pawcus.token", account: "accessToken")
-        KeychainHelper.standard.save("", service: "com.pawcus.token", account: "refreshToken")
+        UserDefaults.standard.clearAllUserDefaults()
+        KeychainHelper.standard.clearAll()
     }
 }
 

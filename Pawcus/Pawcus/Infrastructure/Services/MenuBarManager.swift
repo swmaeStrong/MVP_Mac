@@ -13,17 +13,26 @@ final class MenuBarManager: ObservableObject {
     
     private var statusItem: NSStatusItem?
     private var popover: NSPopover?
-    private var independentTimer = IndependentTimerManager()
     private var cancellables = Set<AnyCancellable>()
     private var autoCloseTimer: Timer?
+    
+    // WorkTimeManager를 직접 참조
+    weak var workTimeManager: WorkTimeManager? {
+        didSet {
+            if workTimeManager != nil {
+                Task { @MainActor in
+                    observeTimerState()
+                    updateMenuBarTime()
+                }
+            }
+        }
+    }
     
     // 타이머 설정 상태
     @Published var showTimerSelection = false
     
     init() {
         setupStatusItem()
-        observeTimerState()
-        updateMenuBarTime()
     }
     
     deinit {
@@ -47,9 +56,12 @@ final class MenuBarManager: ObservableObject {
         statusItem?.isVisible = true
     }
     
+    @MainActor
     private func observeTimerState() {
-        // 독립 타이머 실행 상태 관찰
-        independentTimer.$isRunning
+        guard let workTimeManager = workTimeManager else { return }
+        
+        // 워크타임 매니저 실행 상태 관찰
+        workTimeManager.$isRunning
             .removeDuplicates()
             .sink { [weak self] isRunning in
                 DispatchQueue.main.async {
@@ -58,8 +70,8 @@ final class MenuBarManager: ObservableObject {
             }
             .store(in: &cancellables)
         
-        // 독립 타이머 시간 변화 관찰
-        independentTimer.$displayTimeString
+        // 워크타임 매니저 시간 변화 관찰
+        workTimeManager.$displayTimeString
             .removeDuplicates()
             .sink { [weak self] _ in
                 DispatchQueue.main.async {
@@ -68,8 +80,8 @@ final class MenuBarManager: ObservableObject {
             }
             .store(in: &cancellables)
         
-        // 타이머 모드 변화 관찰
-        independentTimer.$timerMode
+        // 워크타임 매니저 모드 변화 관찰
+        workTimeManager.$mode
             .removeDuplicates()
             .sink { [weak self] mode in
                 DispatchQueue.main.async {
@@ -80,7 +92,7 @@ final class MenuBarManager: ObservableObject {
             .store(in: &cancellables)
         
         // 타이머 지속시간 변화 관찰
-        independentTimer.$timerDurationMinutes
+        workTimeManager.$timerDurationMinutes
             .removeDuplicates()
             .sink { [weak self] _ in
                 DispatchQueue.main.async {
@@ -90,13 +102,15 @@ final class MenuBarManager: ObservableObject {
             .store(in: &cancellables)
     }
     
+    @MainActor
     private func updateMenuBarTime() {
+        guard let workTimeManager = workTimeManager else { return }
         if let button = statusItem?.button {
-            button.title = " \(independentTimer.displayTimeString)"
+            button.title = " \(workTimeManager.displayTimeString)"
         }
     }
     
-    private func updateMenuBarIcon(for mode: TimerMode) {
+    private func updateMenuBarIcon(for mode: WorkTimeMode) {
         if let button = statusItem?.button {
             button.image = NSImage(systemSymbolName: mode.icon, accessibilityDescription: mode.displayName)
             button.image?.size = NSSize(width: 16, height: 16)
@@ -121,18 +135,24 @@ final class MenuBarManager: ObservableObject {
     }
     
     private func showPopover() {
-        setupPopover()
+        Task { @MainActor in
+            setupPopover()
+        }
         if let button = statusItem?.button {
             popover?.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         }
     }
     
+    @MainActor
     private func setupPopover() {
+        guard let workTimeManager = workTimeManager else { return }
+        
         popover = NSPopover()
         popover?.contentSize = NSSize(width: 320, height: 400)
         popover?.behavior = .transient
         
-        let menuBarView = MenuBarPopoverView(timerManager: independentTimer)
+        let menuBarView = MenuBarPopoverView()
+            .environmentObject(workTimeManager)
         popover?.contentViewController = NSHostingController(rootView: menuBarView)
     }
     
@@ -143,11 +163,9 @@ final class MenuBarManager: ObservableObject {
     
     // 타이머 시작 (앱과 메뉴바 공통)
     func startTimer() {
-        independentTimer.start()
-    }
-    
-    var timer: IndependentTimerManager {
-        return independentTimer
+        Task { @MainActor in
+            workTimeManager?.start()
+        }
     }
 }
 
