@@ -35,15 +35,11 @@ struct SidebarView: View {
                             isHovered: hoveredTab == tab,
                             indigoColor: indigoColor,
                             action: {
-                                withAnimation(.easeInOut(duration: 0.2)) {
-                                    selectedTab = tab
-                                }
+                                selectedTab = tab
                             }
                         )
-                        .onHover { isHovered in
-                            withAnimation(.easeInOut(duration: 0.15)) {
-                                hoveredTab = isHovered ? tab : nil
-                            }
+                        .onHover {
+                            hoveredTab = $0 ? tab : nil
                         }
                     }
                 }
@@ -191,8 +187,8 @@ extension Tab {
             return "Leaderboard"
         case .profile:
             return "Profile"
-//        case .web:
-//            return "Web"
+        case .web:
+            return "Web"
         }
     }
 }

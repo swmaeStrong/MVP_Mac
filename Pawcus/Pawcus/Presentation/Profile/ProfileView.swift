@@ -13,10 +13,6 @@ struct ProfileView: View {
     @State private var isEditingNickname: Bool = false
     @State private var showingLogoutAlert: Bool = false
     @AppStorage("userNickname") private var userNickname: String = ""
-    @AppStorage("userID") private var userID: String = ""
-    @AppStorage("dailyWorkSeconds") private var storedSeconds: Int = 0
-    @AppStorage("lastRecordedDate") private var storedDate: String = ""
-    @Environment(\.modelContext) private var context
     @Injected(\.appLogLocalDataSource) private var appLogLocalDataSource
     
     private let indigoColor = Color(red: 88/255, green: 86/255, blue: 214/255)
@@ -108,13 +104,7 @@ struct ProfileView: View {
                 
                 Divider()
                     .padding(.leading, 44)
-                
-                settingRow(
-                    icon: "clock.fill",
-                    title: "Today's Usage Time",
-                    value: formatTime(storedSeconds),
-                    valueColor: indigoColor
-                )
+            
             }
             .background(Color(NSColor.controlBackgroundColor))
             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -247,18 +237,6 @@ struct ProfileView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 10)
-    }
-    
-    // MARK: - Helper Functions
-    private func formatTime(_ seconds: Int) -> String {
-        let hours = seconds / 3600
-        let minutes = (seconds % 3600) / 60
-        
-        if hours > 0 {
-            return "\(hours)시간 \(minutes)분"
-        } else {
-            return "\(minutes)분"
-        }
     }
     
     private func performLogout() {
