@@ -11,7 +11,7 @@ import WebKit
 
 struct StatisticView: View {
     var body: some View {
-        WebView(url: URL(string: "https://mvp-web-view.vercel.app/leaderboard")!)
+        WebView(url: URL(string: "https://web.pawcus.dev/leaderboard")!)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

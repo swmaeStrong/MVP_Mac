@@ -46,6 +46,8 @@ struct ContentView: View {
             AnalysisView(viewModel: analysisViewModel)
         case .profile:
             ProfileView()
+        case .web:
+            StatisticView()
         case .none:
             Text("Select a tab")
         }

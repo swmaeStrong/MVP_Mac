@@ -11,14 +11,14 @@ enum Tab: String, CaseIterable, Identifiable, Hashable {
     case leaderboard = "LeaderBoard"
     case analysis = "Analysis"
     case profile = "Profile"
-//    case web = "web"
+    case web = "web"
     
     var imageName: String {
         switch self {
         case .leaderboard: return "chart.bar.fill"
         case .analysis: return "magnifyingglass.circle.fill"
         case .profile: return "person.crop.circle.fill"
-//        case .web: return "plus.circle.fill"
+        case .web: return "plus.circle.fill"
         }
     }
     

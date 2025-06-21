@@ -20,8 +20,6 @@
 		BD0474F12DEB4CFA00960470 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0474F02DEB4CFA00960470 /* LoginViewModel.swift */; };
 		BD0474F32DEB58CA00960470 /* UserNamePromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0474F22DEB58CA00960470 /* UserNamePromptView.swift */; };
 		BD1B6FB32DDED98D00E481E2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B6FB22DDED98D00E481E2 /* RootView.swift */; };
-		BD1B70092DE57F7000E481E2 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */; };
-		BD1B700C2DE5830B00E481E2 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1B700B2DE5830B00E481E2 /* AppConfig.swift */; };
 		BD4D143C2DF2C81200533171 /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4D143B2DF2C81200533171 /* StatisticView.swift */; };
 		BD56F7C82DF7FCFB00475A27 /* UserNamePromptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56F7C72DF7FCFB00475A27 /* UserNamePromptViewModel.swift */; };
 		BD9893722DD9C47A00F40A9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD98936D2DD9C47A00F40A9B /* Assets.xcassets */; };
@@ -60,15 +58,12 @@
 		765E3C978C55465C998EC24F /* RunningTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningTimerView.swift; sourceTree = "<group>"; };
 		7E825021E95F41AF8F1BBD9E /* MenuBarPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPopoverView.swift; sourceTree = "<group>"; };
 		8275703ACFEE46D7A8345182 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
-		BD0473F92DE835C400960470 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		BD0474AA2DE98F7800960470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD0474E52DEAB03900960470 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		BD0474EE2DEB4C5800960470 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BD0474F02DEB4CFA00960470 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BD0474F22DEB58CA00960470 /* UserNamePromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNamePromptView.swift; sourceTree = "<group>"; };
 		BD1B6FB22DDED98D00E481E2 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
-		BD1B700B2DE5830B00E481E2 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		BD4D143B2DF2C81200533171 /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
 		BD56F7C72DF7FCFB00475A27 /* UserNamePromptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNamePromptViewModel.swift; sourceTree = "<group>"; };
 		BD98933F2DD9C46800F40A9B /* Pawcus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pawcus.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +83,16 @@
 		FBD5CCC8C3B4449EAD68AB14 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		WTM123456789ABCDEF012346 /* WorkTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BD8619432E06976500928FA1 /* Exceptions for "Config" folder in "Pawcus" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AppConfig.swift,
+			);
+			target = BD98933E2DD9C46800F40A9B /* Pawcus */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		BD0472732DE7517300960470 /* Entities */ = {
@@ -128,6 +133,19 @@
 		BD0472A72DE7527400960470 /* Services */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Services;
+			sourceTree = "<group>";
+		};
+		BD8619412E06976500928FA1 /* Config */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BD8619432E06976500928FA1 /* Exceptions for "Config" folder in "Pawcus" target */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		BD8619452E06976B00928FA1 /* Network */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -200,23 +218,6 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
-		BD1B70072DE57F6400E481E2 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				BD1B70082DE57F7000E481E2 /* APIEndpoint.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
-		BD1B700D2DE5869800E481E2 /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				BD0473F92DE835C400960470 /* Config.xcconfig */,
-				BD1B700B2DE5830B00E481E2 /* AppConfig.swift */,
-			);
-			path = Config;
-			sourceTree = "<group>";
-		};
 		BD9893362DD9C46800F40A9B = {
 			isa = PBXGroup;
 			children = (
@@ -273,8 +274,8 @@
 		BD9893962DD9DC5800F40A9B /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				BD1B700D2DE5869800E481E2 /* Config */,
-				BD1B70072DE57F6400E481E2 /* Network */,
+				BD8619412E06976500928FA1 /* Config */,
+				BD8619452E06976B00928FA1 /* Network */,
 				BD0472872DE7522500960470 /* RepositoriesImpl */,
 				BD0472912DE7523000960470 /* Services */,
 				BD0472992DE7524300960470 /* Models */,
@@ -374,6 +375,7 @@
 				BD0472992DE7524300960470 /* Models */,
 				BD0472A12DE7527100960470 /* Utilities */,
 				BD0472A72DE7527400960470 /* Services */,
+				BD8619452E06976B00928FA1 /* Network */,
 			);
 			name = Pawcus;
 			packageProductDependencies = (
@@ -510,8 +512,6 @@
 				BD0474EF2DEB4C5800960470 /* LoginView.swift in Sources */,
 				BD0474F32DEB58CA00960470 /* UserNamePromptView.swift in Sources */,
 				BD9893732DD9C47A00F40A9B /* ContentView.swift in Sources */,
-				BD1B700C2DE5830B00E481E2 /* AppConfig.swift in Sources */,
-				BD1B70092DE57F7000E481E2 /* APIEndpoint.swift in Sources */,
 				BD1B6FB32DDED98D00E481E2 /* RootView.swift in Sources */,
 				BD56F7C82DF7FCFB00475A27 /* UserNamePromptViewModel.swift in Sources */,
 				BD0474E62DEAB03900960470 /* ProfileView.swift in Sources */,
@@ -564,7 +564,8 @@
 /* Begin XCBuildConfiguration section */
 		BD9893622DD9C46A00F40A9B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD0473F92DE835C400960470 /* Config.xcconfig */;
+			baseConfigurationReferenceAnchor = BD8619412E06976500928FA1 /* Config */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -631,7 +632,8 @@
 		};
 		BD9893632DD9C46A00F40A9B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD0473F92DE835C400960470 /* Config.xcconfig */;
+			baseConfigurationReferenceAnchor = BD8619412E06976500928FA1 /* Config */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -699,7 +701,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 73;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = U6NUHA5DNR;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -714,7 +716,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 0.6.4;
+				MARKETING_VERSION = 0.7.3;
 				PRODUCT_BUNDLE_IDENTIFIER = pawcus.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -733,7 +735,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 73;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = U6NUHA5DNR;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -748,7 +750,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 0.6.4;
+				MARKETING_VERSION = 0.7.3;
 				PRODUCT_BUNDLE_IDENTIFIER = pawcus.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
