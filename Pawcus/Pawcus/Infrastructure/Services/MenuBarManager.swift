@@ -32,7 +32,9 @@ final class MenuBarManager: ObservableObject {
     @Published var showTimerSelection = false
     
     init() {
-        setupStatusItem()
+        Task {
+            await setupStatusItem()
+        }
     }
     
     deinit {
@@ -40,6 +42,7 @@ final class MenuBarManager: ObservableObject {
         cancellables.removeAll()
     }
     
+    @MainActor
     private func setupStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: 80)
 
@@ -63,7 +66,7 @@ final class MenuBarManager: ObservableObject {
             let attributedTitle = NSAttributedString(
                 string: title,
                 attributes: [
-                    .kern: 1.5,
+                    .kern: 2.0,
                     .font: NSFont.systemFont(ofSize: NSFont.systemFontSize)
                 ]
             )
